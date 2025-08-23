@@ -12,8 +12,8 @@ const Header = () => {
           <div className="flex items-center space-x-2">
             <Globe className="h-8 w-8 text-primary" />
             <div>
-              <h1 className="text-xl font-bold text-foreground">TranslateIndia</h1>
-              <p className="text-xs text-muted-foreground">Korean & Chinese Specialists</p>
+              <h1 className="text-xl font-bold text-foreground">TriasiaGlobal</h1>
+              <p className="text-xs text-muted-foreground">Language Specialists</p>
             </div>
           </div>
           
@@ -36,7 +36,7 @@ const Header = () => {
             <div className="hidden lg:flex items-center space-x-4 text-sm text-muted-foreground">
               <div className="flex items-center space-x-1">
                 <Phone className="h-4 w-4" />
-                <span>+91-XXX-XXX-XXXX</span>
+                <span>+91-995-840-3494</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Mail className="h-4 w-4" />
@@ -44,7 +44,7 @@ const Header = () => {
               </div>
             </div>
             <Button variant="hero" size="sm" className="hidden sm:flex">
-              Get Quote
+              <a href="mailto:triasiaglobal@gmail.com">Get Quote</a>
             </Button>
             
             {/* Mobile Menu */}

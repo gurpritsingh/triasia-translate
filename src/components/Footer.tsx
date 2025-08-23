@@ -22,8 +22,8 @@ const Footer = () => {
             <div className="flex items-center space-x-2 mb-6">
               <Globe className="h-8 w-8 text-korean-red" />
               <div>
-                <h3 className="text-xl font-bold">TranslateIndia</h3>
-                <p className="text-sm text-background/70">Korean & Chinese Specialists</p>
+                <h3 className="text-xl font-bold">TriasiaGlobal</h3>
+                <p className="text-sm text-background/70">Language Specialists</p>
               </div>
             </div>
             <p className="text-background/80 mb-6 leading-relaxed">
@@ -113,16 +113,15 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <Phone className="h-5 w-5 text-korean-red mt-1" />
                 <div>
-                  <p className="text-background/80">+91-XXX-XXX-XXXX</p>
-                  <p className="text-background/80">+91-XXX-XXX-XXXX</p>
+                  <p className="text-background/80">+91-995-840-3494</p>
+                  {/* <p className="text-background/80">+91-XXX-XXX-XXXX</p> */}
                 </div>
               </div>
 
               <div className="flex items-start space-x-3">
                 <Mail className="h-5 w-5 text-chinese-gold mt-1" />
                 <div>
-                  <p className="text-background/80">info@translateindia.com</p>
-                  <p className="text-background/80">quotes@translateindia.com</p>
+                  <p className="text-background/80">triasiaglobal@gmail.com</p>
                 </div>
               </div>
 
@@ -130,7 +129,7 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <p className="text-background/80">
-                    123 Business District,<br />
+                    Tagore Garden<br />
                     New Delhi, India - 110001
                   </p>
                 </div>
@@ -139,7 +138,7 @@ const Footer = () => {
 
             <div className="mt-6">
               <Button variant="hero" size="sm" className="w-full">
-                Get Instant Quote
+                <a href="mailto:triasiaglobal@gmail.com">Get Instant Quote</a>
               </Button>
             </div>
           </div>
@@ -149,7 +148,7 @@ const Footer = () => {
         <div className="border-t border-background/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-wrap items-center space-x-6 text-sm text-background/70">
-              <span>© 2024 TranslateIndia. All rights reserved.</span>
+              <span>© 2025 TriasiaGlobal. All rights reserved.</span>
               <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-korean-red transition-colors">Terms of Service</a>
               <a href="#" className="hover:text-chinese-gold transition-colors">Quality Standards</a>
@@ -162,7 +161,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 mt-6">
+          {/* <div className="flex flex-wrap justify-center gap-4 mt-6">
             <Badge variant="outline" className="border-background/30 text-background/80">
               ISO 17100:2015 Certified
             </Badge>
@@ -175,7 +174,7 @@ const Footer = () => {
             <Badge variant="outline" className="border-background/30 text-background/80">
               GDPR Compliant
             </Badge>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

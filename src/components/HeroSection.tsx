@@ -16,15 +16,14 @@ const HeroSection = () => {
               </div>
               
               <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
-                Expert <span className="text-korean-red">Korean</span> & 
-                <span className="text-chinese-gold"> Chinese</span> Translation Services
+                Certified <span className="text-korean-red">Translation & Interpretation</span>
+                <span className="text-chinese-gold"> Services</span>  in India
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Professional document translation for 120+ languages including Indian Regional, 
-                European & Asian languages. From legal documents to technical manuals, 
-                we ensure accuracy and cultural authenticity.
+                TriAsia Global is a leading certified translation and interpretation agency in India, trusted nationwide for delivering precise, government-recognized, and internationally accepted translations.
               </p>
+              <p className="text-xl text-muted-foreground leading-relaxed">We specialize in authorized document translation for individuals, corporations, and government bodies. Our team of certified translators and native language experts ensures accuracy, cultural sensitivity, and compliance with official requirements.</p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">

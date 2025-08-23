@@ -62,11 +62,10 @@ const ServicesSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-foreground mb-4">
-            Professional Translation Services
+            Professional Document Translation Services
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive document translation services across multiple domains with 
-            guaranteed accuracy and cultural sensitivity.
+            With expertise in over 120 languages, TriAsia Global offers high-quality translations for:
           </p>
         </div>
 
