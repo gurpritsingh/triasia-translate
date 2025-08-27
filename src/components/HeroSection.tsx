@@ -21,18 +21,18 @@ const HeroSection = () => {
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed">
-                TriAsia Global is a leading certified translation and interpretation agency in India, trusted nationwide for delivering precise, government-recognized, and internationally accepted translations.
+                TriAsiaGlobal is a leading certified translation and interpretation agency in India, trusted nationwide for delivering precise, government-recognized, and internationally accepted translations.
               </p>
               <p className="text-xl text-muted-foreground leading-relaxed">We specialize in authorized document translation for individuals, corporations, and government bodies. Our team of certified translators and native language experts ensures accuracy, cultural sensitivity, and compliance with official requirements.</p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="hero" size="lg" className="text-lg px-8 py-6">
-                Start Your Translation
+                <a href="mailto:triasiaglobal@gmail.com">Start Your Translation</a>
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+              {/* <Button variant="outline" size="lg" className="text-lg px-8 py-6">
                 View Sample Work
-              </Button>
+              </Button> */}
             </div>
 
             <div className="grid grid-cols-3 gap-6 pt-8">
@@ -54,8 +54,8 @@ const HeroSection = () => {
               
               <Card className="p-4 text-center bg-gradient-card shadow-card border-0">
                 <div className="flex flex-col items-center space-y-2">
-                  <Star className="h-8 w-8 text-chinese-gold" />
-                  <div className="text-2xl font-bold text-foreground">4.9</div>
+                  <Star fill="yellow" strokeWidth={1} className="h-8 w-8"/>
+                  <div className="text-2xl font-bold text-foreground">5.0</div>
                   <div className="text-sm text-muted-foreground">Rating</div>
                 </div>
               </Card>
@@ -73,12 +73,12 @@ const HeroSection = () => {
             </div>
             
             {/* Floating quality badges */}
-            <Card className="absolute -top-4 -left-4 p-3 bg-gradient-card shadow-glow border-0">
+            {/* <Card className="absolute -top-4 -left-4 p-3 bg-gradient-card shadow-glow border-0">
               <div className="flex items-center space-x-2">
                 <CheckCircle className="h-5 w-5 text-korean-red" />
                 <span className="font-semibold text-foreground">ISO Certified</span>
               </div>
-            </Card>
+            </Card> */}
             
             <Card className="absolute -bottom-4 -right-4 p-3 bg-gradient-card shadow-glow border-0">
               <div className="flex items-center space-x-2">

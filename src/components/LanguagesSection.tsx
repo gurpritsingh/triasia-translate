@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Globe, Heart, TrendingUp } from "lucide-react";
+import { Button } from "./ui/button";
 
 const LanguagesSection = () => {
   const koreanServices = [
@@ -11,6 +12,19 @@ const LanguagesSection = () => {
   const chineseServices = [
     "中文 ↔ English", "中文 ↔ Hindi", "中文 ↔ Tamil", "中文 ↔ Telugu", 
     "中文 ↔ Bengali", "中文 ↔ Marathi", "中文 ↔ Gujarati", "中文 ↔ Punjabi"
+  ];
+
+  const japaneseServices = [
+    "日本語 ↔ English", "日本語 ↔ Hindi", "日本語 ↔ Tamil", "日本語 ↔ Telugu", 
+    "日本語 ↔ Bengali", "日本語 ↔ Marathi", "日本語 ↔ Gujarati", "日本語 ↔ Punjabi"
+  ];
+  const frenchServices = [
+    "Français ↔ English", "Français ↔ Hindi", "Français ↔ Tamil", "Français ↔ Telugu", 
+    "Français ↔ Bengali", "Français ↔ Marathi", "Français ↔ Gujarati", "Français ↔ Punjabi"
+  ];
+  const germanServices = [
+    "Allemande ↔ English", "Allemande ↔ Hindi", "Allemande ↔ Tamil", "Allemande ↔ Telugu", 
+    "Allemande ↔ Bengali", "Allemande ↔ Marathi", "Allemande ↔ Gujarati", "Allemande ↔ Punjabi"
   ];
 
   const popularLanguages = [
@@ -87,6 +101,85 @@ const LanguagesSection = () => {
             </CardContent>
           </Card>
 
+           {/* Japanese Specialization */}
+          <Card className="bg-gradient-to-br from-chinese-gold/5 to-chinese-gold/10 border-chinese-gold/20 shadow-card">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-chinese-gold/10 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="h-6 w-6 text-chinese-gold" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl text-foreground">Japanese Specialization</CardTitle>
+                  <p className="text-sm text-muted-foreground">日本語のプロの翻訳</p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {japaneseServices.map((service, index) => (
+                  <Badge key={index} variant="outline" className="mr-2 mb-2 border-chinese-gold/30 text-chinese-gold">
+                    {service}
+                  </Badge>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground mt-4">
+                Native Japanese speakers with expertise in japanese language and culture
+              </p>
+            </CardContent>
+          </Card>
+           {/* French Specialization */}
+          <Card className="bg-gradient-to-br from-chinese-gold/5 to-chinese-gold/10 border-chinese-gold/20 shadow-card">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-chinese-gold/10 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="h-6 w-6 text-chinese-gold" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl text-foreground">French Specialization</CardTitle>
+                  <p className="text-sm text-muted-foreground">Traduction professionnelle en français</p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {frenchServices.map((service, index) => (
+                  <Badge key={index} variant="outline" className="mr-2 mb-2 border-chinese-gold/30 text-chinese-gold">
+                    {service}
+                  </Badge>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground mt-4">
+                Native French speakers with expertise in french language and culture
+              </p>
+            </CardContent>
+          </Card>
+           {/* German Specialization */}
+          <Card className="bg-gradient-to-br from-chinese-gold/5 to-chinese-gold/10 border-chinese-gold/20 shadow-card">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-chinese-gold/10 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="h-6 w-6 text-chinese-gold" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl text-foreground">German Specialization</CardTitle>
+                  <p className="text-sm text-muted-foreground">Professionelle deutsche Übersetzung</p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {germanServices.map((service, index) => (
+                  <Badge key={index} variant="outline" className="mr-2 mb-2 border-chinese-gold/30 text-chinese-gold">
+                    {service}
+                  </Badge>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground mt-4">
+                Native German speakers with expertise in German language and culture
+              </p>
+            </CardContent>
+          </Card>
+
           {/* All Languages */}
           <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 shadow-card">
             <CardHeader>
@@ -125,15 +218,7 @@ const LanguagesSection = () => {
               Contact us for specialized language requirements.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Badge variant="outline" className="border-korean-red text-korean-red px-4 py-2">
-                Korean Dialects
-              </Badge>
-              <Badge variant="outline" className="border-chinese-gold text-chinese-gold px-4 py-2">
-                Regional Chinese
-              </Badge>
-              <Badge variant="outline" className="border-primary text-primary px-4 py-2">
-                Indian Tribal Languages
-              </Badge>
+             <Button><a href="mailto:triasiaglobal@gmail.com">Get Quote</a></Button>
             </div>
           </div>
         </div>

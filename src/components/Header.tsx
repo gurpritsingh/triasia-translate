@@ -36,7 +36,7 @@ const Header = () => {
             <div className="hidden lg:flex items-center space-x-4 text-sm text-muted-foreground">
               <div className="flex items-center space-x-1">
                 <Phone className="h-4 w-4" />
-                <span>+91-995-840-3494</span>
+                <span>+91-9958-403-494</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Mail className="h-4 w-4" />
@@ -61,7 +61,7 @@ const Header = () => {
                     <div className="flex items-center space-x-3">
                       <Globe className="h-12 w-12 text-primary" />
                       <div>
-                        <h1 className="text-3xl font-bold text-foreground">TranslateIndia</h1>
+                        <h1 className="text-3xl font-bold text-foreground">TriasiaGlobal</h1>
                         <p className="text-sm text-muted-foreground">Korean & Chinese Specialists</p>
                       </div>
                     </div>
@@ -104,7 +104,7 @@ const Header = () => {
                     <div className="flex flex-col items-center space-y-4 text-center">
                       <div className="flex items-center space-x-2 text-muted-foreground">
                         <Phone className="h-5 w-5" />
-                        <span className="text-lg">+91-XXX-XXX-XXXX</span>
+                        <span className="text-lg">+91-9958-403-494</span>
                       </div>
                       <div className="flex items-center space-x-2 text-muted-foreground">
                         <Mail className="h-5 w-5" />

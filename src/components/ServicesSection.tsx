@@ -84,9 +84,9 @@ const ServicesSection = () => {
                 <CardDescription className="text-muted-foreground leading-relaxed mb-4">
                   {service.description}
                 </CardDescription>
-                <Button variant="ghost" size="sm" className="text-primary hover:text-primary-foreground hover:bg-primary">
+                {/* <Button variant="ghost" size="sm" className="text-primary hover:text-primary-foreground hover:bg-primary">
                   Learn More →
-                </Button>
+                </Button> */}
               </CardContent>
             </Card>
           ))}
@@ -94,7 +94,8 @@ const ServicesSection = () => {
 
         <div className="text-center mt-12">
           <Button variant="hero" size="lg" className="px-8 py-6">
-            Get Free Quote for Your Documents
+            <a href="mailto:triasiaglobal@gmail.com" className="text-lg
+">Get Free Quote</a>
           </Button>
         </div>
       </div>

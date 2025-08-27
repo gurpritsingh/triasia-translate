@@ -163,8 +163,7 @@ const ContactSection = () => {
                   <Mail className="h-5 w-5 text-chinese-gold mt-1" />
                   <div>
                     <p className="font-medium text-foreground">Email</p>
-                    <p className="text-muted-foreground">info@translateindia.com</p>
-                    <p className="text-muted-foreground">quotes@translateindia.com</p>
+                    <p className="text-muted-foreground">triasiaglobal@gmail.com</p>
                   </div>
                 </div>
 
@@ -174,7 +173,7 @@ const ContactSection = () => {
                     <p className="font-medium text-foreground">Address</p>
                     <p className="text-muted-foreground">
                       123 Business District,<br />
-                      New Delhi, India - 110001
+                      New Delhi, India - 110027
                     </p>
                   </div>
                 </div>
