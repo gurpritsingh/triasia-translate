@@ -1,0 +1,10 @@
+import TranslatorTemplate from "@/components/TranslatorTemplate/TranslatorTemplate";
+import data from '@/data/{lang}';
+
+const LanguagePage = () => {
+  return (
+    <TranslatorTemplate data={data}/>
+  );
+};
+
+export default LanguagePage;

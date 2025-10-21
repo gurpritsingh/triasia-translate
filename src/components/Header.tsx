@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Globe, Phone, Mail, Menu } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,13 +10,13 @@ const Header = () => {
     <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+          <Link to='/' className="flex items-center space-x-2">
             <Globe className="h-8 w-8 text-primary" />
             <div>
               <h1 className="text-xl font-bold text-foreground">TriasiaGlobal</h1>
               <p className="text-xs text-muted-foreground">Language Specialists</p>
             </div>
-          </div>
+          </Link>
           
           <nav className="hidden md:flex items-center space-x-6">
             <a href="#services" className="text-foreground hover:text-primary transition-colors">
