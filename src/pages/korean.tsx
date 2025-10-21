@@ -5,18 +5,12 @@ import LanguagesSection from "@/components/LanguagesSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import TranslatorTemplate from "@/components/TranslatorTemplate/TranslatorTemplate";
+import data from '@/data/korean';
 
 const Korean = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <HeroSection />
-      <ServicesSection />
-      <LanguagesSection />
-      <WhyChooseUsSection />
-      {/* <ContactSection /> */}
-      <Footer />
-    </div>
+    <TranslatorTemplate data={data}/>
   );
 };
 

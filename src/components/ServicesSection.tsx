@@ -11,7 +11,7 @@ import {
   Briefcase 
 } from "lucide-react";
 
-const services = [
+const defaultServices = [
   {
     icon: Scale,
     title: "Legal Document Translation",
@@ -56,16 +56,19 @@ const services = [
   }
 ];
 
-const ServicesSection = () => {
+const defaultHeading = "Professional Document Translation Services";
+const defaultSubheading = " With expertise in over 120 languages, TriAsia Global offers high-quality translations for:"
+
+const ServicesSection = ({ services = defaultServices, heading = defaultHeading, subHeading = defaultSubheading }) => {
   return (
     <section id="services" className="py-20 bg-muted/20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-foreground mb-4">
-            Professional Document Translation Services
+            {heading}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            With expertise in over 120 languages, TriAsia Global offers high-quality translations for:
+            {subHeading}
           </p>
         </div>
 
