@@ -28,9 +28,9 @@ const Header = () => {
             <Link to="/#why-us" className="text-foreground hover:text-primary transition-colors">
               Why Choose Us
             </Link>
-            <Link to="/#contact" className="text-foreground hover:text-primary transition-colors">
+            {/* <Link to="/#contact" className="text-foreground hover:text-primary transition-colors">
               Contact
-            </Link>
+            </Link> */}
           </nav>
 
           <div className="flex items-center space-x-3">
@@ -58,7 +58,7 @@ const Header = () => {
               <SheetContent side="fullscreen" className="flex flex-col justify-center items-center p-8">
                 <div className="flex flex-col items-center space-y-12 w-full max-w-md">
                   {/* Logo Section */}
-                  <div className="flex flex-col items-center space-y-4 text-center">
+                  <Link to="/" className="flex flex-col items-center space-y-4 text-center">
                     <div className="flex items-center space-x-3">
                       <Globe className="h-12 w-12 text-primary" />
                       <div>
@@ -66,38 +66,38 @@ const Header = () => {
                         <p className="text-sm text-muted-foreground">Korean & Chinese Specialists</p>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                   
                   {/* Navigation */}
                   <nav className="flex flex-col space-y-6 w-full">
-                    <a 
-                      href="#services" 
+                    <Link 
+                      to="/#services" 
                       className="text-2xl font-medium text-foreground hover:text-primary transition-all duration-300 text-center py-4 hover:scale-105"
                       onClick={() => setIsOpen(false)}
                     >
                       Services
-                    </a>
-                    <a 
-                      href="#languages" 
+                    </Link>
+                    <Link 
+                      to="/#languages" 
                       className="text-2xl font-medium text-foreground hover:text-primary transition-all duration-300 text-center py-4 hover:scale-105"
                       onClick={() => setIsOpen(false)}
                     >
                       Languages
-                    </a>
-                    <a 
-                      href="#why-us" 
+                    </Link>
+                    <Link 
+                      to="/#why-us" 
                       className="text-2xl font-medium text-foreground hover:text-primary transition-all duration-300 text-center py-4 hover:scale-105"
                       onClick={() => setIsOpen(false)}
                     >
                       Why Choose Us
-                    </a>
-                    <a 
-                      href="#contact" 
+                    </Link>
+                    <Link 
+                      to="/#contact" 
                       className="text-2xl font-medium text-foreground hover:text-primary transition-all duration-300 text-center py-4 hover:scale-105"
                       onClick={() => setIsOpen(false)}
                     >
                       Contact
-                    </a>
+                    </Link>
                   </nav>
 
                   {/* Contact Info & CTA */}
