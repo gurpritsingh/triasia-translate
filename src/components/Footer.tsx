@@ -1,16 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Globe, 
-  Phone, 
-  Mail, 
+import {
+  Globe,
+  Phone,
+  Mail,
   MapPin,
   Facebook,
   Twitter,
   Linkedin,
   Instagram,
-  Heart
+  Heart,
 } from "lucide-react";
+import { languages } from "@/pagesConfig";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -23,24 +25,43 @@ const Footer = () => {
               <Globe className="h-8 w-8 text-korean-red" />
               <div>
                 <h3 className="text-xl font-bold">TriasiaGlobal</h3>
-                <p className="text-sm text-background/70">Language Specialists</p>
+                <p className="text-sm text-background/70">
+                  Language Specialists
+                </p>
               </div>
             </div>
             <p className="text-background/80 mb-6 leading-relaxed">
-              India's leading translation service provider specializing in Korean and Chinese 
-              languages with support for 120+ languages worldwide.
+              India's leading translation service provider specializing in
+              Korean and Chinese languages with support for 120+ languages
+              worldwide.
             </p>
             <div className="flex space-x-3">
-              <Button variant="ghost" size="icon" className="text-background hover:text-korean-red hover:bg-background/10">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-background hover:text-korean-red hover:bg-background/10"
+              >
                 <Facebook className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-background hover:text-chinese-gold hover:bg-background/10">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-background hover:text-chinese-gold hover:bg-background/10"
+              >
                 <Twitter className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-background hover:text-primary hover:bg-background/10">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-background hover:text-primary hover:bg-background/10"
+              >
                 <Linkedin className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-background hover:text-korean-blue hover:bg-background/10">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-background hover:text-korean-blue hover:bg-background/10"
+              >
                 <Instagram className="h-5 w-5" />
               </Button>
             </div>
@@ -56,7 +77,10 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-chinese-gold transition-colors">
+                <a
+                  href="#"
+                  className="hover:text-chinese-gold transition-colors"
+                >
                   Educational Certificates
                 </a>
               </li>
@@ -66,7 +90,10 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-korean-blue transition-colors">
+                <a
+                  href="#"
+                  className="hover:text-korean-blue transition-colors"
+                >
                   Technical Manuals
                 </a>
               </li>
@@ -76,7 +103,10 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-chinese-gold transition-colors">
+                <a
+                  href="#"
+                  className="hover:text-chinese-gold transition-colors"
+                >
                   Personal Documents
                 </a>
               </li>
@@ -86,8 +116,15 @@ const Footer = () => {
           {/* Languages */}
           <div>
             <h4 className="font-bold text-lg mb-6">Specialty Languages</h4>
-            <div className="space-y-4">
-              <div>
+            <div className="space-y-3 text-background/80">
+              {languages?.map((lang) => {
+                return (
+                  <div className="capitalize hover:text-korean-red transition-colors">
+                    <Link to={`/${lang}`}>{lang} translation</Link>
+                  </div>
+                );
+              })}
+              {/* <div>
                 <Badge className="bg-korean-red text-white mb-2">Korean Specialization</Badge>
                 <ul className="text-sm text-background/80 space-y-1">
                   <li>한국어 ↔ English</li>
@@ -102,7 +139,7 @@ const Footer = () => {
                   <li>中文 ↔ Hindi</li>
                   <li>中文 ↔ Regional Indian</li>
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -113,7 +150,9 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <Phone className="h-5 w-5 text-korean-red mt-1" />
                 <div>
-                  <p className="text-background/80"><a href="tel:+91-9958-403-494">+91-9958-403-494</a></p>
+                  <p className="text-background/80">
+                    <a href="tel:+91-9958-403-494">+91-9958-403-494</a>
+                  </p>
                   {/* <p className="text-background/80">+91-XXX-XXX-XXXX</p> */}
                 </div>
               </div>
@@ -129,7 +168,8 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <p className="text-background/80">
-                    Tagore Garden<br />
+                    Tagore Garden
+                    <br />
                     New Delhi, India - 110027
                   </p>
                 </div>
@@ -149,11 +189,17 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-wrap items-center space-x-6 text-sm text-background/70">
               <span>© 2025 TriasiaGlobal. All rights reserved.</span>
-              <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-korean-red transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-chinese-gold transition-colors">Quality Standards</a>
+              <a href="#" className="hover:text-primary transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="hover:text-korean-red transition-colors">
+                Terms of Service
+              </a>
+              <a href="#" className="hover:text-chinese-gold transition-colors">
+                Quality Standards
+              </a>
             </div>
-            
+
             <div className="flex items-center space-x-2 text-sm text-background/80">
               <span>Made with</span>
               <Heart className="h-4 w-4 text-korean-red" />

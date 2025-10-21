@@ -9,12 +9,14 @@ import Kannad from "./pages/Kannad";
 import Punjabi from "./pages/Punjabi";
 import Korean from "./pages/korean";
 import Hindi from "./pages/Hindi";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/korean" element={<Korean />} />
