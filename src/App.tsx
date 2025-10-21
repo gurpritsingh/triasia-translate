@@ -21,7 +21,10 @@ const App = () => (
         <Route path="/hindi" element={<Hindi />} />
         <Route path="/punjabi" element={<Punjabi />} />
         <Route path="/kannad" element={<Kannad />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="/hindi" element={<Hindi />} />
+                    <Route path="/punjabi" element={<Punjabi />} />
+                    <Route path="/kannad" element={<Kannad />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
