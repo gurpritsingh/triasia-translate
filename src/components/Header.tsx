@@ -91,13 +91,6 @@ const Header = () => {
                     >
                       Why Choose Us
                     </Link>
-                    <Link 
-                      to="/#contact" 
-                      className="text-2xl font-medium text-foreground hover:text-primary transition-all duration-300 text-center py-4 hover:scale-105"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Contact
-                    </Link>
                   </nav>
 
                   {/* Contact Info & CTA */}
