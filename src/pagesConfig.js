@@ -1,2 +1,2 @@
-const languages = ['hindi', 'punjabi', 'kannad'];
+const languages = ['hindi', 'punjabi', 'kannad', 'korean'];
 export { languages }

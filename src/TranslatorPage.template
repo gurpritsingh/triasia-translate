@@ -1,11 +1,10 @@
-// Auto-generated page for hindi
 import TranslatorTemplate from "@/components/TranslatorTemplate/TranslatorTemplate";
-import data from '@/data/hindi';
+import data from '@/data/{CapitalizedLang}/translator';
 
-const LanguagePage = () => {
+const {CapitalizedLang}Translator = () => {
   return (
     <TranslatorTemplate data={data}/>
   );
 };
 
-export default LanguagePage;
+export default {CapitalizedLang}Translator;
