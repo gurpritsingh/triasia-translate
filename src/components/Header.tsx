@@ -4,6 +4,12 @@ import { Globe, Phone, Mail, Menu, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { navigationConfig } from "../navigationConfig";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -124,53 +130,59 @@ const Header = () => {
                   </Link>
                   
                   {/* Navigation */}
-                  <nav className="flex flex-col space-y-4 w-full">
+                  <nav className="flex flex-col w-full">
                     {navigationConfig.map((item) => {
                       if (item.children) {
                         return (
-                          <div key={item.name} className="flex flex-col space-y-2">
-                            <div className="text-xl font-medium text-foreground text-center py-2 border-b border-border/50">
-                              {item.name}
-                            </div>
-                            <div className="flex flex-col space-y-2 pl-4">
-                              {item.children.map((child) => (
-                                <div key={child.name} className="flex flex-col space-y-2">
-                                  {child.children ? (
-                                    <>
-                                      <div className="text-lg font-medium text-muted-foreground text-center py-1">
-                                        {child.name}
-                                      </div>
-                                      {child.children.map((subChild) => (
-                                        <Link
-                                          key={subChild.path}
-                                          to={subChild.path!}
-                                          className="text-base text-muted-foreground hover:text-primary text-center py-1"
-                                          onClick={() => setIsOpen(false)}
-                                        >
-                                          {subChild.name}
-                                        </Link>
+                          <Accordion key={item.name} type="single" collapsible className="w-full">
+                             <AccordionItem value={item.name} className="border-b-0">
+                                <AccordionTrigger className="text-2xl font-medium hover:no-underline py-4">{item.name}</AccordionTrigger>
+                                <AccordionContent>
+                                   <div className="flex flex-col space-y-2 pl-4">
+                                      {item.children.map((child) => (
+                                        <Accordion key={child.name} type="single" collapsible className="w-full">
+                                          {child.children ? (
+                                            <AccordionItem value={child.name} className="border-b-0">
+                                              <AccordionTrigger className="text-lg font-medium text-muted-foreground hover:no-underline py-2">
+                                                {child.name}
+                                              </AccordionTrigger>
+                                              <AccordionContent>
+                                                <div className="flex flex-col space-y-2 pl-4">
+                                                  {child.children.map((subChild) => (
+                                                     <Link
+                                                      key={subChild.path}
+                                                      to={subChild.path!}
+                                                      className="text-base text-muted-foreground hover:text-primary py-2 block"
+                                                      onClick={() => setIsOpen(false)}
+                                                    >
+                                                      {subChild.name}
+                                                    </Link>
+                                                  ))}
+                                                </div>
+                                              </AccordionContent>
+                                            </AccordionItem>
+                                          ) : (
+                                             <Link
+                                              to={child.path!}
+                                              className="text-lg text-muted-foreground hover:text-primary block py-2"
+                                              onClick={() => setIsOpen(false)}
+                                            >
+                                              {child.name}
+                                            </Link>
+                                          )}
+                                        </Accordion>
                                       ))}
-                                    </>
-                                  ) : (
-                                    <Link
-                                      to={child.path!}
-                                      className="text-lg text-muted-foreground hover:text-primary text-center py-2"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                      {child.name}
-                                    </Link>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
+                                   </div>
+                                </AccordionContent>
+                             </AccordionItem>
+                          </Accordion>
                         );
                       }
                       return (
                         <Link 
                           key={item.name}
                           to={item.path!} 
-                          className="text-2xl font-medium text-foreground hover:text-primary transition-all duration-300 text-center py-4 hover:scale-105"
+                          className="text-2xl font-medium text-foreground hover:text-primary transition-all duration-300 py-4 border-b last:border-0"
                           onClick={() => setIsOpen(false)}
                         >
                           {item.name}
