@@ -34,7 +34,7 @@ Pages are generated from data at **route + render time**, not as physical files.
   1. **Exact override** — drop a file at `src/content/overrides/<city>/<language>/<service>.ts` (auto-discovered via `import.meta.glob`, no registry to edit).
   2. **Language-level city template** — optional `src/data/<Language>/cityTemplate.ts` exporting `{ translator?, interpreter? }` functions that get `{city, language, service}` and return interpolated copy for *all* of that language's city pages.
   3. **Global default template** (`pageTemplates.ts`) — always defined, several rotating sentence-structure variants (chosen deterministically by hashing `city/language/service`) so auto-generated pages aren't identical/thin content across cities.
-  - National hub pages (no city) always use the existing `src/data/<Language>/{translator,interpreter}.ts` files unchanged — nothing to migrate there.
+  - National hub pages (no city) use `src/data/<Language>/{translator,interpreter}.ts` **if present** (the 4 original languages have hand-written copy there), otherwise fall back to `defaultCityContent({ language, service })` (no `src/data/` files required at all) — so a brand-new language added to `languages.ts` gets a working, auto-generated hub page with zero other files needed.
 - `seo.ts` — derives `<title>`/description/canonical/JSON-LD from the *same* resolved content object (not a parallel copy).
 
 ### SEO (`src/components/Seo.tsx` + `react-helmet-async`)
@@ -51,8 +51,8 @@ Runs via the `prebuild` npm script (before `vite build`). Reads `src/content/{ci
 - `removeScriptTags` (not `removeScripts`, which isn't a real option) must stay unset/`false` — it strips *every* `<script>` tag with no allowlist, deleting both the hydration bundle and the JSON-LD block.
 
 ### Adding a new city or language
-1. City: add an entry to `src/content/cities.ts`. Language: add an entry to `src/content/languages.ts`.
-2. Optionally add override/template content per §"Content data layer" above; otherwise the default template covers it.
+1. City: add an entry to `src/content/cities.ts`. Language: add an entry to `src/content/languages.ts`. **That alone is enough** — hub page, all city-crossed pages, nav, footer, sitemap, and `reactSnap.include` all work immediately with auto-generated default content.
+2. Optionally add real hand-written copy: `src/data/<Language>/{translator,interpreter}.ts` for the hub page, and/or override/template content per §"Content data layer" above for city pages — otherwise the default template covers all of it.
 3. `App.tsx`, `navigationConfig.ts`, `Footer.tsx`, sitemap, and `reactSnap.include` all update automatically — nothing else to touch. (The nav "Languages" dropdown is intentionally language-only, not nested by city — city pages are discovered via `/locations`.)
 
 ### Adding a new service category
