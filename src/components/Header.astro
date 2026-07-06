@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import { business } from "@/content/business";
 import { languages } from "@/content/languages";
 import { services } from "@/content/services";
+import { cities } from "@/content/cities";
 ---
 
 <header class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
@@ -57,8 +58,40 @@ import { services } from "@/content/services";
         </div>
       </div>
 
+      <div class="group relative">
+        <button
+          type="button"
+          class="flex items-center gap-1 py-2 text-sm font-medium text-ink-900 transition-colors hover:text-navy-800"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Cities
+          <Icon name="lucide:chevron-down" class="h-4 w-4 transition-transform group-hover:rotate-180" />
+        </button>
+        <div
+          class="invisible absolute left-1/2 top-full w-[26rem] -translate-x-1/2 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        >
+          <div class="card grid grid-cols-2 gap-x-6 gap-y-3 p-6 shadow-lift">
+            {
+              cities.map((city) => (
+                <a href={`/locations/${city.slug}/`} class="text-sm text-ink-900 hover:text-navy-800 hover:underline">
+                  {city.name}
+                  <span class="text-ink-600"> · {city.state}</span>
+                </a>
+              ))
+            }
+            <a
+              href="/locations/"
+              class="col-span-2 mt-1 border-t border-line pt-3 text-sm font-medium text-navy-800 hover:underline"
+            >
+              View all cities
+            </a>
+          </div>
+        </div>
+      </div>
+
       <a href="/#why-us" class="text-sm font-medium text-ink-900 transition-colors hover:text-navy-800">Why Choose Us</a>
-      <a href="/locations/" class="text-sm font-medium text-ink-900 transition-colors hover:text-navy-800">Locations</a>
+
     </nav>
 
     <div class="flex items-center gap-4">
@@ -117,8 +150,27 @@ import { services } from "@/content/services";
       </div>
     </details>
 
+    
+
+    <details class="group border-b border-line">
+      <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-lg font-medium [&::-webkit-details-marker]:hidden">
+        Cities
+        <Icon name="lucide:chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180" />
+      </summary>
+      <div class="flex flex-col gap-3 pb-4 pl-4">
+        {
+          cities.map((city) => (
+            <a href={`/locations/${city.slug}/`} class="text-sm text-navy-800" data-menu-link>
+              {city.name} <span class="text-ink-600">· {city.state}</span>
+            </a>
+          ))
+        }
+        <a href="/locations/" class="text-sm font-medium text-navy-800" data-menu-link>
+          View all cities
+        </a>
+      </div>
+    </details>
     <a href="/#why-us" class="border-b border-line py-4 text-lg font-medium" data-menu-link>Why Choose Us</a>
-    <a href="/locations/" class="border-b border-line py-4 text-lg font-medium" data-menu-link>Locations</a>
 
     <div class="mt-6 flex flex-col gap-4">
       <a href={`tel:${business.phone}`} class="flex items-center gap-2 text-ink-600">
