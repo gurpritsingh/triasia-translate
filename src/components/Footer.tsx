@@ -11,7 +11,10 @@ import {
   Instagram,
   Heart,
 } from "lucide-react";
-import { languages } from "@/pagesConfig";
+import { languages } from "@/content/languages";
+import { cities } from "@/content/cities";
+import { serviceCategories } from "@/content/serviceCategories";
+import { business } from "@/content/business";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -71,45 +74,13 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-lg mb-6">Our Services</h4>
             <ul className="space-y-3 text-background/80">
-              <li>
-                <a href="#" className="hover:text-korean-red transition-colors">
-                  Legal Document Translation
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-chinese-gold transition-colors"
-                >
-                  Educational Certificates
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Medical Documents
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-korean-blue transition-colors"
-                >
-                  Technical Manuals
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-korean-red transition-colors">
-                  Business Documents
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-chinese-gold transition-colors"
-                >
-                  Personal Documents
-                </a>
-              </li>
+              {serviceCategories.map((category) => (
+                <li key={category.slug}>
+                  <Link to={`/services/${category.slug}`} className="hover:text-korean-red transition-colors">
+                    {category.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -117,29 +88,20 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-lg mb-6">Specialty Languages</h4>
             <div className="space-y-3 text-background/80">
-              {languages?.map((lang) => {
-                return (
-                  <div className="capitalize hover:text-korean-red transition-colors">
-                    <Link to={`/${lang}`}>{lang} translation</Link>
-                  </div>
-                );
-              })}
-              {/* <div>
-                <Badge className="bg-korean-red text-white mb-2">Korean Specialization</Badge>
-                <ul className="text-sm text-background/80 space-y-1">
-                  <li>한국어 ↔ English</li>
-                  <li>한국어 ↔ Hindi</li>
-                  <li>한국어 ↔ Regional Indian</li>
-                </ul>
+              {languages?.map((language) => (
+                <div key={language.slug} className="flex items-center gap-2">
+                  <Link to={`/${language.slug}/translator`} className="hover:text-korean-red transition-colors">
+                    {language.name} Translator
+                  </Link>
+                  <span className="text-background/40">·</span>
+                  <Link to={`/${language.slug}/interpreter`} className="text-sm hover:text-korean-red transition-colors">
+                    Interpreter
+                  </Link>
+                </div>
+              ))}
+              <div className="hover:text-korean-red transition-colors">
+                <Link to="/locations">Browse by City</Link>
               </div>
-              <div>
-                <Badge className="bg-chinese-gold text-foreground mb-2">Chinese Specialization</Badge>
-                <ul className="text-sm text-background/80 space-y-1">
-                  <li>中文 ↔ English</li>
-                  <li>中文 ↔ Hindi</li>
-                  <li>中文 ↔ Regional Indian</li>
-                </ul>
-              </div> */}
             </div>
           </div>
 
@@ -151,16 +113,15 @@ const Footer = () => {
                 <Phone className="h-5 w-5 text-korean-red mt-1" />
                 <div>
                   <p className="text-background/80">
-                    <a href="tel:+91-9958-403-494">+91-9958-403-494</a>
+                    <a href={`tel:${business.phone}`}>{business.phone}</a>
                   </p>
-                  {/* <p className="text-background/80">+91-XXX-XXX-XXXX</p> */}
                 </div>
               </div>
 
               <div className="flex items-start space-x-3">
                 <Mail className="h-5 w-5 text-chinese-gold mt-1" />
                 <div>
-                  <p className="text-background/80">triasiaglobal@gmail.com</p>
+                  <p className="text-background/80">{business.email}</p>
                 </div>
               </div>
 
@@ -168,9 +129,9 @@ const Footer = () => {
                 <MapPin className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <p className="text-background/80">
-                    Tagore Garden
+                    {business.address.streetAddress}
                     <br />
-                    New Delhi, India - 110027
+                    {business.address.addressLocality}, India - {business.address.postalCode}
                   </p>
                 </div>
               </div>
@@ -178,9 +139,25 @@ const Footer = () => {
 
             <div className="mt-6">
               <Button variant="hero" size="sm" className="w-full">
-                <a href="mailto:triasiaglobal@gmail.com">Get Instant Quote</a>
+                <a href={`mailto:${business.email}`}>Get Instant Quote</a>
               </Button>
             </div>
+          </div>
+        </div>
+
+        {/* Cities We Serve */}
+        <div className="border-t border-background/20 mt-12 pt-8">
+          <h4 className="font-bold text-lg mb-4">
+            <Link to="/locations" className="hover:text-korean-red transition-colors">
+              Cities We Serve
+            </Link>
+          </h4>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-background/80">
+            {cities.map((city) => (
+              <Link key={city.slug} to={`/locations/${city.slug}`} className="hover:text-korean-red transition-colors">
+                {city.name}
+              </Link>
+            ))}
           </div>
         </div>
 

@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Regenerated on every build by scripts/generateSeoArtifacts.ts
+public/sitemap.xml
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

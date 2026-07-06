@@ -4,6 +4,7 @@ import { Globe, Phone, Mail, Menu, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { navigationConfig } from "../navigationConfig";
+import { business } from "@/content/business";
 import {
   Accordion,
   AccordionContent,
@@ -22,7 +23,7 @@ const Header = () => {
           <Link to='/' className="flex items-center space-x-2">
             <Globe className="h-8 w-8 text-primary" />
             <div>
-              <h1 className="text-xl font-bold text-foreground">TriasiaGlobal</h1>
+              <p className="text-xl font-bold text-foreground">TriasiaGlobal</p>
               <p className="text-xs text-muted-foreground">Language Specialists</p>
             </div>
           </Link>
@@ -98,15 +99,15 @@ const Header = () => {
             <div className="hidden lg:flex items-center space-x-4 text-sm text-muted-foreground">
               <div className="flex items-center space-x-1">
                 <Phone className="h-4 w-4" />
-                <span><a href="tel:+91-9958-403-494">+91-9958-403-494</a></span>
+                <span><a href={`tel:${business.phone}`}>{business.phone}</a></span>
               </div>
               <div className="flex items-center space-x-1">
                 <Mail className="h-4 w-4" />
-                <span>triasiaglobal@gmail.com</span>
+                <span>{business.email}</span>
               </div>
             </div>
             <Button variant="hero" size="sm" className="hidden sm:flex">
-              <a href="mailto:triasiaglobal@gmail.com">Get Quote</a>
+              <a href={`mailto:${business.email}`}>Get Quote</a>
             </Button>
             
             {/* Mobile Menu */}
@@ -123,7 +124,7 @@ const Header = () => {
                     <div className="flex items-center space-x-3">
                       <Globe className="h-12 w-12 text-primary" />
                       <div>
-                        <h1 className="text-3xl font-bold text-foreground">TriasiaGlobal</h1>
+                        <p className="text-3xl font-bold text-foreground">TriasiaGlobal</p>
                         <p className="text-sm text-muted-foreground">Korean & Chinese Specialists</p>
                       </div>
                     </div>
@@ -196,11 +197,11 @@ const Header = () => {
                     <div className="flex flex-col items-center space-y-4 text-center">
                       <div className="flex items-center space-x-2 text-muted-foreground">
                         <Phone className="h-5 w-5" />
-                        <span className="text-lg"><a href="tel:+91-9958-403-494">+91-9958-403-494</a></span>
+                        <span className="text-lg"><a href={`tel:${business.phone}`}>{business.phone}</a></span>
                       </div>
                       <div className="flex items-center space-x-2 text-muted-foreground">
                         <Mail className="h-5 w-5" />
-                        <span className="text-lg">triasiaglobal@gmail.com</span>
+                        <span className="text-lg">{business.email}</span>
                       </div>
                     </div>
                     <Button variant="hero" size="lg" className="w-full text-lg py-6">

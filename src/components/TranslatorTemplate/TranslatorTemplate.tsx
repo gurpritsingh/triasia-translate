@@ -7,7 +7,7 @@ const TranslatorTemplate = ({ data }) => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <ServicesSection heading={data.heading} subHeading={data.subHeading}/>
+      <ServicesSection heading={data.heading} subHeading={data.subHeading} headingLevel="h1"/>
       <Footer />
     </div>
   );
