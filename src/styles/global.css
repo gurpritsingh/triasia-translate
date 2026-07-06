@@ -7,6 +7,7 @@
   --color-navy-800: #12326b;
   --color-navy-700: #1a4390;
   --color-navy-100: #e3eaf6;
+  --color-brass-700: #8a6a2c;
   --color-brass-500: #c8a24b;
   --color-brass-300: #e2cd96;
   --color-ink-900: #171c26;
@@ -52,12 +53,14 @@
     padding-inline: 1.5rem;
   }
 
+  /* Default (light-bg) color meets WCAG AA text contrast; on dark/navy sections
+     override with text-brass-300, which is legible against navy-950. */
   .eyebrow {
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-brass-500);
+    color: var(--color-brass-700);
   }
 
   .card {

@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import Logo from "@/components/Logo.astro";
 import { business } from "@/content/business";
 import { languages } from "@/content/languages";
 import { services } from "@/content/services";
@@ -9,7 +10,7 @@ import { cities } from "@/content/cities";
 <header class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
   <div class="container-site flex items-center justify-between py-4">
     <a href="/" class="flex items-center gap-2.5">
-      <Icon name="lucide:globe" class="h-8 w-8 text-navy-800" />
+      <Logo class="h-9 w-9 text-navy-800" />
       <span>
         <span class="block font-display text-lg font-semibold leading-tight">TriasiaGlobal</span>
         <span class="block text-xs text-ink-600">Language Specialists</span>
@@ -129,15 +130,15 @@ import { cities } from "@/content/cities";
         Languages
         <Icon name="lucide:chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180" />
       </summary>
-      <div class="flex flex-col gap-4 pb-4 pl-4">
+      <div class="flex flex-col gap-5 pb-4 pl-4">
         {
           languages.map((language) => (
             <div>
-              <p class="text-sm font-semibold text-ink-900">{language.name}</p>
-              <p class="mt-0.5 text-sm">
+              <p class="text-base font-semibold text-ink-900">{language.name}</p>
+              <p class="mt-1 text-base">
                 {services.map((service, index) => (
                   <>
-                    {index > 0 && <span class="mx-1.5 text-line">·</span>}
+                    {index > 0 && <span class="mx-2 text-line">·</span>}
                     <a href={`/${language.slug}/${service.slug}/`} class="text-navy-800" data-menu-link>
                       {service.label}
                     </a>
@@ -157,15 +158,15 @@ import { cities } from "@/content/cities";
         Cities
         <Icon name="lucide:chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180" />
       </summary>
-      <div class="flex flex-col gap-3 pb-4 pl-4">
+      <div class="flex flex-col gap-4 pb-4 pl-4">
         {
           cities.map((city) => (
-            <a href={`/locations/${city.slug}/`} class="text-sm text-navy-800" data-menu-link>
+            <a href={`/locations/${city.slug}/`} class="text-base text-navy-800" data-menu-link>
               {city.name} <span class="text-ink-600">· {city.state}</span>
             </a>
           ))
         }
-        <a href="/locations/" class="text-sm font-medium text-navy-800" data-menu-link>
+        <a href="/locations/" class="text-base font-medium text-navy-800" data-menu-link>
           View all cities
         </a>
       </div>
@@ -173,11 +174,11 @@ import { cities } from "@/content/cities";
     <a href="/#why-us" class="border-b border-line py-4 text-lg font-medium" data-menu-link>Why Choose Us</a>
 
     <div class="mt-6 flex flex-col gap-4">
-      <a href={`tel:${business.phone}`} class="flex items-center gap-2 text-ink-600">
+      <a href={`tel:${business.phone}`} class="flex items-center gap-2 text-base text-ink-600">
         <Icon name="lucide:phone" class="h-4 w-4" />
         {business.phone}
       </a>
-      <a href={`mailto:${business.email}`} class="flex items-center gap-2 text-ink-600">
+      <a href={`mailto:${business.email}`} class="flex items-center gap-2 text-base text-ink-600">
         <Icon name="lucide:mail" class="h-4 w-4" />
         {business.email}
       </a>

@@ -1,0 +1,24 @@
+---
+interface Props {
+  rating?: string;
+  reviewLabel?: string;
+  variant?: "dark" | "light";
+}
+
+const { rating = "5.0", reviewLabel = "500+ Happy Clients", variant = "dark" } = Astro.props;
+---
+
+<div class="flex items-center gap-2">
+  {/* Lucide is outline-only (fill="none" baked into the icon), so a solid star needs the glyph, not the icon set */}
+  <span
+    class:list={[variant === "dark" ? "text-brass-300" : "text-brass-700"]}
+    style="letter-spacing: 0.05em; font-size: 0.95rem;"
+    aria-hidden="true"
+  >
+    ★★★★★
+  </span>
+  <span class:list={["font-display text-sm font-semibold", variant === "dark" ? "text-white" : "text-ink-900"]}>
+    {rating}
+  </span>
+  <span class:list={["text-sm", variant === "dark" ? "text-white/60" : "text-ink-600"]}>· {reviewLabel}</span>
+</div>

@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import Logo from "@/components/Logo.astro";
 import { business } from "@/content/business";
 import { languages } from "@/content/languages";
 import { cities } from "@/content/cities";
@@ -15,7 +16,7 @@ const year = new Date().getFullYear();
       {/* Company */}
       <div>
         <div class="flex items-center gap-2.5">
-          <Icon name="lucide:globe" class="h-8 w-8 text-brass-500" />
+          <Logo class="h-9 w-9 text-brass-500" />
           <div>
             <p class="font-display text-lg font-semibold text-white">TriasiaGlobal</p>
             <p class="text-xs text-white/50">Language Specialists</p>

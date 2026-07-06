@@ -1,0 +1,37 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  variant?: "dark" | "light";
+  compact?: boolean;
+}
+
+const { variant = "dark", compact = false } = Astro.props;
+
+const badges = [
+  { icon: "lucide:shield-check", label: "Certified & Sworn Translators" },
+  { icon: "lucide:landmark", label: "Govt. & Embassy Accepted" },
+  { icon: "lucide:lock", label: "100% Confidential" },
+  { icon: "lucide:clock", label: "24–48 Hr Turnaround" },
+];
+---
+
+<ul
+  class:list={[
+    "grid grid-cols-2 gap-x-4 gap-y-3 sm:flex sm:flex-wrap",
+    compact ? "sm:gap-x-6" : "sm:gap-x-8",
+    variant === "dark" ? "text-white/85" : "text-ink-600",
+  ]}
+>
+  {
+    badges.map((badge) => (
+      <li class="flex items-center gap-2 text-xs font-medium sm:text-sm">
+        <Icon
+          name={badge.icon}
+          class:list={["h-4 w-4 shrink-0", variant === "dark" ? "text-brass-300" : "text-navy-800"]}
+        />
+        <span>{badge.label}</span>
+      </li>
+    ))
+  }
+</ul>
