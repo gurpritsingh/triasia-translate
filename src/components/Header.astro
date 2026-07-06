@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import Logo from "@/components/Logo.astro";
+import Brand from "@/components/Brand.astro";
 import { business } from "@/content/business";
 import { languages } from "@/content/languages";
 import { services } from "@/content/services";
@@ -9,13 +9,7 @@ import { cities } from "@/content/cities";
 
 <header class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
   <div class="container-site flex items-center justify-between py-4">
-    <a href="/" class="flex items-center gap-2.5">
-      <Logo class="h-9 w-9 text-navy-800" />
-      <span>
-        <span class="block font-display text-lg font-semibold leading-tight">TriasiaGlobal</span>
-        <span class="block text-xs text-ink-600">Language Specialists</span>
-      </span>
-    </a>
+    <Brand />
 
     {/* Desktop nav */}
     <nav class="hidden items-center gap-7 md:flex" aria-label="Main">

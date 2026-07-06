@@ -1,14 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-  <circle cx="19" cy="19" r="12.5" stroke="#12326b" stroke-width="2.75" />
-  <ellipse cx="19" cy="19" rx="5" ry="12.5" stroke="#12326b" stroke-width="2" />
-  <path d="M7.78 13.5 Q19 11 30.22 13.5" stroke="#12326b" stroke-width="2" stroke-linecap="round" />
-  <path d="M7.78 24.5 Q19 27 30.22 24.5" stroke="#12326b" stroke-width="2" stroke-linecap="round" />
-  <circle cx="36" cy="36" r="8.5" fill="#fff" stroke="#c8a24b" stroke-width="2.75" />
-  <path
-    d="M32.5 36.2 L35.2 39 L40 33.2"
-    stroke="#c8a24b"
-    stroke-width="3"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <rect width="80" height="80" rx="16" fill="#16223F" />
+  <g transform="translate(17,18.53) scale(0.76667)">
+    <rect x="2" y="4" width="30" height="26" rx="7" fill="#fff" />
+    <path d="M10 30 L10 38 L19 30 Z" fill="#fff" />
+    <text x="17" y="23" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="16" fill="#16223F" text-anchor="middle">A</text>
+    <rect x="28" y="24" width="30" height="26" rx="7" fill="#C79A3C" />
+    <path d="M50 50 L50 56 L41 50 Z" fill="#C79A3C" />
+    <text x="43" y="43" font-family="sans-serif" font-weight="700" font-size="15" fill="#fff" text-anchor="middle">文</text>
+  </g>
 </svg>

@@ -1,0 +1,39 @@
+---
+// Primary/reversed lockup from the logo handoff: two overlapping speech-bubble
+// tiles (navy "A" <-> gold "文") representing language-to-language conversion,
+// paired with a Space Grotesk wordmark and a Manrope tagline.
+interface Props {
+  variant?: "light" | "dark";
+  class?: string;
+}
+
+const { variant = "light", class: className = "" } = Astro.props;
+const isDark = variant === "dark";
+
+const bubble1Fill = isDark ? "#ffffff" : "var(--color-brand-navy)";
+const bubble1Text = isDark ? "var(--color-brand-navy)" : "#ffffff";
+const wordmarkColor = isDark ? "#ffffff" : "var(--color-brand-navy)";
+const taglineColor = isDark ? "var(--color-brand-tagline-dark)" : "var(--color-brand-tagline)";
+---
+
+<a href="/" class:list={["flex items-center gap-2.5", className]}>
+  <svg width="34" height="32" viewBox="0 0 60 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="shrink-0">
+    <rect x="2" y="4" width="30" height="26" rx="7" fill={bubble1Fill} />
+    <path d="M10 30 L10 38 L19 30 Z" fill={bubble1Fill} />
+    <text x="17" y="23" font-family="'Space Grotesk Variable', sans-serif" font-weight="700" font-size="16" fill={bubble1Text} text-anchor="middle">A</text>
+    <rect x="28" y="24" width="30" height="26" rx="7" fill="var(--color-brand-gold)" />
+    <path d="M50 50 L50 56 L41 50 Z" fill="var(--color-brand-gold)" />
+    <text x="43" y="43" font-family="sans-serif" font-weight="700" font-size="15" fill="#ffffff" text-anchor="middle">文</text>
+  </svg>
+  <span>
+    <span class="block font-brand text-lg font-bold leading-tight" style={`color:${wordmarkColor}`}>
+      Tri<span style="color:var(--color-brand-gold)">asia</span>Global
+    </span>
+    <span
+      class="mt-0.5 block font-tag text-[10px] font-semibold uppercase tracking-[0.16em]"
+      style={`color:${taglineColor}`}
+    >
+      Language Specialists
+    </span>
+  </span>
+</a>

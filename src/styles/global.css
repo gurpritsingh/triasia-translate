@@ -17,9 +17,19 @@
   --color-line: #e5e8ee;
   --color-success-600: #1b7f4d;
 
+  /* Fixed brand-mark colors from the logo handoff — kept separate from the
+     navy/brass site accent scale since the logo must render pixel-accurate
+     to spec regardless of any future theme retuning. */
+  --color-brand-navy: #16223f;
+  --color-brand-gold: #c79a3c;
+  --color-brand-tagline: #84807a;
+  --color-brand-tagline-dark: #c1beb7;
+
   /* Type */
   --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
   --font-sans: "Inter Variable", system-ui, -apple-system, sans-serif;
+  --font-brand: "Space Grotesk Variable", sans-serif;
+  --font-tag: "Manrope Variable", sans-serif;
 
   /* Depth */
   --shadow-card: 0 1px 2px rgb(16 24 40 / 0.05);
