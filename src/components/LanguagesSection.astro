@@ -1,0 +1,116 @@
+---
+import { Icon } from "astro-icon/components";
+import { business } from "@/content/business";
+
+// Display-only marketing copy — deliberately independent of the routing data
+// in src/content/languages.ts (covers languages without dedicated pages).
+const specializations = [
+  {
+    title: "Korean Specialization",
+    native: "한국어 전문 번역",
+    icon: "lucide:heart",
+    pairs: ["한국어 ↔ English", "한국어 ↔ Hindi", "한국어 ↔ Tamil", "한국어 ↔ Telugu", "한국어 ↔ Bengali", "한국어 ↔ Marathi", "한국어 ↔ Gujarati"],
+    blurb: "Expert Korean linguists with deep cultural understanding and technical expertise.",
+  },
+  {
+    title: "Chinese Specialization",
+    native: "中文专业翻译",
+    icon: "lucide:trending-up",
+    pairs: ["中文 ↔ English", "中文 ↔ Hindi", "中文 ↔ Tamil", "中文 ↔ Telugu", "中文 ↔ Bengali", "中文 ↔ Marathi", "中文 ↔ Gujarati", "中文 ↔ Punjabi"],
+    blurb: "Native Chinese speakers with expertise in Simplified and Traditional Chinese.",
+  },
+  {
+    title: "Japanese Specialization",
+    native: "日本語のプロの翻訳",
+    icon: "lucide:trending-up",
+    pairs: ["日本語 ↔ English", "日本語 ↔ Hindi", "日本語 ↔ Tamil", "日本語 ↔ Telugu", "日本語 ↔ Bengali", "日本語 ↔ Marathi", "日本語 ↔ Gujarati", "日本語 ↔ Punjabi"],
+    blurb: "Native Japanese speakers with expertise in japanese language and culture",
+  },
+  {
+    title: "French Specialization",
+    native: "Traduction professionnelle en français",
+    icon: "lucide:trending-up",
+    pairs: ["Français ↔ English", "Français ↔ Hindi", "Français ↔ Tamil", "Français ↔ Telugu", "Français ↔ Bengali", "Français ↔ Marathi", "Français ↔ Gujarati", "Français ↔ Punjabi"],
+    blurb: "Native French speakers with expertise in french language and culture",
+  },
+  {
+    title: "German Specialization",
+    native: "Professionelle deutsche Übersetzung",
+    icon: "lucide:trending-up",
+    pairs: ["Allemande ↔ English", "Allemande ↔ Hindi", "Allemande ↔ Tamil", "Allemande ↔ Telugu", "Allemande ↔ Bengali", "Allemande ↔ Marathi", "Allemande ↔ Gujarati", "Allemande ↔ Punjabi"],
+    blurb: "Native German speakers with expertise in German language and culture",
+  },
+];
+
+const popularLanguages = [
+  "English", "Hindi", "Tamil", "Telugu", "Bengali", "Marathi", "Gujarati", "Punjabi",
+  "Kannada", "Malayalam", "Odia", "Assamese", "Urdu", "Spanish", "French", "German",
+  "Japanese", "Arabic", "Russian", "Portuguese", "Italian", "Dutch", "Thai", "Vietnamese",
+];
+---
+
+<section id="languages" class="bg-surface-0 py-20 lg:py-24">
+  <div class="container-site">
+    <div class="mx-auto mb-14 max-w-3xl text-center">
+      <p class="eyebrow">Languages</p>
+      <h2 class="mt-3 text-3xl lg:text-4xl">120+ Languages Supported</h2>
+      <p class="mt-4 text-lg text-ink-600">
+        Specializing in Korean and Chinese translations while supporting a comprehensive range of Indian Regional,
+        European, and Asian languages.
+      </p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        specializations.map((spec) => (
+          <div class="card card-hover p-6">
+            <div class="flex items-center gap-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-100">
+                <Icon name={spec.icon} class="h-5 w-5 text-navy-800" />
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-ink-900">{spec.title}</h3>
+                <p class="text-xs text-ink-600">{spec.native}</p>
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              {spec.pairs.map((pair) => (
+                <span class="rounded-full border border-line bg-surface-1 px-2.5 py-1 text-xs text-ink-600">{pair}</span>
+              ))}
+            </div>
+            <p class="mt-4 text-sm text-ink-600">{spec.blurb}</p>
+          </div>
+        ))
+      }
+
+      <div class="card card-hover p-6">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-100">
+            <Icon name="lucide:globe" class="h-5 w-5 text-navy-800" />
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-ink-900">Global Coverage</h3>
+            <p class="text-xs text-ink-600">120+ Languages</p>
+          </div>
+        </div>
+        <div class="mt-4 flex max-h-36 flex-wrap gap-1.5 overflow-y-auto">
+          {
+            popularLanguages.map((language) => (
+              <span class="rounded-full border border-line bg-surface-1 px-2.5 py-1 text-xs text-ink-600">{language}</span>
+            ))
+          }
+        </div>
+        <p class="mt-4 text-sm text-ink-600">Complete language coverage for all your translation needs.</p>
+      </div>
+    </div>
+
+    <div class="mt-14 rounded-2xl bg-navy-950 px-8 py-12 text-center [background-image:radial-gradient(ellipse_at_top_right,rgb(200_162_75/0.08),transparent_55%)]">
+      <h3 class="text-2xl text-white">Don't See Your Language?</h3>
+      <p class="mx-auto mt-3 max-w-2xl text-white/75">
+        We work with a network of certified translators covering rare and regional languages. Contact us for
+        specialized language requirements.
+      </p>
+      <a href={`mailto:${business.email}`} class="btn-brass mt-6">Get Quote</a>
+    </div>
+  </div>
+</section>

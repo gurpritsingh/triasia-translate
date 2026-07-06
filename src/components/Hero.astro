@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { business } from "@/content/business";
+import heroImage from "@/assets/hero-translation.jpg";
+
+const stats = [
+  { number: "500+", label: "Happy Clients" },
+  { number: "10K+", label: "Documents" },
+  { number: "5.0", label: "Rating" },
+];
+---
+
+<section
+  class="bg-navy-950 text-white [background-image:radial-gradient(ellipse_at_top_right,rgb(200_162_75/0.08),transparent_55%)]"
+>
+  <div class="container-site grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-24">
+    <div>
+      <p class="eyebrow flex items-center gap-2">
+        <Icon name="lucide:badge-check" class="h-4 w-4" />
+        India's Leading Translation Service
+      </p>
+
+      <h1 class="mt-4 text-4xl text-white lg:text-5xl xl:text-[3.25rem]">
+        Certified <span class="text-brass-300">Translation &amp; Interpretation</span> Services in India
+      </h1>
+
+      <p class="mt-6 text-lg leading-relaxed text-white/75">
+        TriAsiaGlobal is a leading certified translation and interpretation agency in India, trusted nationwide for
+        delivering precise, government-recognized, and internationally accepted translations.
+      </p>
+      <p class="mt-4 text-lg leading-relaxed text-white/75">
+        We specialize in authorized document translation for individuals, corporations, and government bodies. Our team
+        of certified translators and native language experts ensures accuracy, cultural sensitivity, and compliance
+        with official requirements.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+        <a href={`mailto:${business.email}`} class="btn-brass px-8 py-3.5 text-base">Start Your Translation</a>
+        <a
+          href="/locations/"
+          class="inline-flex items-center justify-center rounded-lg border border-white/25 px-8 py-3.5 text-base font-medium text-white transition-colors hover:border-white/60"
+        >
+          Browse Locations
+        </a>
+      </div>
+
+      <div class="mt-10 flex divide-x divide-white/15">
+        {
+          stats.map((stat) => (
+            <div class="px-6 first:pl-0">
+              <div class="font-display text-3xl font-semibold text-white">{stat.number}</div>
+              <div class="mt-1 text-sm text-white/60">{stat.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="relative hidden lg:block">
+      <Image
+        src={heroImage}
+        alt="Professional translation services"
+        class="w-full rounded-2xl object-cover ring-1 ring-white/15"
+        widths={[600, 900]}
+        sizes="(min-width: 1024px) 550px, 100vw"
+      />
+      <div class="card absolute -bottom-4 -right-4 flex items-center gap-2 px-4 py-3">
+        <Icon name="lucide:star" class="h-5 w-5 text-brass-500" />
+        <span class="text-sm font-semibold text-ink-900">24/7 Support</span>
+      </div>
+    </div>
+  </div>
+</section>

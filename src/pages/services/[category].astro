@@ -1,0 +1,64 @@
+---
+import { Icon } from "astro-icon/components";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServiceHero from "@/components/ServiceHero.astro";
+import { serviceCategories } from "@/content/serviceCategories";
+import { languages } from "@/content/languages";
+import { buildStaticSeo } from "@/content/seo";
+
+export function getStaticPaths() {
+  return serviceCategories.map((category) => ({
+    params: { category: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+
+const seo = buildStaticSeo({
+  title: `${category.title} Services | TriasiaGlobal`,
+  description: category.subHeading,
+  path: `/services/${category.slug}/`,
+});
+---
+
+<BaseLayout {...seo}>
+  <ServiceHero
+    heading={category.heading}
+    subHeading={category.subHeading}
+    crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/#services" }, { label: category.title }]}
+  />
+
+  <section class="bg-surface-1 py-16 lg:py-20">
+    <div class="container-site grid max-w-4xl gap-12 md:grid-cols-2">
+      <div>
+        <h2 class="text-2xl">What We Translate</h2>
+        <ul class="mt-5 space-y-3">
+          {
+            category.details.map((detail) => (
+              <li class="flex items-start gap-2.5 text-ink-600">
+                <Icon name="lucide:check-circle-2" class="mt-1 h-4 w-4 shrink-0 text-success-600" />
+                <span>{detail}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl">Available Languages</h2>
+        <ul class="mt-5 grid grid-cols-2 gap-2.5">
+          {
+            languages.map((language) => (
+              <li>
+                <a href={`/${language.slug}/translator/`} class="text-sm text-navy-800 hover:underline">
+                  {language.name} Translator
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

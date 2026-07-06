@@ -1,5 +1,3 @@
-import { FileText, GraduationCap, Scale, Building, Stethoscope, Cog, type LucideIcon } from "lucide-react";
-
 export interface ServiceCategory {
   slug: string;
   title: string;
@@ -7,9 +5,8 @@ export interface ServiceCategory {
   heading: string;
   subHeading: string;
   details: string[];
-  icon: LucideIcon;
-  color: string;
-  bgColor: string;
+  /** Iconify name rendered via astro-icon, e.g. "lucide:scale" */
+  icon: string;
 }
 
 export const serviceCategories: ServiceCategory[] = [
@@ -27,9 +24,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Property and legal certificates",
       "Notarized and apostille-ready translations",
     ],
-    icon: Scale,
-    color: "text-korean-red",
-    bgColor: "bg-korean-red/10",
+    icon: "lucide:scale",
   },
   {
     slug: "educational-certificates",
@@ -45,9 +40,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Migration certificates",
       "Credential evaluation reports",
     ],
-    icon: GraduationCap,
-    color: "text-chinese-gold",
-    bgColor: "bg-chinese-gold/10",
+    icon: "lucide:graduation-cap",
   },
   {
     slug: "medical-documents",
@@ -63,9 +56,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Insurance and clinical documentation",
       "Pharmaceutical and clinical trial documents",
     ],
-    icon: Stethoscope,
-    color: "text-primary",
-    bgColor: "bg-primary/10",
+    icon: "lucide:stethoscope",
   },
   {
     slug: "technical-manuals",
@@ -81,9 +72,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Safety data sheets (SDS)",
       "Software and hardware documentation",
     ],
-    icon: Cog,
-    color: "text-korean-blue",
-    bgColor: "bg-korean-blue/10",
+    icon: "lucide:cog",
   },
   {
     slug: "business-documents",
@@ -99,9 +88,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Business proposals and presentations",
       "Import/export and trade documentation",
     ],
-    icon: Building,
-    color: "text-accent-foreground",
-    bgColor: "bg-accent/20",
+    icon: "lucide:building",
   },
   {
     slug: "personal-documents",
@@ -117,9 +104,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Visa and immigration documents",
       "Police clearance certificates",
     ],
-    icon: FileText,
-    color: "text-muted-foreground",
-    bgColor: "bg-muted/20",
+    icon: "lucide:file-text",
   },
 ];
 
@@ -127,6 +112,8 @@ export const serviceCategoriesBySlug: Record<string, ServiceCategory> = Object.f
   serviceCategories.map((category) => [category.slug, category])
 );
 
+// With file-based routing, a category slugged "locations" wouldn't crash — the
+// static /locations dir would silently shadow it. Fail loudly at build instead.
 if (serviceCategoriesBySlug["locations"]) {
-  throw new Error('"locations" is reserved for the /locations route and cannot be used as a service category slug');
+  throw new Error('"locations" is reserved for routing and cannot be used as a service category slug');
 }
