@@ -10,6 +10,11 @@ export const languages: Language[] = [
   { slug: "kannad", name: "Kannada", nativeName: "ಕನ್ನಡ" },
   { slug: "korean", name: "Korean", nativeName: "한국어" },
   { slug: "chinese", name: "Chinese", nativeName: "中文" },
+  { slug: "japanese", name: "Japanese", nativeName: "日本語" },
+  { slug: "french", name: "French", nativeName: "Français" },
+  { slug: "german", name: "German", nativeName: "Deutsch" },
+  { slug: "spanish", name: "Spanish", nativeName: "Español" },
+
 ];
 
 export const languagesBySlug: Record<string, Language> = Object.fromEntries(
