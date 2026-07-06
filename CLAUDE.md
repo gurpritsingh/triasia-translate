@@ -1,76 +1,54 @@
 # TriasiaGlobal — CLAUDE.md
 
-Marketing site for TriasiaGlobal, a translation/interpretation agency in India (deployed at www.triasiaglobal.com via GitHub Pages, see `CNAME`). Vite + React 18 + TypeScript SPA using shadcn/ui + Tailwind. Originally scaffolded via Lovable.dev. Static hosting on GitHub Pages is a deliberate choice to avoid hosting costs — solutions must stay static (no server, no API routes, no database).
+Marketing site for TriasiaGlobal, a translation/interpretation agency in India, deployed at www.triasiaglobal.com via GitHub Pages. **Astro 5** static site (zero framework JS) + **Tailwind 4** (CSS-first `@theme` tokens). Static hosting on GitHub Pages is a deliberate choice to avoid hosting costs — solutions must stay static (no server, no API routes, no database). Migrated from Vite+React+react-snap in July 2026; do not reintroduce React or a prerenderer — Astro's `getStaticPaths` is the page-generation mechanism.
 
 ## Commands
-- `npm run dev` — start dev server (port 8080)
-- `npm run build` — runs `prebuild` (regenerates `public/sitemap.xml` + `reactSnap.include`), then `vite build`, copies `CNAME` into `dist/`, then `postbuild` (`react-snap` prerenders every route)
-- `npm run lint` — eslint
-- `npm run deploy` — publishes `dist/` to GitHub Pages via `gh-pages`
-- Note: `npm install` needs `--legacy-peer-deps` — `@vitejs/plugin-legacy@^7` declares a peer on vite `^7` while the project pins vite `^5.4.19` (pre-existing, unrelated to app code). `react-snap`'s bundled Puppeteer Chromium isn't downloadable in some sandboxes; if `npm run build` hangs on the `postbuild` step, run with `PUPPETEER_EXECUTABLE_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm run build` (adjust path per OS) to use a system Chrome instead.
+- `npm run dev` — dev server (default port 4321)
+- `npm run build` — `astro check && astro build` → `dist/` (~129 pages in ~2s)
+- `npm run preview` — serve the built `dist/`
+- Deploy: **push to `main`** → `.github/workflows/deploy.yml` (withastro/action → actions/deploy-pages). No local deploy step. Repo Settings → Pages → Source must be "GitHub Actions"; custom domain lives in Settings (plus `public/CNAME` as belt-and-braces).
 
 ## Architecture: data-driven city × language × service pages
 
-Pages are generated from data at **route + render time**, not as physical files. There is a fixed, small route table in `src/App.tsx` that never needs editing when a city/language/content is added:
+Fixed file-based route table (`src/pages/`) — adding a city/language/category never touches routing:
 
-| Route | Component |
-|---|---|
-| `/` | `Index.tsx` |
-| `/locations` | `LocationsIndexPage.tsx` — browsable list of all cities |
-| `/locations/:citySlug` | `CityIndexPage.tsx` — languages/services available in that city |
-| `/:languageSlug/:serviceSlug` | `ServicePage.tsx` — national hub page (no city) |
-| `/:citySlug/:languageSlug/:serviceSlug` | `ServicePage.tsx` (same component, city-specific) |
-| `/services/:categorySlug` | `ServiceCategoryPage.tsx` — standalone document-type landing page |
-| `*` | `NotFound.tsx` |
+| File | URL | Notes |
+|---|---|---|
+| `index.astro` | `/` | homepage |
+| `locations/index.astro` | `/locations/` | all cities |
+| `locations/[city].astro` | `/locations/:city/` | per-city language/service links |
+| `services/[category].astro` | `/services/:category/` | 6 document-type landing pages |
+| `[language]/[service].astro` | `/:language/:service/` | national hub page |
+| `[city]/[language]/[service].astro` | `/:city/:language/:service/` | city page |
+| `404.astro` | `404.html` | GH Pages native 404, `noindex` |
+| `sitemap.xml.ts` | `/sitemap.xml` | static endpoint, NOT @astrojs/sitemap (keeps stable URL) |
 
-`ServicePage.tsx` validates slugs against the data layer and renders `<NotFound />` directly on any unknown city/language/service combo. Same pattern in `ServiceCategoryPage.tsx` for unknown category slugs.
+Every dynamic page's `getStaticPaths` pulls from **`src/content/routes.ts`** (`hubPairs()`, `cityLanguagePairs()`, `getAllRoutePaths()`), and `sitemap.xml.ts` uses the same `getAllRoutePaths()` — sitemap↔pages parity holds by construction. Unknown slugs simply have no generated page → GH Pages serves `404.html` (there is no runtime slug validation anymore).
 
-`/services/:categorySlug` is a **standalone** dimension (not crossed with language/city, by deliberate scope decision) — 6 document-type pages (legal, educational, medical, technical, business, personal), content in `src/content/serviceCategories.ts` with hand-written copy per category (not templated, since there are only 6 and they're well-known). `"services"` is a reserved slug (alongside `"locations"`) guarded in `languages.ts`/`cities.ts` so a language/city can never collide with this route namespace.
+**Trailing slashes everywhere**: `trailingSlash: 'always'` + `build.format: 'directory'` in `astro.config.mjs`, because GH Pages 301s directory URLs to the slash form. All internal links, canonicals (`seo.ts` appends it), and sitemap entries use `/path/` form.
 
 ### Content data layer (`src/content/`)
-- `cities.ts` / `languages.ts` / `services.ts` — the single source of truth for what cities/languages/services exist (slug, display name, state, etc). Adding a city or language is just adding an entry here — no other file needs touching.
-- `business.ts` — centralized contact/address info, reused by `Footer.tsx`, `Header.tsx`, and JSON-LD.
-- `resolveContent.ts` — resolves page copy (`heading`/`subHeading`) for a given `(city?, language, service)` in priority order:
-  1. **Exact override** — drop a file at `src/content/overrides/<city>/<language>/<service>.ts` (auto-discovered via `import.meta.glob`, no registry to edit).
-  2. **Language-level city template** — optional `src/data/<Language>/cityTemplate.ts` exporting `{ translator?, interpreter? }` functions that get `{city, language, service}` and return interpolated copy for *all* of that language's city pages.
-  3. **Global default template** (`pageTemplates.ts`) — always defined, several rotating sentence-structure variants (chosen deterministically by hashing `city/language/service`) so auto-generated pages aren't identical/thin content across cities.
-  - National hub pages (no city) use `src/data/<Language>/{translator,interpreter}.ts` **if present** (the 4 original languages have hand-written copy there), otherwise fall back to `defaultCityContent({ language, service })` (no `src/data/` files required at all) — so a brand-new language added to `languages.ts` gets a working, auto-generated hub page with zero other files needed.
-- `seo.ts` — derives `<title>`/description/canonical/JSON-LD from the *same* resolved content object (not a parallel copy).
+- `cities.ts` / `languages.ts` / `services.ts` — single source of truth. **Adding a city or language = one entry here; everything else (pages, nav, footer, sitemap) follows automatically**, with auto-generated default copy.
+- `serviceCategories.ts` — 6 document-type categories, hand-written copy, `icon` is an Iconify name string (e.g. `"lucide:scale"`) rendered via astro-icon.
+- `business.ts` — contact/address/siteUrl, reused by header, footer, and JSON-LD.
+- `resolveContent.ts` — page copy resolution, most specific wins: (a) exact override `src/content/overrides/<city>/<lang>/<service>.ts` → (b) per-language `src/data/<Language>/cityTemplate.ts` → (c) global default templates in `pageTemplates.ts` (rotating sentence variants, hash-picked). Hub pages (no city) use `src/data/<Language>/{translator,interpreter}.ts` if present, else the default template. Overrides/templates are auto-discovered via `import.meta.glob` (works in Astro; Vite-based) — no registry to edit.
+- `seo.ts` — builds title/description/canonical/JSON-LD from the same resolved content. Consumed as props by `BaseLayout.astro`.
+- Reserved slugs: `"locations"` and `"services"` are guarded in the data files — with file-based routing a colliding city/language slug would be **silently shadowed** by the static dirs, so the guards throw at build time.
 
-### SEO (`src/components/Seo.tsx` + `react-helmet-async`)
-Every route renders `<Seo>` (wrapped in `<HelmetProvider>` in `App.tsx`). `index.html` only has fallback/static tags (title, gtag, favicon) — do not add `<meta name="description">` or OG tags back to `index.html`; they'd sit alongside Helmet's per-page tags as duplicates rather than being replaced (Helmet only manages tags it renders itself, not ones already static in the HTML).
+### Layout & design system
+- `src/layouts/BaseLayout.astro` — the only `<head>` (title/description/canonical/OG/JSON-LD/gtag/favicons/fonts). The Google tag (AW-17509916224) and JSON-LD scripts **must stay `is:inline`** or Astro bundles/mangles them.
+- `src/styles/global.css` — Tailwind 4 `@theme` tokens: navy (`navy-950/900/800/700/100`) + brass (`brass-500/300`) palette, `ink-900/600` text, `surface-0/1` section backgrounds, `line` borders; Fraunces Variable for display headings (h1/h2), Inter Variable body — both self-hosted via @fontsource. Component classes: `.container-site`, `.eyebrow`, `.card`/`.card-hover`, `.btn-primary`/`.btn-secondary`/`.btn-brass` (brass is the on-dark primary).
+- Components (`src/components/*.astro`): Header (sticky, CSS-only Languages dropdown, mobile menu), Footer (navy; links **every** category, language×service, and city — this internal-link mesh is deliberate SEO, preserve it), Hero, ServicesGrid (heading/subHeading/headingLevel props — h1 on the homepage-style use is handled by pages), ServiceHero (h1 band on all service pages), LanguagesSection (display-only marketing badges, intentionally not wired to routing data), WhyChooseUs.
+- **Gotcha (learned the hard way)**: the mobile menu panel lives *outside* `<header>` as a sibling because the header's `backdrop-blur` (backdrop-filter) creates a containing block for `position: fixed` descendants — inside it, the panel computes to zero height. Don't move it back in.
+- Interactivity is one small `is:inline` script in Header.astro (menu toggle + Escape + link-click close). No framework JS anywhere; keep it that way.
+- One `<h1>` per page (Hero on `/`, ServiceHero or page heading elsewhere).
 
-### Build-time SEO artifacts (`scripts/generateSeoArtifacts.ts`)
-Runs via the `prebuild` npm script (before `vite build`). Reads `src/content/{cities,languages,services}.ts`, computes every concrete route, and:
-1. Writes `public/sitemap.xml` (gitignored — regenerated every build; don't hand-edit or commit it).
-2. Rewrites `package.json`'s `reactSnap.include` array via a JSON round-trip (not a regex) so `react-snap` prerenders every route.
+### Adding content
+- **City/language**: one entry in `cities.ts`/`languages.ts`. Optional real copy: `src/data/<Language>/{translator,interpreter}.ts` (hub) / `cityTemplate.ts` (all city pages) / `src/content/overrides/...` (one combo).
+- **Service category**: one entry in `serviceCategories.ts` (use a `lucide:*` Iconify name — a typo fails the build, which is good).
 
-### react-snap config gotchas (`package.json` → `reactSnap`)
-- **`concurrency: 1` is required, not optional.** Under the default `concurrency: 4`, `react-helmet-async`'s title/meta commit races react-snap's Puppeteer capture for a meaningful fraction of pages (~20% observed) — they get captured with `index.html`'s static fallback title instead of the per-page one. `waitFor: 300` alone does not fix this; only serializing the crawl does. Don't raise concurrency without re-auditing prerendered titles across all pages first (see verification below).
-- `/404.html` is prerendered automatically by react-snap itself (`src/puppeteer_utils.js` unconditionally queues it once 2+ routes are queued) — this is react-snap's built-in GitHub Pages 404 support. **Don't add a manual `public/404.html` redirect-trick file** — it just gets silently overwritten by react-snap's own render of the app's `NotFound` page, which is already correct and simpler.
-- `removeScriptTags` (not `removeScripts`, which isn't a real option) must stay unset/`false` — it strips *every* `<script>` tag with no allowlist, deleting both the hydration bundle and the JSON-LD block.
+## Verification after changes
+`npm run build`, then: `scripts/expected-urls.txt` holds the URL baseline — every path there must exist as `dist/<path>/index.html` and match `dist/sitemap.xml`'s `<loc>` set (update the baseline deliberately when adding content). Spot-check raw dist HTML for unique `<title>`, one `<meta name="description">`, trailing-slash canonical, JSON-LD on service pages, gtag present, exactly one `<h1>`. `puppeteer-core` (devDep) + system Chrome is available for browser checks (`executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`); note plain `--headless --window-size=375,...` screenshots without mobile emulation render misleadingly — use puppeteer's `setViewport({ isMobile: true })`.
 
-### Adding a new city or language
-1. City: add an entry to `src/content/cities.ts`. Language: add an entry to `src/content/languages.ts`. **That alone is enough** — hub page, all city-crossed pages, nav, footer, sitemap, and `reactSnap.include` all work immediately with auto-generated default content.
-2. Optionally add real hand-written copy: `src/data/<Language>/{translator,interpreter}.ts` for the hub page, and/or override/template content per §"Content data layer" above for city pages — otherwise the default template covers all of it.
-3. `App.tsx`, `navigationConfig.ts`, `Footer.tsx`, sitemap, and `reactSnap.include` all update automatically — nothing else to touch. (The nav "Languages" dropdown is intentionally language-only, not nested by city — city pages are discovered via `/locations`.)
-
-### Adding a new service category
-Add an entry to `src/content/serviceCategories.ts` (slug, title, heading, subHeading, details list, icon, colors) — `ServicesSection.tsx` cards, `Footer.tsx`'s "Our Services" list, the `/services/:categorySlug` route, and the sitemap all pick it up automatically.
-
-### Footer as an internal-linking "sitemap"
-`Footer.tsx` deliberately links every language (translator + interpreter), every city, and every service category — sourced live from `src/content/{languages,cities,serviceCategories}.ts`, not hardcoded. This is intentional for SEO (internal link discovery) and for keeping react-snap's organic crawl in sync with the generated sitemap/include list. When adding a new content dimension, make sure Footer links to it too.
-
-### Verifying a build
-After `npm run build`, spot-check: `grep -c "<url>" dist/sitemap.xml` should match `find dist -name index.html | wc -l`; grep a sample of `dist/**/index.html` for `<title>` to confirm no page still has the generic `index.html` fallback title (a sign the concurrency race above has regressed).
-
-## Other components
-- `src/components/ui/` — shadcn/ui primitives. Treat as generated; prefer composing over editing.
-- `src/components/LanguagesSection.tsx` — homepage marketing badges (120+ languages, Korean/Chinese/Japanese/French/German specialization lists). Deliberately **not** wired to `src/content/languages.ts` — it lists languages with no dedicated routes (Tamil, Bengali, etc.) and is display-only copy, not routing data.
-- `App.tsx` imports `Toaster`/`Sonner`/`TooltipProvider` but never renders them (pre-existing, unused — toasts/tooltips don't currently work anywhere in the app). Not fixed as part of unrelated work; flag before assuming toast/tooltip components work.
-
-## Conventions
-- Path alias `@` → `src/` (see `vite.config.ts`, `components.json`).
-- Tailwind + shadcn conventions apply (`components.json`: style "default", baseColor "slate", cssVariables on, no prefix).
-- Each rendered page should have exactly one `<h1>` (the page-specific heading, via `ServicesSection`'s `headingLevel="h1"` prop when used through `TranslatorTemplate`) — the site logo in `Header.tsx` is a `<p>`, not an `<h1>`, on purpose.
-- No test suite currently exists in this repo.
+## History note
+The pre-Astro stack (Vite+React+react-snap+react-helmet-async) had: abandoned react-snap needing system Chrome, a Helmet race corrupting ~20% of prerendered titles (forced `concurrency: 1`), minutes-long builds, and a full React bundle for static content. All gone — don't bring back workarounds referencing it (old branches/commits may still mention them).

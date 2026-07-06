@@ -1,0 +1,212 @@
+---
+import { Icon } from "astro-icon/components";
+import { business } from "@/content/business";
+import { languages } from "@/content/languages";
+import { services } from "@/content/services";
+import { cities } from "@/content/cities";
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
+  <div class="container-site flex items-center justify-between py-4">
+    <a href="/" class="flex items-center gap-2.5">
+      <Icon name="lucide:globe" class="h-8 w-8 text-navy-800" />
+      <span>
+        <span class="block font-display text-lg font-semibold leading-tight">TriasiaGlobal</span>
+        <span class="block text-xs text-ink-600">Language Specialists</span>
+      </span>
+    </a>
+
+    {/* Desktop nav */}
+    <nav class="hidden items-center gap-7 md:flex" aria-label="Main">
+      <a href="/#services" class="text-sm font-medium text-ink-900 transition-colors hover:text-navy-800">Services</a>
+
+      <div class="group relative">
+        <button
+          type="button"
+          class="flex items-center gap-1 py-2 text-sm font-medium text-ink-900 transition-colors hover:text-navy-800"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Languages
+          <Icon name="lucide:chevron-down" class="h-4 w-4 transition-transform group-hover:rotate-180" />
+        </button>
+        <div
+          class="invisible absolute left-1/2 top-full w-[26rem] -translate-x-1/2 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        >
+          <div class="card grid grid-cols-2 gap-x-6 gap-y-4 p-6 shadow-lift">
+            {
+              languages.map((language) => (
+                <div>
+                  <p class="text-sm font-semibold text-ink-900">
+                    {language.name}
+                    {language.nativeName && <span class="ml-1.5 text-xs font-normal text-ink-600">{language.nativeName}</span>}
+                  </p>
+                  <p class="mt-0.5 text-sm">
+                    {services.map((service, index) => (
+                      <>
+                        {index > 0 && <span class="mx-1.5 text-line">·</span>}
+                        <a href={`/${language.slug}/${service.slug}/`} class="text-navy-800 hover:underline">
+                          {service.label}
+                        </a>
+                      </>
+                    ))}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="group relative">
+        <button
+          type="button"
+          class="flex items-center gap-1 py-2 text-sm font-medium text-ink-900 transition-colors hover:text-navy-800"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Cities
+          <Icon name="lucide:chevron-down" class="h-4 w-4 transition-transform group-hover:rotate-180" />
+        </button>
+        <div
+          class="invisible absolute left-1/2 top-full w-[26rem] -translate-x-1/2 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        >
+          <div class="card grid grid-cols-2 gap-x-6 gap-y-3 p-6 shadow-lift">
+            {
+              cities.map((city) => (
+                <a href={`/locations/${city.slug}/`} class="text-sm text-ink-900 hover:text-navy-800 hover:underline">
+                  {city.name}
+                  <span class="text-ink-600"> · {city.state}</span>
+                </a>
+              ))
+            }
+            <a
+              href="/locations/"
+              class="col-span-2 mt-1 border-t border-line pt-3 text-sm font-medium text-navy-800 hover:underline"
+            >
+              View all cities
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <a href="/#why-us" class="text-sm font-medium text-ink-900 transition-colors hover:text-navy-800">Why Choose Us</a>
+
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <a
+        href={`tel:${business.phone}`}
+        class="hidden items-center gap-1.5 text-sm text-ink-600 transition-colors hover:text-navy-800 lg:flex"
+      >
+        <Icon name="lucide:phone" class="h-4 w-4" />
+        {business.phone}
+      </a>
+      <a href={`mailto:${business.email}`} class="btn-primary hidden sm:inline-flex">Get Quote</a>
+
+      <button
+        type="button"
+        id="menu-toggle"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line text-ink-900 md:hidden"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Open menu"
+      >
+        <Icon name="lucide:menu" class="h-5 w-5" />
+      </button>
+    </div>
+  </div>
+
+</header>
+
+{/* Mobile menu */}
+<div id="mobile-menu" hidden class="fixed inset-0 top-[73px] z-50 overflow-y-auto bg-white md:hidden">
+  <nav class="container-site flex flex-col gap-1 py-6" aria-label="Mobile">
+    <a href="/#services" class="border-b border-line py-4 text-lg font-medium" data-menu-link>Services</a>
+
+    <details class="group border-b border-line">
+      <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-lg font-medium [&::-webkit-details-marker]:hidden">
+        Languages
+        <Icon name="lucide:chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180" />
+      </summary>
+      <div class="flex flex-col gap-4 pb-4 pl-4">
+        {
+          languages.map((language) => (
+            <div>
+              <p class="text-sm font-semibold text-ink-900">{language.name}</p>
+              <p class="mt-0.5 text-sm">
+                {services.map((service, index) => (
+                  <>
+                    {index > 0 && <span class="mx-1.5 text-line">·</span>}
+                    <a href={`/${language.slug}/${service.slug}/`} class="text-navy-800" data-menu-link>
+                      {service.label}
+                    </a>
+                  </>
+                ))}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </details>
+
+    
+
+    <details class="group border-b border-line">
+      <summary class="flex cursor-pointer list-none items-center justify-between py-4 text-lg font-medium [&::-webkit-details-marker]:hidden">
+        Cities
+        <Icon name="lucide:chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180" />
+      </summary>
+      <div class="flex flex-col gap-3 pb-4 pl-4">
+        {
+          cities.map((city) => (
+            <a href={`/locations/${city.slug}/`} class="text-sm text-navy-800" data-menu-link>
+              {city.name} <span class="text-ink-600">· {city.state}</span>
+            </a>
+          ))
+        }
+        <a href="/locations/" class="text-sm font-medium text-navy-800" data-menu-link>
+          View all cities
+        </a>
+      </div>
+    </details>
+    <a href="/#why-us" class="border-b border-line py-4 text-lg font-medium" data-menu-link>Why Choose Us</a>
+
+    <div class="mt-6 flex flex-col gap-4">
+      <a href={`tel:${business.phone}`} class="flex items-center gap-2 text-ink-600">
+        <Icon name="lucide:phone" class="h-4 w-4" />
+        {business.phone}
+      </a>
+      <a href={`mailto:${business.email}`} class="flex items-center gap-2 text-ink-600">
+        <Icon name="lucide:mail" class="h-4 w-4" />
+        {business.email}
+      </a>
+      <a href={`mailto:${business.email}`} class="btn-primary w-full">Get Quote</a>
+    </div>
+  </nav>
+</div>
+
+<script is:inline>
+  (function () {
+    var toggle = document.getElementById("menu-toggle");
+    var menu = document.getElementById("mobile-menu");
+    if (!toggle || !menu) return;
+
+    function setOpen(open) {
+      menu.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+
+    toggle.addEventListener("click", function () {
+      setOpen(menu.hidden);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") setOpen(false);
+    });
+    menu.addEventListener("click", function (event) {
+      if (event.target.closest("[data-menu-link]")) setOpen(false);
+    });
+  })();
+</script>

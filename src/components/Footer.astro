@@ -1,0 +1,119 @@
+---
+import { Icon } from "astro-icon/components";
+import { business } from "@/content/business";
+import { languages } from "@/content/languages";
+import { cities } from "@/content/cities";
+import { serviceCategories } from "@/content/serviceCategories";
+import { services } from "@/content/services";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-navy-950 text-white/70">
+  <div class="container-site py-16">
+    <div class="grid gap-10 lg:grid-cols-4">
+      {/* Company */}
+      <div>
+        <div class="flex items-center gap-2.5">
+          <Icon name="lucide:globe" class="h-8 w-8 text-brass-500" />
+          <div>
+            <p class="font-display text-lg font-semibold text-white">TriasiaGlobal</p>
+            <p class="text-xs text-white/50">Language Specialists</p>
+          </div>
+        </div>
+        <p class="mt-5 text-sm leading-relaxed">
+          India's leading translation service provider specializing in Korean and Chinese languages with support for
+          120+ languages worldwide.
+        </p>
+      </div>
+
+      {/* Services */}
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-white">Our Services</h4>
+        <ul class="mt-5 space-y-2.5 text-sm">
+          {
+            serviceCategories.map((category) => (
+              <li>
+                <a href={`/services/${category.slug}/`} class="transition-colors hover:text-brass-300">
+                  {category.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      {/* Languages */}
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-white">Specialty Languages</h4>
+        <ul class="mt-5 space-y-2.5 text-sm">
+          {
+            languages.map((language) => (
+              <li>
+                {services.map((service, index) => (
+                  <>
+                    {index > 0 && <span class="mx-1.5 text-white/30">·</span>}
+                    <a href={`/${language.slug}/${service.slug}/`} class="transition-colors hover:text-brass-300">
+                      {index === 0 ? `${language.name} ${service.label}` : service.label}
+                    </a>
+                  </>
+                ))}
+              </li>
+            ))
+          }
+          <li>
+            <a href="/locations/" class="transition-colors hover:text-brass-300">Browse by City</a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Contact */}
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-white">Contact Information</h4>
+        <ul class="mt-5 space-y-3.5 text-sm">
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:phone" class="mt-0.5 h-4 w-4 shrink-0 text-brass-500" />
+            <a href={`tel:${business.phone}`} class="transition-colors hover:text-brass-300">{business.phone}</a>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:mail" class="mt-0.5 h-4 w-4 shrink-0 text-brass-500" />
+            <a href={`mailto:${business.email}`} class="transition-colors hover:text-brass-300">{business.email}</a>
+          </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-brass-500" />
+            <span>
+              {business.address.streetAddress}
+              <br />
+              {business.address.addressLocality}, India - {business.address.postalCode}
+            </span>
+          </li>
+        </ul>
+        <a href={`mailto:${business.email}`} class="btn-brass mt-6 w-full">Get Instant Quote</a>
+      </div>
+    </div>
+
+    {/* Cities We Serve — deliberate internal-link mesh for SEO/crawl discovery */}
+    <div class="mt-12 border-t border-white/10 pt-8">
+      <h4 class="text-sm font-semibold uppercase tracking-wider text-white">
+        <a href="/locations/" class="transition-colors hover:text-brass-300">Cities We Serve</a>
+      </h4>
+      <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        {
+          cities.map((city) => (
+            <a href={`/locations/${city.slug}/`} class="transition-colors hover:text-brass-300">
+              {city.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Bottom bar */}
+    <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-8 text-xs text-white/50 md:flex-row">
+      <span>© {year} TriasiaGlobal. All rights reserved.</span>
+      <span class="flex items-center gap-1.5">
+        Made with <Icon name="lucide:heart" class="h-3.5 w-3.5 text-brass-500" /> in India
+      </span>
+    </div>
+  </div>
+</footer>

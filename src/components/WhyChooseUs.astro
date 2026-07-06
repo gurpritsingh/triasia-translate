@@ -1,0 +1,78 @@
+---
+import { Icon } from "astro-icon/components";
+
+const achievements = [
+  { number: "15+", label: "Years Experience" },
+  { number: "500+", label: "Happy Clients" },
+  { number: "10K+", label: "Documents Translated" },
+  { number: "120+", label: "Languages Supported" },
+  { number: "100%", label: "Client Satisfaction" },
+  { number: "24/7", label: "Customer Support" },
+];
+
+const features = [
+  {
+    icon: "lucide:shield",
+    title: "100% Accuracy Guarantee",
+    description: "Our certified translators ensure every document maintains its original meaning with cultural sensitivity.",
+  },
+  {
+    icon: "lucide:clock",
+    title: "Fast Turnaround",
+    description: "Express delivery options available. Most documents completed within 24-48 hours.",
+  },
+  {
+    icon: "lucide:users",
+    title: "Native Linguists",
+    description: "Team of native Korean and Chinese speakers with subject matter expertise.",
+  },
+  {
+    icon: "lucide:globe",
+    title: "Cultural Authenticity",
+    description: "Deep understanding of cultural nuances ensures authentic and appropriate translations.",
+  },
+  {
+    icon: "lucide:zap",
+    title: "24/7 Support",
+    description: "Round-the-clock customer support for urgent translation requirements.",
+  },
+];
+---
+
+<section id="why-us" class="bg-surface-1 py-20 lg:py-24">
+  <div class="container-site">
+    <div class="mx-auto mb-14 max-w-3xl text-center">
+      <p class="eyebrow">Why Choose Us</p>
+      <h2 class="mt-3 text-3xl lg:text-4xl">Why Choose TriasiaGlobal?</h2>
+      <p class="mt-4 text-lg text-ink-600">
+        India's most trusted translation service provider with a proven track record of excellence in Translation and
+        Interpretation.
+      </p>
+    </div>
+
+    <div class="mb-14 grid grid-cols-2 overflow-hidden rounded-xl border border-line bg-white md:grid-cols-3 lg:grid-cols-6">
+      {
+        achievements.map((achievement) => (
+          <div class="border-b border-r border-line p-6 text-center last:border-r-0 md:border-b-0 [&:nth-child(2n)]:border-r-0 md:[&:nth-child(2n)]:border-r md:[&:nth-child(3n)]:border-r-0 lg:[&:nth-child(3n)]:border-r lg:last:border-r-0">
+            <div class="font-display text-3xl font-semibold text-navy-800">{achievement.number}</div>
+            <div class="mt-1 text-sm font-medium text-ink-600">{achievement.label}</div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        features.map((feature) => (
+          <div class="card card-hover p-6">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-100">
+              <Icon name={feature.icon} class="h-5 w-5 text-navy-800" />
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-ink-900">{feature.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{feature.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

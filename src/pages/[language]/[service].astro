@@ -1,0 +1,34 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServiceHero from "@/components/ServiceHero.astro";
+import ServicesGrid from "@/components/ServicesGrid.astro";
+import { hubPairs } from "@/content/routes";
+import { resolveContent } from "@/content/resolveContent";
+import { buildServiceSeo } from "@/content/seo";
+
+export function getStaticPaths() {
+  return hubPairs().map(({ language, service }) => ({
+    params: { language: language.slug, service: service.slug },
+    props: { language, service },
+  }));
+}
+
+const { language, service } = Astro.props;
+
+const content = resolveContent({ language, service });
+const seo = buildServiceSeo({
+  language,
+  service,
+  content,
+  path: `/${language.slug}/${service.slug}/`,
+});
+---
+
+<BaseLayout {...seo}>
+  <ServiceHero
+    heading={content.heading}
+    subHeading={content.subHeading}
+    crumbs={[{ label: "Home", href: "/" }, { label: `${language.name} ${service.label}` }]}
+  />
+  <ServicesGrid headingLevel="h2" />
+</BaseLayout>

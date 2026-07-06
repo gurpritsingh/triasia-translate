@@ -9,11 +9,10 @@ lerna-debug.log*
 
 node_modules
 dist
-dist-ssr
 *.local
 
-# Regenerated on every build by scripts/generateSeoArtifacts.ts
-public/sitemap.xml
+# Astro generated types
+.astro/
 
 # Editor directories and files
 .vscode/*

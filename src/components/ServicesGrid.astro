@@ -1,0 +1,49 @@
+---
+import { Icon } from "astro-icon/components";
+import { business } from "@/content/business";
+import { serviceCategories } from "@/content/serviceCategories";
+
+interface Props {
+  heading?: string;
+  subHeading?: string;
+  headingLevel?: "h1" | "h2";
+}
+
+const {
+  heading = "Professional Document Translation Services",
+  subHeading = "With expertise in over 120 languages, TriAsia Global offers high-quality translations for:",
+  headingLevel = "h2",
+} = Astro.props;
+
+const Heading = headingLevel;
+---
+
+<section id="services" class="bg-surface-1 py-20 lg:py-24">
+  <div class="container-site">
+    <div class="mx-auto mb-14 max-w-3xl text-center">
+      <p class="eyebrow">Our Services</p>
+      <Heading class="mt-3 text-3xl lg:text-4xl">{heading}</Heading>
+      <p class="mt-4 text-lg text-ink-600">{subHeading}</p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        serviceCategories.map((category) => (
+          <a href={`/services/${category.slug}/`} class="card card-hover group block p-6">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-100">
+              <Icon name={category.icon} class="h-5 w-5 text-navy-800" />
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-ink-900 transition-colors group-hover:text-navy-800">
+              {category.title}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{category.cardDescription}</p>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 text-center">
+      <a href={`mailto:${business.email}`} class="btn-primary px-8 py-3.5 text-base">Get Free Quote</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+---
+import { Icon } from "astro-icon/components";
+import { business } from "@/content/business";
+
+interface Props {
+  heading: string;
+  subHeading: string;
+  crumbs?: Array<{ label: string; href?: string }>;
+}
+
+const { heading, subHeading, crumbs = [] } = Astro.props;
+---
+
+<section class="border-b border-line bg-surface-0 py-16 lg:py-20">
+  <div class="container-site max-w-4xl">
+    {
+      crumbs.length > 0 && (
+        <nav aria-label="Breadcrumb" class="eyebrow mb-4">
+          {crumbs.map((crumb, index) => (
+            <>
+              {index > 0 && <span class="mx-2 text-line">/</span>}
+              {crumb.href ? (
+                <a href={crumb.href} class="transition-colors hover:text-navy-800">
+                  {crumb.label}
+                </a>
+              ) : (
+                <span>{crumb.label}</span>
+              )}
+            </>
+          ))}
+        </nav>
+      )
+    }
+
+    <h1 class="text-3xl lg:text-4xl">{heading}</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-600">{subHeading}</p>
+
+    <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+      <a href={`mailto:${business.email}`} class="btn-primary">Get Free Quote</a>
+      <a href={`tel:${business.phone}`} class="btn-secondary">
+        <Icon name="lucide:phone" class="h-4 w-4" />
+        {business.phone}
+      </a>
+    </div>
+  </div>
+</section>
