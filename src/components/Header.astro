@@ -66,18 +66,20 @@ import { cities } from "@/content/cities";
         <div
           class="invisible absolute left-1/2 top-full w-[26rem] -translate-x-1/2 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
         >
-          <div class="card grid grid-cols-2 gap-x-6 gap-y-3 p-6 shadow-lift">
-            {
-              cities.map((city) => (
-                <a href={`/locations/${city.slug}/`} class="text-sm text-ink-900 hover:text-navy-800 hover:underline">
-                  {city.name}
-                  <span class="text-ink-600"> · {city.state}</span>
-                </a>
-              ))
-            }
+          <div class="card overflow-hidden p-0 shadow-lift">
+            <div class="grid max-h-[60vh] grid-cols-2 gap-x-6 gap-y-3 overflow-y-auto p-6">
+              {
+                cities.map((city) => (
+                  <a href={`/locations/${city.slug}/`} class="text-sm text-ink-900 hover:text-navy-800 hover:underline">
+                    {city.name}
+                    <span class="text-ink-600"> · {city.state}</span>
+                  </a>
+                ))
+              }
+            </div>
             <a
               href="/locations/"
-              class="col-span-2 mt-1 border-t border-line pt-3 text-sm font-medium text-navy-800 hover:underline"
+              class="block border-t border-line px-6 py-3 text-sm font-medium text-navy-800 hover:underline"
             >
               View all cities
             </a>
