@@ -28,27 +28,29 @@ import { cities } from "@/content/cities";
         <div
           class="invisible absolute left-1/2 top-full w-[26rem] -translate-x-1/2 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
         >
-          <div class="card grid grid-cols-2 gap-x-6 gap-y-4 p-6 shadow-lift">
-            {
-              languages.map((language) => (
-                <div>
-                  <p class="text-sm font-semibold text-ink-900">
-                    {language.name}
-                    {language.nativeName && <span class="ml-1.5 text-xs font-normal text-ink-600">{language.nativeName}</span>}
-                  </p>
-                  <p class="mt-0.5 text-sm">
-                    {services.map((service, index) => (
-                      <>
-                        {index > 0 && <span class="mx-1.5 text-line">·</span>}
-                        <a href={`/${language.slug}/${service.slug}/`} class="text-navy-800 hover:underline">
-                          {service.label}
-                        </a>
-                      </>
-                    ))}
-                  </p>
-                </div>
-              ))
-            }
+          <div class="card max-h-[60vh] overflow-y-auto p-0 shadow-lift">
+            <div class="grid grid-cols-2 gap-x-6 gap-y-4 p-6">
+              {
+                languages.map((language) => (
+                  <div>
+                    <p class="text-sm font-semibold text-ink-900">
+                      {language.name}
+                      {language.nativeName && <span class="ml-1.5 text-xs font-normal text-ink-600">{language.nativeName}</span>}
+                    </p>
+                    <p class="mt-0.5 text-sm">
+                      {services.map((service, index) => (
+                        <>
+                          {index > 0 && <span class="mx-1.5 text-line">·</span>}
+                          <a href={`/${language.slug}/${service.slug}/`} class="text-navy-800 hover:underline">
+                            {service.label}
+                          </a>
+                        </>
+                      ))}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
           </div>
         </div>
       </div>
