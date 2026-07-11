@@ -12,7 +12,7 @@ const year = new Date().getFullYear();
 
 <footer class="bg-navy-950 text-white/70">
   <div class="container-site py-16">
-    <div class="grid gap-10 lg:grid-cols-4">
+    <div class="grid gap-10 lg:grid-cols-3">
       {/* Company */}
       <div>
         <Brand variant="dark" />
@@ -38,30 +38,6 @@ const year = new Date().getFullYear();
         </ul>
       </div>
 
-      {/* Languages */}
-      <div>
-        <h4 class="text-sm font-semibold uppercase tracking-wider text-white">Specialty Languages</h4>
-        <ul class="mt-5 space-y-2.5 text-sm">
-          {
-            languages.map((language) => (
-              <li>
-                {services.map((service, index) => (
-                  <>
-                    {index > 0 && <span class="mx-1.5 text-white/30">·</span>}
-                    <a href={`/${language.slug}/${service.slug}/`} class="transition-colors hover:text-brass-300">
-                      {index === 0 ? `${language.name} ${service.label}` : service.label}
-                    </a>
-                  </>
-                ))}
-              </li>
-            ))
-          }
-          <li>
-            <a href="/locations/" class="transition-colors hover:text-brass-300">Browse by City</a>
-          </li>
-        </ul>
-      </div>
-
       {/* Contact */}
       <div>
         <h4 class="text-sm font-semibold uppercase tracking-wider text-white">Contact Information</h4>
@@ -84,6 +60,28 @@ const year = new Date().getFullYear();
           </li>
         </ul>
         <a href={`mailto:${business.email}`} class="btn-brass mt-6 w-full">Get Instant Quote</a>
+      </div>
+    </div>
+
+    {/* Specialty Languages — deliberate internal-link mesh for SEO/crawl discovery */}
+    <div class="mt-12 border-t border-white/10 pt-8">
+      <h4 class="text-sm font-semibold uppercase tracking-wider text-white">Specialty Languages</h4>
+      <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        {
+          languages.map((language) => (
+            <span class="whitespace-nowrap">
+              {language.name}{" "}
+              {services.map((service, index) => (
+                <>
+                  {index > 0 && <span class="mx-1 text-white/30">·</span>}
+                  <a href={`/${language.slug}/${service.slug}/`} class="transition-colors hover:text-brass-300">
+                    {service.label}
+                  </a>
+                </>
+              ))}
+            </span>
+          ))
+        }
       </div>
     </div>
 
