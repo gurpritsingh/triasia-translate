@@ -10,7 +10,7 @@ import { services } from "@/content/services";
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-navy-950 text-white/70">
+<footer class="border-t border-brass-500/40 bg-navy-950 text-white/70">
   <div class="container-site py-16">
     <div class="grid gap-10 lg:grid-cols-3">
       {/* Company */}
@@ -24,7 +24,7 @@ const year = new Date().getFullYear();
 
       {/* Services */}
       <div>
-        <h4 class="text-sm font-semibold uppercase tracking-wider text-white">Our Services</h4>
+        <h4 class="font-brand text-sm font-semibold uppercase tracking-wider text-white">Our Services</h4>
         <ul class="mt-5 space-y-2.5 text-sm">
           {
             serviceCategories.map((category) => (
@@ -40,7 +40,7 @@ const year = new Date().getFullYear();
 
       {/* Contact */}
       <div>
-        <h4 class="text-sm font-semibold uppercase tracking-wider text-white">Contact Information</h4>
+        <h4 class="font-brand text-sm font-semibold uppercase tracking-wider text-white">Contact Information</h4>
         <ul class="mt-5 space-y-3.5 text-sm">
           <li class="flex items-start gap-2.5">
             <Icon name="lucide:phone" class="mt-0.5 h-4 w-4 shrink-0 text-brass-500" />
@@ -65,7 +65,7 @@ const year = new Date().getFullYear();
 
     {/* Specialty Languages — deliberate internal-link mesh for SEO/crawl discovery */}
     <div class="mt-12 border-t border-white/10 pt-8">
-      <h4 class="text-sm font-semibold uppercase tracking-wider text-white">Specialty Languages</h4>
+      <h4 class="font-brand text-sm font-semibold uppercase tracking-wider text-white">Specialty Languages</h4>
       <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
         {
           languages.map((language) => (
@@ -87,7 +87,7 @@ const year = new Date().getFullYear();
 
     {/* Cities We Serve — deliberate internal-link mesh for SEO/crawl discovery */}
     <div class="mt-12 border-t border-white/10 pt-8">
-      <h4 class="text-sm font-semibold uppercase tracking-wider text-white">
+      <h4 class="font-brand text-sm font-semibold uppercase tracking-wider text-white">
         <a href="/locations/" class="transition-colors hover:text-brass-300">Cities We Serve</a>
       </h4>
       <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
@@ -103,9 +103,9 @@ const year = new Date().getFullYear();
 
     {/* Certification trust line */}
     <div class="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/10 pt-8 text-sm">
-      <span class="flex items-center gap-2">
-        <Icon name="lucide:award" class="h-4 w-4 text-brass-500" />
-        ISO 9001:2015 &amp; ISO 17100:2025 Certified by {business.certifyingBody}
+      <span class="chip-stamp border-brass-500/50 text-white/85">
+        <Icon name="lucide:award" class="h-4 w-4 text-brass-300" />
+        ISO 9001:2015 &amp; ISO 17100:2015 Certified by {business.certifyingBody}
       </span>
     </div>
 

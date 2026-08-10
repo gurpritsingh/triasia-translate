@@ -1,0 +1,55 @@
+---
+// Signature visual element: an ink-stamp / certification seal, standing in
+// for the generic hero stock photo and icon-tile pattern used elsewhere.
+// Directly motivated by the business — sworn/certified translations that are
+// physically stamped and accepted by governments & embassies — rather than a
+// decorative flourish. Ring copy repeats via textPath around an internal
+// (nearly-closed) circle path.
+interface Props {
+  id?: string;
+  size?: number;
+  ringText?: string;
+  centerTop?: string;
+  centerBottom?: string;
+  tone?: "seal" | "brass";
+  animate?: boolean;
+  class?: string;
+}
+
+const {
+  id = "seal",
+  size = 132,
+  ringText = "CERTIFIED TRUE TRANSLATION  •  GOVT. & EMBASSY ACCEPTED  •",
+  centerTop = "TRIASIA",
+  centerBottom = "GLOBAL",
+  tone = "seal",
+  animate = true,
+  class: className = "",
+}: Props = Astro.props;
+
+const pathId = `${id}-ring`;
+const ink = tone === "seal" ? "var(--color-seal-600)" : "var(--color-brass-700)";
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 140 140"
+  aria-hidden="true"
+  class:list={["-rotate-[8deg]", animate && "animate-stamp", className]}
+>
+  <path id={pathId} d="M70,14 a56,56 0 1,1 -0.1,0" fill="none" />
+
+  <circle cx="70" cy="70" r="64" fill="none" stroke={ink} stroke-width="1.5" stroke-dasharray="1 5" stroke-linecap="round" />
+  <circle cx="70" cy="70" r="44" fill="none" stroke={ink} stroke-width="1.25" />
+
+  <text font-family="var(--font-brand)" font-size="7.6" font-weight="600" letter-spacing="1.5" fill={ink}>
+    <textPath href={`#${pathId}`} startOffset="2%">{ringText}</textPath>
+  </text>
+
+  <g font-family="var(--font-display)" text-anchor="middle" fill={ink}>
+    <text x="70" y="63" font-size="15" font-weight="600" letter-spacing="0.5">{centerTop}</text>
+    <text x="70" y="79" font-size="15" font-weight="600" letter-spacing="0.5">{centerBottom}</text>
+  </g>
+  <line x1="50" y1="70" x2="90" y2="70" stroke={ink} stroke-width="1" opacity="0.5" />
+</svg>
