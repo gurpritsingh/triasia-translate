@@ -13,7 +13,7 @@ const seo = buildStaticSeo({
 ---
 
 <BaseLayout {...seo}>
-  <section class="py-20 lg:py-24">
+  <section class="hero-light py-20 lg:py-24">
     <div class="container-site">
       <div class="mx-auto mb-14 max-w-3xl text-center">
         <p class="eyebrow">Locations</p>
@@ -28,8 +28,8 @@ const seo = buildStaticSeo({
           cities.map((city) => (
             <a href={`/locations/${city.slug}/`} class="card card-hover group block p-6">
               <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-100">
-                  <Icon name="lucide:map-pin" class="h-5 w-5 text-navy-800" />
+                <div class="icon-badge">
+                  <Icon name="lucide:map-pin" class="h-5 w-5" />
                 </div>
                 <div>
                   <h2 class="font-display text-xl font-semibold text-ink-900 transition-colors group-hover:text-navy-800">

@@ -13,9 +13,7 @@ const stats = [
 ];
 ---
 
-<section
-  class="bg-navy-950 text-white [background-image:radial-gradient(ellipse_at_top_right,rgb(200_162_75/0.08),transparent_55%)]"
->
+<section class="mesh-navy text-white">
   <div class="container-site grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-24">
     <div>
       <p class="eyebrow flex items-center gap-2 text-brass-300">
@@ -68,14 +66,16 @@ const stats = [
     </div>
 
     <div class="relative hidden lg:block">
+      <div class="pointer-events-none absolute -right-8 -top-8 h-64 w-64 rounded-full bg-brass-500/20 blur-3xl" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -bottom-10 -left-10 h-56 w-56 rounded-full bg-navy-700/40 blur-3xl" aria-hidden="true"></div>
       <Image
         src={heroImage}
         alt="Professional translation services"
-        class="w-full rounded-2xl object-cover ring-1 ring-white/15"
+        class="relative z-10 w-full rounded-2xl object-cover shadow-2xl ring-1 ring-white/15"
         widths={[600, 900]}
         sizes="(min-width: 1024px) 550px, 100vw"
       />
-      <div class="card absolute -bottom-4 -right-4 flex items-center gap-2 px-4 py-3">
+      <div class="card absolute -bottom-4 -right-4 z-20 flex items-center gap-2 px-4 py-3">
         <Icon name="lucide:star" class="h-5 w-5 text-brass-700" />
         <span class="text-sm font-semibold text-ink-900">24/7 Support</span>
       </div>

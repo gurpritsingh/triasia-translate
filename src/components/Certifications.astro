@@ -18,8 +18,8 @@ import { business } from "@/content/business";
       {
         business.certifications.map((cert) => (
           <div class="card card-hover p-6">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-100">
-              <Icon name={cert.icon} class="h-5 w-5 text-navy-800" />
+            <div class="icon-badge">
+              <Icon name={cert.icon} class="h-5 w-5" />
             </div>
             <p class="mt-4 text-xs font-semibold uppercase tracking-wider text-brass-700">{cert.standard}</p>
             <h3 class="mt-1 text-lg font-semibold text-ink-900">{cert.name}</h3>

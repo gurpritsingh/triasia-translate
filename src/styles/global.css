@@ -32,10 +32,11 @@
   --font-tag: "Manrope Variable", sans-serif;
 
   /* Depth */
-  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.05);
-  --shadow-lift: 0 8px 24px -8px rgb(16 24 40 / 0.12);
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 1px rgb(16 24 40 / 0.03);
+  --shadow-lift: 0 20px 40px -16px rgb(16 24 40 / 0.18), 0 8px 16px -12px rgb(16 24 40 / 0.1);
+  --shadow-glow-brass: 0 8px 20px -6px rgb(200 162 75 / 0.35);
 
-  --radius-card: 0.75rem;
+  --radius-card: 1rem;
 }
 
 @layer base {
@@ -53,6 +54,13 @@
     font-weight: 600;
     letter-spacing: -0.015em;
     line-height: 1.15;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-brass-500);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
   }
 }
 
@@ -78,12 +86,13 @@
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
   }
 
   .card-hover:hover {
     box-shadow: var(--shadow-lift);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--color-brass-500) 55%, var(--color-line));
   }
 
   .btn-primary {
@@ -93,14 +102,17 @@
     gap: 0.5rem;
     background-color: var(--color-navy-800);
     color: #fff;
-    border-radius: 0.5rem;
+    border-radius: 0.65rem;
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;
-    transition: background-color 0.15s ease;
+    box-shadow: 0 1px 2px rgb(16 24 40 / 0.06);
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
   .btn-primary:hover {
     background-color: var(--color-navy-700);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-1px);
   }
 
   .btn-secondary {
@@ -111,14 +123,16 @@
     border: 1px solid var(--color-line);
     background-color: var(--color-surface-0);
     color: var(--color-ink-900);
-    border-radius: 0.5rem;
+    border-radius: 0.65rem;
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;
-    transition: border-color 0.15s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
   .btn-secondary:hover {
     border-color: var(--color-navy-800);
+    box-shadow: var(--shadow-card);
+    transform: translateY(-1px);
   }
 
   /* Brass primary for dark (navy) sections */
@@ -129,13 +143,68 @@
     gap: 0.5rem;
     background-color: var(--color-brass-500);
     color: var(--color-navy-950);
-    border-radius: 0.5rem;
+    border-radius: 0.65rem;
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 600;
-    transition: background-color 0.15s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
   .btn-brass:hover {
     background-color: var(--color-brass-300);
+    box-shadow: var(--shadow-glow-brass);
+    transform: translateY(-1px);
+  }
+
+  /* Gradient icon tile used across service/feature/language cards */
+  .icon-badge {
+    display: flex;
+    height: 2.75rem;
+    width: 2.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.875rem;
+    background-image: linear-gradient(135deg, var(--color-navy-800), var(--color-navy-700));
+    box-shadow: 0 6px 14px -6px rgb(18 50 107 / 0.45);
+  }
+  .icon-badge svg {
+    color: #fff;
+  }
+
+  /* Rounded pill chip for language/tag lists */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    border: 1px solid var(--color-line);
+    background-color: var(--color-surface-1);
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+    color: var(--color-ink-600);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .chip:hover {
+    border-color: var(--color-brass-500);
+    color: var(--color-ink-900);
+  }
+
+  /* Deep navy mesh: subtle grid + glow, used behind dark hero/CTA panels */
+  .mesh-navy {
+    background-color: var(--color-navy-950);
+    background-image:
+      radial-gradient(ellipse 60% 55% at 100% 0%, rgb(200 162 75 / 0.16), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 0% 100%, rgb(26 67 144 / 0.4), transparent 60%),
+      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size:
+      auto,
+      auto,
+      42px 42px,
+      42px 42px;
+  }
+
+  /* Faint warm glow for light-background hero/intro bands */
+  .hero-light {
+    background-image: radial-gradient(ellipse 55% 60% at 100% 0%, rgb(200 162 75 / 0.09), transparent 60%);
   }
 }

@@ -50,10 +50,10 @@ const features = [
       </p>
     </div>
 
-    <div class="mb-14 grid grid-cols-2 overflow-hidden rounded-xl border border-line bg-white md:grid-cols-3 lg:grid-cols-6">
+    <div class="card mb-14 grid grid-cols-2 overflow-hidden p-0! md:grid-cols-3 lg:grid-cols-6">
       {
         achievements.map((achievement) => (
-          <div class="border-b border-r border-line p-6 text-center last:border-r-0 md:border-b-0 [&:nth-child(2n)]:border-r-0 md:[&:nth-child(2n)]:border-r md:[&:nth-child(3n)]:border-r-0 lg:[&:nth-child(3n)]:border-r lg:last:border-r-0">
+          <div class="border-b border-r border-line p-6 text-center transition-colors last:border-r-0 hover:bg-surface-1 md:border-b-0 [&:nth-child(2n)]:border-r-0 md:[&:nth-child(2n)]:border-r md:[&:nth-child(3n)]:border-r-0 lg:[&:nth-child(3n)]:border-r lg:last:border-r-0">
             <div class="font-display text-3xl font-semibold text-navy-800">{achievement.number}</div>
             <div class="mt-1 text-sm font-medium text-ink-600">{achievement.label}</div>
           </div>
@@ -65,8 +65,8 @@ const features = [
       {
         features.map((feature) => (
           <div class="card card-hover p-6">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-100">
-              <Icon name={feature.icon} class="h-5 w-5 text-navy-800" />
+            <div class="icon-badge">
+              <Icon name={feature.icon} class="h-5 w-5" />
             </div>
             <h3 class="mt-4 text-lg font-semibold text-ink-900">{feature.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{feature.description}</p>

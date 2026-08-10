@@ -30,8 +30,8 @@ const Heading = headingLevel;
       {
         serviceCategories.map((category) => (
           <a href={`/services/${category.slug}/`} class="card card-hover group block p-6">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-100">
-              <Icon name={category.icon} class="h-5 w-5 text-navy-800" />
+            <div class="icon-badge">
+              <Icon name={category.icon} class="h-5 w-5" />
             </div>
             <h3 class="mt-4 text-lg font-semibold text-ink-900 transition-colors group-hover:text-navy-800">
               {category.title}
