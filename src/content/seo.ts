@@ -56,12 +56,28 @@ export function buildServiceSeo({
       telephone: business.phone,
       email: business.email,
       address: { "@type": "PostalAddress", ...business.address },
+      hasCredential: business.certifications.map((cert) => ({
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "certification",
+        name: `${cert.standard} — ${cert.name}`,
+        recognizedBy: { "@type": "Organization", name: business.certifyingBody },
+      })),
     },
   };
 
   return { title, description, canonicalPath: withTrailingSlash(path), jsonLd };
 }
 
-export function buildStaticSeo({ title, description, path }: { title: string; description: string; path: string }): SeoData {
-  return { title, description, canonicalPath: withTrailingSlash(path) };
+export function buildStaticSeo({
+  title,
+  description,
+  path,
+  jsonLd,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  jsonLd?: Record<string, unknown>;
+}): SeoData {
+  return { title, description, canonicalPath: withTrailingSlash(path), jsonLd };
 }
