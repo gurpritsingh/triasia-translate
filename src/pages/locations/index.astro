@@ -28,8 +28,8 @@ const seo = buildStaticSeo({
           cities.map((city) => (
             <a href={`/locations/${city.slug}/`} class="card card-hover group block p-6">
               <div class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-navy-100">
-                  <Icon name="lucide:map-pin" class="h-5 w-5 text-navy-800" />
+                <div class="icon-ring h-11 w-11 border-navy-800/20 text-navy-800">
+                  <Icon name="lucide:map-pin" class="h-5 w-5" />
                 </div>
                 <div>
                   <h2 class="font-display text-xl font-semibold text-ink-900 transition-colors group-hover:text-navy-800">

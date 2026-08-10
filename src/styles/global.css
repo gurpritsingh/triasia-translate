@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette — deep navy + warm brass on warm-white neutrals */
+  /* Palette — deep navy + warm brass on warm paper neutrals, with a cinnabar
+     "ink stamp" accent that nods to the certification seals (Korean 도장,
+     Chinese 印章, notarial stamps) this business actually produces. */
   --color-navy-950: #081226;
   --color-navy-900: #0b1b3a;
   --color-navy-800: #12326b;
@@ -10,11 +12,14 @@
   --color-brass-700: #8a6a2c;
   --color-brass-500: #c8a24b;
   --color-brass-300: #e2cd96;
-  --color-ink-900: #171c26;
-  --color-ink-600: #5b6472;
-  --color-surface-0: #ffffff;
-  --color-surface-1: #f7f8fa;
-  --color-line: #e5e8ee;
+  --color-seal-600: #a6371f;
+  --color-seal-700: #832c19;
+  --color-seal-100: #f3e2da;
+  --color-ink-900: #1c1a15;
+  --color-ink-600: #625c4d;
+  --color-surface-0: #fbf9f4;
+  --color-surface-1: #f2ede0;
+  --color-line: #e2dbc8;
   --color-success-600: #1b7f4d;
 
   /* Fixed brand-mark colors from the logo handoff — kept separate from the
@@ -32,10 +37,10 @@
   --font-tag: "Manrope Variable", sans-serif;
 
   /* Depth */
-  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.05);
-  --shadow-lift: 0 8px 24px -8px rgb(16 24 40 / 0.12);
+  --shadow-card: 0 1px 2px rgb(28 26 21 / 0.05);
+  --shadow-lift: 0 10px 28px -10px rgb(28 26 21 / 0.16);
 
-  --radius-card: 0.75rem;
+  --radius-card: 0.625rem;
 }
 
 @layer base {
@@ -54,6 +59,11 @@
     letter-spacing: -0.015em;
     line-height: 1.15;
   }
+
+  ::selection {
+    background-color: var(--color-brass-300);
+    color: var(--color-navy-950);
+  }
 }
 
 @layer components {
@@ -64,8 +74,11 @@
   }
 
   /* Default (light-bg) color meets WCAG AA text contrast; on dark/navy sections
-     override with text-brass-300, which is legible against navy-950. */
+     override with text-brass-300, which is legible against navy-950. Set in
+     Space Grotesk rather than the body face so section/nav labels read as
+     stamped, deliberate markers rather than generic uppercase body text. */
   .eyebrow {
+    font-family: var(--font-brand);
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.14em;
@@ -74,16 +87,37 @@
   }
 
   .card {
+    position: relative;
+    overflow: hidden;
     background-color: var(--color-surface-0);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .card-hover:hover {
+  /* Hover reads as a seal-ink bar drawing across the top edge, not a generic
+     shadow-lift — keeps the certification/stamp motif consistent on every
+     interactive card across the site. */
+  .card-hover::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-seal-600), var(--color-brass-500));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .card-hover:hover,
+  .card-hover:focus-within {
+    border-color: var(--color-brass-500);
     box-shadow: var(--shadow-lift);
-    transform: translateY(-2px);
+  }
+  .card-hover:hover::before,
+  .card-hover:focus-within::before {
+    transform: scaleX(1);
   }
 
   .btn-primary {
@@ -93,7 +127,7 @@
     gap: 0.5rem;
     background-color: var(--color-navy-800);
     color: #fff;
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -111,7 +145,7 @@
     border: 1px solid var(--color-line);
     background-color: var(--color-surface-0);
     color: var(--color-ink-900);
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -129,7 +163,7 @@
     gap: 0.5rem;
     background-color: var(--color-brass-500);
     color: var(--color-navy-950);
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
     font-weight: 600;
@@ -137,5 +171,55 @@
   }
   .btn-brass:hover {
     background-color: var(--color-brass-300);
+  }
+
+  /* Passport/visa-stamp chip — used by TrustBar for the certification badges */
+  .chip-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px dashed currentColor;
+    border-radius: 9999px;
+    padding: 0.35rem 0.85rem;
+    opacity: 0.92;
+  }
+
+  /* Circular ink-ring icon badge — replaces filled rounded-square icon tiles
+     everywhere, echoing the seal motif instead of a generic SaaS icon chip. */
+  .icon-ring {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border-width: 1.5px;
+    border-style: solid;
+    flex-shrink: 0;
+  }
+}
+
+@layer utilities {
+  @keyframes stamp-in {
+    0% {
+      transform: scale(1.35) rotate(-16deg);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(0.95) rotate(-6deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) rotate(-8deg);
+      opacity: 1;
+    }
+  }
+
+  .animate-stamp {
+    animation: stamp-in 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-stamp {
+      animation: none;
+    }
   }
 }
