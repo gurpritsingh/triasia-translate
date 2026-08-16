@@ -1,7 +1,18 @@
 import type { City } from "./cities";
 import type { Language } from "./languages";
 import type { ServiceMeta } from "./services";
-import { defaultCityContent, type PageContent } from "./pageTemplates";
+import { buildEnrichedContent, buildLocalRelevance, buildPageFacts, defaultCityContent, type PageContent } from "./pageTemplates";
+import { selectFaqs } from "./faqSelection";
+
+// Pilot for the content-differentiation fix: only these city/language pairs get the new
+// facts-driven content (richer heading/subheading where no override/template exists, plus
+// the LocalRelevance + FAQ blocks). Remove this gate when rolling out to every city/language.
+const PILOT_CITIES = new Set(["pune", "surat"]);
+const PILOT_LANGUAGES = new Set(["korean", "punjabi"]);
+
+function isPilotCombo(city: City | undefined, language: Language): boolean {
+  return Boolean(city) && PILOT_CITIES.has(city!.slug) && PILOT_LANGUAGES.has(language.slug);
+}
 
 type CityTemplateFn = (ctx: { city: City; language: Language; service: ServiceMeta }) => PageContent;
 
@@ -66,10 +77,20 @@ export function resolveContent({
   }
 
   const override = overridesRegistry[`${city.slug}/${language.slug}/${service.slug}`];
-  if (override) return override;
-
   const template = cityTemplatesRegistry[language.slug]?.[service.slug];
-  if (template) return template({ city, language, service });
+  const pilot = isPilotCombo(city, language);
 
-  return defaultCityContent({ city, language, service });
+  const base: PageContent =
+    override ??
+    (template ? template({ city, language, service }) : undefined) ??
+    (pilot ? buildEnrichedContent({ city, language, service }) : defaultCityContent({ city, language, service }));
+
+  if (!pilot) return base;
+
+  const facts = buildPageFacts({ city, language, service });
+  return {
+    ...base,
+    localRelevance: base.localRelevance ?? buildLocalRelevance({ city, language, service, facts }),
+    faqs: base.faqs ?? selectFaqs({ city, language, service, docCategories: facts.docCategories }),
+  };
 }

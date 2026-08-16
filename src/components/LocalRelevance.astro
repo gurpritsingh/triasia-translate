@@ -1,0 +1,25 @@
+---
+interface Props {
+  heading: string;
+  intro: string;
+  points: string[];
+  headingLevel?: "h2" | "h3";
+}
+
+const { heading, intro, points, headingLevel = "h2" } = Astro.props;
+const Heading = headingLevel;
+---
+
+<section class="bg-surface-1 py-16 lg:py-20">
+  <div class="container-site max-w-4xl">
+    <Heading class="text-2xl lg:text-3xl">{heading}</Heading>
+    <p class="mt-4 max-w-3xl text-lg leading-relaxed text-ink-600">{intro}</p>
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+      {
+        points.map((point) => (
+          <li class="card p-5 text-sm leading-relaxed text-ink-700">{point}</li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

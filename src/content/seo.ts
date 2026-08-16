@@ -44,8 +44,7 @@ export function buildServiceSeo({
     ? { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: city.state } }
     : { "@type": "Country", name: "India" };
 
-  const jsonLd = {
-    "@context": "https://schema.org",
+  const serviceLd = {
     "@type": "Service",
     name: content.heading,
     description,
@@ -64,6 +63,23 @@ export function buildServiceSeo({
       })),
     },
   };
+
+  const jsonLd = content.faqs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@graph": [
+          serviceLd,
+          {
+            "@type": "FAQPage",
+            mainEntity: content.faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: { "@type": "Answer", text: faq.answer },
+            })),
+          },
+        ],
+      }
+    : { "@context": "https://schema.org", ...serviceLd };
 
   return { title, description, canonicalPath: withTrailingSlash(path), jsonLd };
 }

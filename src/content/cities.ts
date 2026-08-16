@@ -6,11 +6,31 @@ export interface City {
   region?: string;
   /** Optional allow-list of language slugs offered in this city. Omit to offer every language. */
   languages?: string[];
+  /** Real, verifiable local industries — used only to explain which documents this
+   *  city's businesses and residents typically need translated. Omit rather than guess. */
+  industries?: string[];
+  /** Named localities/business districts — only added when independently verifiable. */
+  notableAreas?: string[];
+  /** Subset of serviceCategories.ts slugs this city's economy disproportionately needs. */
+  documentFocus?: string[];
+  /** One factual clause about the city's economy, used as translation-need context (never
+   *  rendered as standalone city trivia). */
+  economicNote?: string;
 }
 
 const maharashtraCities: City[] = [
   { slug: "mumbai", name: "Mumbai", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India" },
-  { slug: "pune", name: "Pune", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India" },
+  {
+    slug: "pune",
+    name: "Pune",
+    state: "Maharashtra",
+    stateSlug: "maharashtra",
+    region: "Western India",
+    industries: ["information technology and software services", "automotive and auto-component manufacturing", "higher education"],
+    notableAreas: ["Hinjewadi", "Kharadi", "Baner"],
+    documentFocus: ["technical-manuals", "business-documents", "educational-certificates"],
+    economicNote: "a major IT and automotive manufacturing hub, and one of India's largest student cities",
+  },
   { slug: "nagpur", name: "Nagpur", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India" },
   { slug: "nashik", name: "Nashik", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India" },
 ];
@@ -43,7 +63,17 @@ const telanganaCities: City[] = [
 
 const gujaratCities: City[] = [
   { slug: "ahmedabad", name: "Ahmedabad", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
-  { slug: "surat", name: "Surat", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
+  {
+    slug: "surat",
+    name: "Surat",
+    state: "Gujarat",
+    stateSlug: "gujarat",
+    region: "Western India",
+    industries: ["diamond cutting and polishing", "textile and synthetic fabric manufacturing", "trade and exports"],
+    notableAreas: ["Ring Road", "Varachha"],
+    documentFocus: ["business-documents", "personal-documents"],
+    economicNote: "a global center of diamond processing and textile manufacturing, with a large trading and NRI community",
+  },
   { slug: "vadodara", name: "Vadodara", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
   { slug: "rajkot", name: "Rajkot", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
   { slug: "gandhinagar", name: "Gandhinagar", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },

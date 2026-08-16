@@ -2,13 +2,36 @@ export interface Language {
   slug: string;
   name: string;
   nativeName?: string;
+  /** Real, common reason this language needs translation/interpretation in India — keeps
+   *  generated copy anchored on the service, never generic language trivia. */
+  useCases?: string[];
+  /** Subset of serviceCategories.ts slugs this language's use-cases disproportionately need. */
+  documentFocus?: string[];
 }
 
 export const languages: Language[] = [
   { slug: "hindi", name: "Hindi", nativeName: "हिन्दी" },
-  { slug: "punjabi", name: "Punjabi", nativeName: "ਪੰਜਾਬੀ" },
+  {
+    slug: "punjabi",
+    name: "Punjabi",
+    nativeName: "ਪੰਜਾਬੀ",
+    useCases: [
+      "immigration and study-visa paperwork for the Punjabi diaspora in Canada, the UK, and Australia",
+      "agricultural trade and business documentation",
+    ],
+    documentFocus: ["personal-documents", "business-documents"],
+  },
   { slug: "kannad", name: "Kannada", nativeName: "ಕನ್ನಡ" },
-  { slug: "korean", name: "Korean", nativeName: "한국어" },
+  {
+    slug: "korean",
+    name: "Korean",
+    nativeName: "한국어",
+    useCases: [
+      "Korean manufacturing and automotive joint ventures with India",
+      "HR and relocation paperwork for Korean companies operating in India",
+    ],
+    documentFocus: ["technical-manuals", "business-documents"],
+  },
   { slug: "chinese", name: "Chinese", nativeName: "中文" },
   { slug: "japanese", name: "Japanese", nativeName: "日本語" },
   { slug: "french", name: "French", nativeName: "Français" },

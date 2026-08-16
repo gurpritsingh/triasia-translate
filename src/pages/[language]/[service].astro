@@ -2,6 +2,8 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ServiceHero from "@/components/ServiceHero.astro";
 import ServicesGrid from "@/components/ServicesGrid.astro";
+import LocalRelevance from "@/components/LocalRelevance.astro";
+import ServiceFaq from "@/components/ServiceFaq.astro";
 import { hubPairs } from "@/content/routes";
 import { resolveContent } from "@/content/resolveContent";
 import { buildServiceSeo } from "@/content/seo";
@@ -30,5 +32,16 @@ const seo = buildServiceSeo({
     subHeading={content.subHeading}
     crumbs={[{ label: "Home", href: "/" }, { label: `${language.name} ${service.label}` }]}
   />
+  {
+    content.localRelevance && (
+      <LocalRelevance
+        headingLevel="h2"
+        heading={`Why ${language.name} ${service.noun} matters`}
+        intro={content.localRelevance.intro}
+        points={content.localRelevance.points}
+      />
+    )
+  }
   <ServicesGrid headingLevel="h2" />
+  {content.faqs && content.faqs.length > 0 && <ServiceFaq headingLevel="h2" faqs={content.faqs} />}
 </BaseLayout>
