@@ -19,7 +19,7 @@ export const business = {
       icon: "lucide:badge-check",
     },
     {
-      standard: "ISO 17100:2025",
+      standard: "ISO 17100:2015",
       name: "Translation Services",
       description:
         "The international standard specific to translation providers, covering translator qualifications, project management, and quality control.",

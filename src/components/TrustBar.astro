@@ -13,23 +13,27 @@ const badges = [
   { icon: "lucide:landmark", label: "Govt. & Embassy Accepted" },
   { icon: "lucide:lock", label: "100% Confidential" },
   { icon: "lucide:clock", label: "24–48 Hr Turnaround" },
-  { icon: "lucide:award", label: "ISO 9001:2015 & 17100:2025 Certified" },
+  { icon: "lucide:award", label: "ISO 9001:2015 & 17100:2015 Certified" },
 ];
 ---
 
 <ul
   class:list={[
-    "grid grid-cols-2 gap-x-4 gap-y-3 sm:flex sm:flex-wrap",
-    compact ? "sm:gap-x-6" : "sm:gap-x-8",
-    variant === "dark" ? "text-white/85" : "text-ink-600",
+    "flex flex-wrap gap-2",
+    compact ? "gap-x-2.5" : "gap-x-3",
   ]}
 >
   {
     badges.map((badge) => (
-      <li class="flex items-center gap-2 text-xs font-medium sm:text-sm">
+      <li
+        class:list={[
+          "chip-stamp text-xs font-medium",
+          variant === "dark" ? "border-white/25 text-white/85" : "border-navy-800/25 text-ink-600",
+        ]}
+      >
         <Icon
           name={badge.icon}
-          class:list={["h-4 w-4 shrink-0", variant === "dark" ? "text-brass-300" : "text-navy-800"]}
+          class:list={["h-3.5 w-3.5 shrink-0", variant === "dark" ? "text-brass-300" : "text-seal-600"]}
         />
         <span>{badge.label}</span>
       </li>
