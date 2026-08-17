@@ -13,7 +13,8 @@ interface Ctx {
 // (src/content/cities.ts), but this template only weaves it in for the pilot cities until
 // Phase 5 deliberately rolls deep content out everywhere with its own observation window.
 // Remove this gate at that point — buildPageFacts already degrades gracefully either way.
-const FACTS_ENABLED_CITIES = new Set(["pune", "surat"]);
+// Kept in sync with resolveContent.ts's PILOT_CITIES (Phase 3 widened this to 6 cities).
+const FACTS_ENABLED_CITIES = new Set(["pune", "surat", "bangalore", "ludhiana", "kochi", "coimbatore"]);
 
 // Weaves in real per-city facts (via buildPageFacts) for the pilot cities — for every other
 // city, industryClause stays empty and the copy is byte-identical to before Phase 1.

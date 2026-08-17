@@ -15,9 +15,13 @@ import { buildPageSections } from "./sections";
 
 // Pilot for the content-differentiation fix: only these city/language pairs get the new
 // facts-driven content (richer heading/subheading where no override/template exists, plus
-// the LocalRelevance + FAQ blocks). Remove this gate when rolling out to every city/language.
-const PILOT_CITIES = new Set(["pune", "surat"]);
-const PILOT_LANGUAGES = new Set(["korean", "punjabi"]);
+// the full section engine). Remove this gate when rolling out to every city/language.
+// Phase 3 widened this from {pune,surat}x{korean,punjabi} to a 6x6 grid chosen to exercise
+// all three pair archetypes: state-native (bangalore+kannad, ludhiana+punjabi,
+// coimbatore+tamil), foreign-corridor (any city x korean/german/arabic), and interstate
+// (everything else) — Phase 2's narrower cohort never hit state-native at all.
+const PILOT_CITIES = new Set(["pune", "surat", "bangalore", "ludhiana", "kochi", "coimbatore"]);
+const PILOT_LANGUAGES = new Set(["korean", "punjabi", "kannad", "tamil", "german", "arabic"]);
 
 function isPilotCombo(city: City | undefined, language: Language): boolean {
   return Boolean(city) && PILOT_CITIES.has(city!.slug) && PILOT_LANGUAGES.has(language.slug);

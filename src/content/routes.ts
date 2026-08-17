@@ -20,9 +20,10 @@ export interface LanguageService {
 
 // Pilot for the new "translation" (paperwork/government/real-estate) service — only these
 // city/language pairs get it while the offering is being validated. Same cohort as the
-// content-differentiation pilot. Remove this gate when rolling out to every city/language.
-const TRANSLATION_PILOT_CITIES = new Set(["pune", "surat"]);
-const TRANSLATION_PILOT_LANGUAGES = new Set(["korean", "punjabi"]);
+// content-differentiation pilot in resolveContent.ts. Remove this gate when rolling out to
+// every city/language.
+const TRANSLATION_PILOT_CITIES = new Set(["pune", "surat", "bangalore", "ludhiana", "kochi", "coimbatore"]);
+const TRANSLATION_PILOT_LANGUAGES = new Set(["korean", "punjabi", "kannad", "tamil", "german", "arabic"]);
 
 // Filters the global service list down to what should actually exist for a given
 // language (and, for city pages, a given city) — used by both route generation below
