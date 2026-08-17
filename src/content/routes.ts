@@ -5,6 +5,7 @@ import { cities, type City } from "./cities";
 import { languages, type Language } from "./languages";
 import { services, type ServiceMeta } from "./services";
 import { serviceCategories } from "./serviceCategories";
+import "./integrity";
 
 export interface CityLanguageService {
   city: City;
