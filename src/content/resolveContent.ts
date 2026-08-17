@@ -13,18 +13,15 @@ import {
 import { selectFaqs } from "./faqSelection";
 import { buildPageSections } from "./sections";
 
-// Pilot for the content-differentiation fix: only these city/language pairs get the new
-// facts-driven content (richer heading/subheading where no override/template exists, plus
-// the full section engine). Remove this gate when rolling out to every city/language.
-// Phase 3 widened this from {pune,surat}x{korean,punjabi} to a 6x6 grid chosen to exercise
-// all three pair archetypes: state-native (bangalore+kannad, ludhiana+punjabi,
-// coimbatore+tamil), foreign-corridor (any city x korean/german/arabic), and interstate
-// (everything else) — Phase 2's narrower cohort never hit state-native at all.
-const PILOT_CITIES = new Set(["pune", "surat", "bangalore", "ludhiana", "kochi", "coimbatore"]);
-const PILOT_LANGUAGES = new Set(["korean", "punjabi", "kannad", "tamil", "german", "arabic"]);
-
-function isPilotCombo(city: City | undefined, language: Language): boolean {
-  return Boolean(city) && PILOT_CITIES.has(city!.slug) && PILOT_LANGUAGES.has(language.slug);
+// Phase 5: the content-differentiation fix now applies to every city page (translator and
+// interpreter — the "translation" service stays separately gated in routes.ts, Phase 6's
+// concern). Phases 0-3 validated this in stages: a 2x2 pilot, then a 108-page stratified
+// cohort covering all three pair archetypes (state-native, foreign-corridor, interstate)
+// with zero unexpected regressions. Every city and language now has complete, validated data
+// (src/content/cities.ts, languages.ts, states.ts all pass their required-field validators),
+// so there is no thin-data case left for this gate to protect against.
+function isPilotCombo(city: City | undefined, _language: Language): boolean {
+  return Boolean(city);
 }
 
 type CityTemplateFn = (ctx: { city: City; language: Language; service: ServiceMeta }) => PageContent;
