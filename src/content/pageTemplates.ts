@@ -124,6 +124,49 @@ export function buildEnrichedContent(ctx: { city: City; language: Language; serv
   };
 }
 
+// Fixed category pair for the "translation" service — deliberately NOT derived from
+// city/language documentFocus (unlike buildPageFacts' general docCategories), so Translation
+// pages stay topically disjoint from Translator pages for the same city/language: paperwork,
+// government forms, and real estate documents, never the legal/business/technical/personal
+// categories Translator already covers.
+const TRANSLATION_CATEGORY_SLUGS = ["real-estate-documents", "government-paperwork"];
+
+/** Facts for the "translation" service — same city/language grounding as buildPageFacts
+ *  (industry, useCase, economicNote, notableAreas), but docCategories is always the fixed
+ *  real-estate/government-paperwork pair, never the general intersection. Exported so
+ *  resolveContent.ts's FAQ selection uses the same categories as the content itself. */
+export function buildTranslationFacts(ctx: { city?: City; language: Language; service: ServiceMeta }): Facts {
+  const facts = buildPageFacts(ctx);
+  const docCategories = TRANSLATION_CATEGORY_SLUGS.map((slug) => serviceCategoriesBySlug[slug]).filter(
+    (category): category is ServiceCategory => Boolean(category)
+  );
+  return { ...facts, docCategories };
+}
+
+/** Richer heading/subheading for the "translation" service — the official
+ *  paperwork/government/real-estate document vertical, distinct from Translator's broader
+ *  document-type coverage. Still weaves in real per-city facts, but the subject stays
+ *  paperwork/government/real-estate throughout. */
+export function buildTranslationContent(ctx: { city?: City; language: Language; service: ServiceMeta }): PageContent {
+  const { city, language, service } = ctx;
+  const facts = buildTranslationFacts(ctx);
+  const docTitles = facts.docCategories.map((category) => category.title.toLowerCase());
+  const industryClause = facts.industry && city ? `, given ${city.name}'s ${facts.industry} sector` : "";
+
+  if (!city) {
+    return {
+      heading: `${language.name} ${service.label} Services in India`,
+      subHeading: `Triasia Global provides certified ${language.name} ${service.noun} across India, covering ${joinWithAnd(docTitles)} — accepted by government offices, sub-registrar, and land records authorities nationwide.`,
+    };
+  }
+
+  return {
+    heading: `${language.name} ${service.label} in ${city.name} for ${facts.docCategories[0]?.title ?? service.noun}`,
+    subHeading: `Triasia Global provides certified ${language.name} ${service.noun} in ${city.name}, ${city.state}${industryClause}, covering ${joinWithAnd(docTitles)} — accepted by government offices, sub-registrar, and land records authorities. Our government-authorized ${language.name} linguists deliver accurate, certified paperwork translation with fast turnaround.`,
+    localRelevance: buildLocalRelevance({ city, language, service, facts }),
+  };
+}
+
 // Distinct sentence structures, not just a single template with names swapped in,
 // so pages for the same language across different cities read as genuinely different copy.
 const cityVariants: Array<(ctx: TemplateCtx) => PageContent> = [

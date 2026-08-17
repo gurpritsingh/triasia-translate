@@ -17,15 +17,32 @@ export interface LanguageService {
   service: ServiceMeta;
 }
 
+// Pilot for the new "translation" (paperwork/government/real-estate) service — only these
+// city/language pairs get it while the offering is being validated. Same cohort as the
+// content-differentiation pilot. Remove this gate when rolling out to every city/language.
+const TRANSLATION_PILOT_CITIES = new Set(["pune", "surat"]);
+const TRANSLATION_PILOT_LANGUAGES = new Set(["korean", "punjabi"]);
+
+// Filters the global service list down to what should actually exist for a given
+// language (and, for city pages, a given city) — used by both route generation below
+// and by Header/Footer nav, so a service is never linked to without a page to land on.
+export function servicesForLanguage(language: Language, city?: City): ServiceMeta[] {
+  return services.filter((service) => {
+    if (service.slug !== "translation") return true;
+    if (!TRANSLATION_PILOT_LANGUAGES.has(language.slug)) return false;
+    return !city || TRANSLATION_PILOT_CITIES.has(city.slug);
+  });
+}
+
 export function hubPairs(): LanguageService[] {
-  return languages.flatMap((language) => services.map((service) => ({ language, service })));
+  return languages.flatMap((language) => servicesForLanguage(language).map((service) => ({ language, service })));
 }
 
 export function cityLanguagePairs(): CityLanguageService[] {
   return cities.flatMap((city) =>
     languages
       .filter((language) => !city.languages || city.languages.includes(language.slug))
-      .flatMap((language) => services.map((service) => ({ city, language, service })))
+      .flatMap((language) => servicesForLanguage(language, city).map((service) => ({ city, language, service })))
   );
 }
 

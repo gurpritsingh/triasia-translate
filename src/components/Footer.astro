@@ -5,7 +5,7 @@ import { business } from "@/content/business";
 import { languages } from "@/content/languages";
 import { cities } from "@/content/cities";
 import { serviceCategories } from "@/content/serviceCategories";
-import { services } from "@/content/services";
+import { servicesForLanguage } from "@/content/routes";
 
 const year = new Date().getFullYear();
 ---
@@ -71,7 +71,7 @@ const year = new Date().getFullYear();
           languages.map((language) => (
             <span class="whitespace-nowrap">
               {language.name}{" "}
-              {services.map((service, index) => (
+              {servicesForLanguage(language).map((service, index) => (
                 <>
                   {index > 0 && <span class="mx-1 text-white/30">·</span>}
                   <a href={`/${language.slug}/${service.slug}/`} class="transition-colors hover:text-brass-300">

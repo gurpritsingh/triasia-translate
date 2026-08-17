@@ -3,8 +3,8 @@ import { Icon } from "astro-icon/components";
 import Brand from "@/components/Brand.astro";
 import { business } from "@/content/business";
 import { languages } from "@/content/languages";
-import { services } from "@/content/services";
 import { cities } from "@/content/cities";
+import { servicesForLanguage } from "@/content/routes";
 ---
 
 <header class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
@@ -38,7 +38,7 @@ import { cities } from "@/content/cities";
                       {language.nativeName && <span class="ml-1.5 text-xs font-normal text-ink-600">{language.nativeName}</span>}
                     </p>
                     <p class="mt-0.5 text-sm">
-                      {services.map((service, index) => (
+                      {servicesForLanguage(language).map((service, index) => (
                         <>
                           {index > 0 && <span class="mx-1.5 text-line">·</span>}
                           <a href={`/${language.slug}/${service.slug}/`} class="text-navy-800 hover:underline">
@@ -134,7 +134,7 @@ import { cities } from "@/content/cities";
             <div>
               <p class="text-base font-semibold text-ink-900">{language.name}</p>
               <p class="mt-1 text-base">
-                {services.map((service, index) => (
+                {servicesForLanguage(language).map((service, index) => (
                   <>
                     {index > 0 && <span class="mx-2 text-line">·</span>}
                     <a href={`/${language.slug}/${service.slug}/`} class="text-navy-800" data-menu-link>

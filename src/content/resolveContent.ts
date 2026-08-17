@@ -1,7 +1,15 @@
 import type { City } from "./cities";
 import type { Language } from "./languages";
 import type { ServiceMeta } from "./services";
-import { buildEnrichedContent, buildLocalRelevance, buildPageFacts, defaultCityContent, type PageContent } from "./pageTemplates";
+import {
+  buildEnrichedContent,
+  buildLocalRelevance,
+  buildPageFacts,
+  buildTranslationContent,
+  buildTranslationFacts,
+  defaultCityContent,
+  type PageContent,
+} from "./pageTemplates";
 import { selectFaqs } from "./faqSelection";
 
 // Pilot for the content-differentiation fix: only these city/language pairs get the new
@@ -19,6 +27,7 @@ type CityTemplateFn = (ctx: { city: City; language: Language; service: ServiceMe
 interface CityTemplateModule {
   translator?: CityTemplateFn;
   interpreter?: CityTemplateFn;
+  translation?: CityTemplateFn;
 }
 
 // Auto-discovers content files by folder convention — adding a new override or
@@ -50,10 +59,11 @@ for (const path in cityTemplateModules) {
 const hubModules = {
   ...import.meta.glob("/src/data/*/translator.ts", { eager: true }),
   ...import.meta.glob("/src/data/*/interpreter.ts", { eager: true }),
+  ...import.meta.glob("/src/data/*/translation.ts", { eager: true }),
 } as Record<string, { default: PageContent }>;
 const hubRegistry: Record<string, PageContent> = {};
 for (const path in hubModules) {
-  const match = path.match(/\/src\/data\/([^/]+)\/(translator|interpreter)\.ts$/);
+  const match = path.match(/\/src\/data\/([^/]+)\/(translator|interpreter|translation)\.ts$/);
   if (!match) continue;
   const [, languageDir, serviceSlug] = match;
   hubRegistry[`${languageDir.toLowerCase()}/${serviceSlug}`] = hubModules[path].default;
@@ -72,8 +82,13 @@ export function resolveContent({
   language: Language;
   service: ServiceMeta;
 }): PageContent {
+  const isTranslation = service.slug === "translation";
+
   if (!city) {
-    return hubRegistry[`${language.slug}/${service.slug}`] ?? defaultCityContent({ language, service });
+    return (
+      hubRegistry[`${language.slug}/${service.slug}`] ??
+      (isTranslation ? buildTranslationContent({ language, service }) : defaultCityContent({ language, service }))
+    );
   }
 
   const override = overridesRegistry[`${city.slug}/${language.slug}/${service.slug}`];
@@ -83,11 +98,15 @@ export function resolveContent({
   const base: PageContent =
     override ??
     (template ? template({ city, language, service }) : undefined) ??
-    (pilot ? buildEnrichedContent({ city, language, service }) : defaultCityContent({ city, language, service }));
+    (isTranslation
+      ? buildTranslationContent({ city, language, service })
+      : pilot
+        ? buildEnrichedContent({ city, language, service })
+        : defaultCityContent({ city, language, service }));
 
   if (!pilot) return base;
 
-  const facts = buildPageFacts({ city, language, service });
+  const facts = isTranslation ? buildTranslationFacts({ city, language, service }) : buildPageFacts({ city, language, service });
   return {
     ...base,
     localRelevance: base.localRelevance ?? buildLocalRelevance({ city, language, service, facts }),

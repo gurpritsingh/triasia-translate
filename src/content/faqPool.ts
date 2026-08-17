@@ -15,7 +15,7 @@ export const faqPool: FaqEntry[] = [
     question: "How fast can I get my documents translated?",
     answer:
       "Most certified document translations are delivered within 24-48 hours. Same-day turnaround is available for time-sensitive paperwork such as visa or court submissions.",
-    appliesTo: { service: ["translator"] },
+    appliesTo: { service: ["translator", "translation"] },
   },
   {
     id: "govt-accepted",
@@ -84,7 +84,21 @@ export const faqPool: FaqEntry[] = [
     id: "revisions",
     question: "What if I need changes after delivery?",
     answer: "We offer free revisions if any correction is needed to match your original document's meaning and formatting.",
-    appliesTo: { service: ["translator"] },
+    appliesTo: { service: ["translator", "translation"] },
+  },
+  {
+    id: "real-estate-docs",
+    question: "Can you translate property sale deeds and registration documents?",
+    answer:
+      "Yes, we provide certified translation of sale deeds, property registration paperwork, lease agreements, and mutation records accepted by sub-registrar and land records offices.",
+    appliesTo: { documentCategory: ["real-estate-documents"] },
+  },
+  {
+    id: "government-paperwork",
+    question: "Do you translate government forms and municipal paperwork?",
+    answer:
+      "Yes, we translate government application forms, municipal certificates, and licensing or registration documents, accepted by government offices and departments.",
+    appliesTo: { documentCategory: ["government-paperwork"] },
   },
   {
     id: "translator-vs-interpreter",
