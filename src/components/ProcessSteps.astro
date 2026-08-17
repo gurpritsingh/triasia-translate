@@ -1,0 +1,31 @@
+---
+interface Props {
+  heading: string;
+  steps: Array<{ title: string; description: string }>;
+  headingLevel?: "h2" | "h3";
+}
+
+const { heading, steps, headingLevel = "h2" } = Astro.props;
+const Heading = headingLevel;
+---
+
+<section class="bg-surface-1 py-16 lg:py-20">
+  <div class="container-site max-w-4xl">
+    <Heading class="text-2xl lg:text-3xl">{heading}</Heading>
+    <ol class="mt-8 grid gap-6 sm:grid-cols-2">
+      {
+        steps.map((step, index) => (
+          <li class="card flex gap-4 p-5">
+            <span class="icon-ring h-9 w-9 shrink-0 border-navy-800/20 text-sm font-semibold text-navy-800">
+              {index + 1}
+            </span>
+            <div>
+              <p class="font-semibold text-ink-900">{step.title}</p>
+              <p class="mt-1 text-sm leading-relaxed text-ink-600">{step.description}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

@@ -11,6 +11,7 @@ import {
   type PageContent,
 } from "./pageTemplates";
 import { selectFaqs } from "./faqSelection";
+import { buildPageSections } from "./sections";
 
 // Pilot for the content-differentiation fix: only these city/language pairs get the new
 // facts-driven content (richer heading/subheading where no override/template exists, plus
@@ -107,9 +108,16 @@ export function resolveContent({
   if (!pilot) return base;
 
   const facts = isTranslation ? buildTranslationFacts({ city, language, service }) : buildPageFacts({ city, language, service });
+  const sections = buildPageSections({ city, language, service, facts });
   return {
     ...base,
     localRelevance: base.localRelevance ?? buildLocalRelevance({ city, language, service, facts }),
     faqs: base.faqs ?? selectFaqs({ city, language, service, docCategories: facts.docCategories }),
+    documentsSection: base.documentsSection ?? sections.documentsSection,
+    acceptanceSection: base.acceptanceSection ?? sections.acceptanceSection,
+    processSteps: base.processSteps ?? sections.processSteps,
+    languageNotesSection: base.languageNotesSection ?? sections.languageNotesSection,
+    deliverablesSection: base.deliverablesSection ?? sections.deliverablesSection,
+    relatedLinks: base.relatedLinks ?? sections.relatedLinks,
   };
 }

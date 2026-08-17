@@ -19,7 +19,7 @@ const BANNED: Array<[RegExp, string]> = [
   [/\bour\s+(office|branch|centre|center|team)\s+in\b/i, "false local-presence claim"],
   [/\b\d+\s+\w+\s+(Road|Street|Marg|Nagar|Lane|Avenue)\b/, "street address"],
   [/\b(guarantee[sd]?|100%\s+accura)/i, "absolute quality guarantee"],
-  [/\b(rated|reviews?|stars?)\b/i, "review claim"],
+  [/\b(\d+[\s-]?star|star rating|customer reviews?|client reviews?|highly rated)\b/i, "review claim"],
 ];
 
 export interface ProseViolation {

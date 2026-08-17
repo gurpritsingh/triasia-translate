@@ -13,6 +13,14 @@ export interface PageContent {
   subHeading: string;
   localRelevance?: { intro: string; points: string[] };
   faqs?: FaqItem[];
+  // Phase 2 content-depth sections (src/content/sections.ts) — all optional so existing
+  // overrides/templates and non-pilot pages that never set them are unaffected.
+  documentsSection?: import("./sections").ContentBlock;
+  acceptanceSection?: import("./sections").ContentBlock;
+  processSteps?: import("./sections").ProcessStep[];
+  languageNotesSection?: import("./sections").ContentBlock;
+  deliverablesSection?: import("./sections").ContentBlock;
+  relatedLinks?: import("./sections").RelatedLink[];
 }
 
 interface TemplateCtx {
@@ -79,30 +87,29 @@ export function buildPageFacts(ctx: { city?: City; language: Language; service: 
   };
 }
 
-/** Turns Facts into the LocalRelevance block — always framed as "documents/situations we
- *  handle here", with any industry/economic fact used only as the reason those documents
- *  come up, never as a standalone city profile. */
+/** Turns Facts into the "why it matters" block — the demand story (who needs this and why),
+ *  never a document-type list: that's buildDocumentsSection's job (src/content/sections.ts),
+ *  and repeating it here read as redundant and, on interpreter pages, actively wrong (it said
+ *  "documents we handle" even when the page's own Assignments section correctly said
+ *  "interpreting settings"). Industry/economic facts are used only as the reason demand
+ *  exists, never as a standalone city profile. */
 export function buildLocalRelevance(ctx: { city?: City; language: Language; service: ServiceMeta; facts: Facts }): {
   intro: string;
   points: string[];
 } {
   const { city, language, service, facts } = ctx;
-  const docTitles = facts.docCategories.map((category) => category.title.toLowerCase());
-  const docList = joinWithAnd(docTitles);
-  const industryClause = facts.industry && city ? `, given ${city.name}'s ${facts.industry} sector` : "";
+  const industryPhrase = facts.industry && city ? `${city.name}'s ${facts.industry} sector` : undefined;
 
   const intro = city
-    ? `${language.name} ${service.noun} requests in ${city.name} most often involve ${docList}${industryClause}, driven by ${facts.useCase}.`
-    : `${language.name} ${service.noun} across India most often involves ${docList}, driven by ${facts.useCase}.`;
+    ? `${language.name} ${service.noun} demand in ${city.name} is driven by ${facts.useCase}${industryPhrase ? `, and by ${industryPhrase}` : ""}.`
+    : `${language.name} ${service.noun} demand across India is driven by ${facts.useCase}.`;
 
   const points = [
-    `Documents we handle most: ${docList}`,
-    facts.industry && city
-      ? `Frequently requested by ${city.name}'s ${facts.industry} businesses`
-      : `Common use case: ${facts.useCase}`,
+    industryPhrase ? `Frequently needed by ${industryPhrase} businesses and residents` : `Common use case: ${facts.useCase}`,
     facts.notableAreas && facts.notableAreas.length > 0 && city
       ? `Serving ${language.name} ${service.noun} clients across ${joinWithAnd(facts.notableAreas)} and the wider ${city.name} area`
       : `Government-authorized, certified ${language.name} ${service.noun} with fast turnaround`,
+    "See the document types and assignment settings we handle most below.",
   ];
 
   return { intro, points };
