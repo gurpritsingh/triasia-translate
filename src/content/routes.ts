@@ -18,22 +18,13 @@ export interface LanguageService {
   service: ServiceMeta;
 }
 
-// Pilot for the new "translation" (paperwork/government/real-estate) service — only these
-// city/language pairs get it while the offering is being validated. Same cohort as the
-// content-differentiation pilot in resolveContent.ts. Remove this gate when rolling out to
-// every city/language.
-const TRANSLATION_PILOT_CITIES = new Set(["pune", "surat", "bangalore", "ludhiana", "kochi", "coimbatore"]);
-const TRANSLATION_PILOT_LANGUAGES = new Set(["korean", "punjabi", "kannad", "tamil", "german", "arabic"]);
-
-// Filters the global service list down to what should actually exist for a given
-// language (and, for city pages, a given city) — used by both route generation below
-// and by Header/Footer nav, so a service is never linked to without a page to land on.
-export function servicesForLanguage(language: Language, city?: City): ServiceMeta[] {
-  return services.filter((service) => {
-    if (service.slug !== "translation") return true;
-    if (!TRANSLATION_PILOT_LANGUAGES.has(language.slug)) return false;
-    return !city || TRANSLATION_PILOT_CITIES.has(city.slug);
-  });
+// Phase 6: the "translation" (paperwork/government/real-estate) service now generates for
+// every city/language — the 108-page cohort (6 cities x 6 languages) validated it across all
+// three pair archetypes with zero unexpected regressions. Kept as a function (not an inline
+// `services` reference) so Header/Footer nav and route generation stay driven by one place if
+// a future service ever needs its own gate again.
+export function servicesForLanguage(_language: Language, _city?: City): ServiceMeta[] {
+  return services;
 }
 
 export function hubPairs(): LanguageService[] {
