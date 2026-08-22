@@ -2,6 +2,10 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ServiceHero from "@/components/ServiceHero.astro";
 import ServicesGrid from "@/components/ServicesGrid.astro";
+import LocalRelevance from "@/components/LocalRelevance.astro";
+import ProcessSteps from "@/components/ProcessSteps.astro";
+import RelatedLinks from "@/components/RelatedLinks.astro";
+import ServiceFaq from "@/components/ServiceFaq.astro";
 import { hubPairs } from "@/content/routes";
 import { resolveContent } from "@/content/resolveContent";
 import { buildServiceSeo } from "@/content/seo";
@@ -30,5 +34,46 @@ const seo = buildServiceSeo({
     subHeading={content.subHeading}
     crumbs={[{ label: "Home", href: "/" }, { label: `${language.name} ${service.label}` }]}
   />
+  {
+    content.localRelevance && (
+      <LocalRelevance
+        headingLevel="h2"
+        heading={`Why ${language.name} ${service.noun} matters`}
+        intro={content.localRelevance.intro}
+        points={content.localRelevance.points}
+      />
+    )
+  }
+  {
+    content.documentsSection && (
+      <LocalRelevance headingLevel="h2" variant="surface-0" {...content.documentsSection} />
+    )
+  }
   <ServicesGrid headingLevel="h2" />
+  {
+    content.acceptanceSection && (
+      <LocalRelevance headingLevel="h2" variant="surface-0" {...content.acceptanceSection} />
+    )
+  }
+  {
+    content.processSteps && content.processSteps.length > 0 && (
+      <ProcessSteps headingLevel="h2" heading="How it works" steps={content.processSteps} />
+    )
+  }
+  {
+    content.languageNotesSection && (
+      <LocalRelevance headingLevel="h2" variant="surface-0" {...content.languageNotesSection} />
+    )
+  }
+  {
+    content.deliverablesSection && (
+      <LocalRelevance headingLevel="h2" variant="surface-1" {...content.deliverablesSection} />
+    )
+  }
+  {content.faqs && content.faqs.length > 0 && <ServiceFaq headingLevel="h2" faqs={content.faqs} />}
+  {
+    content.relatedLinks && content.relatedLinks.length > 0 && (
+      <RelatedLinks headingLevel="h2" heading="Related pages" links={content.relatedLinks} />
+    )
+  }
 </BaseLayout>

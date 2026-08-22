@@ -106,6 +106,38 @@ export const serviceCategories: ServiceCategory[] = [
     ],
     icon: "lucide:file-text",
   },
+  {
+    slug: "real-estate-documents",
+    title: "Real Estate Documents",
+    cardDescription: "Sale deeds, property registration, lease agreements, and mutation paperwork.",
+    heading: "Real Estate Document Translation Services",
+    subHeading:
+      "Triasia Global provides certified translation of real estate and property paperwork — sale deeds, registration documents, lease agreements, and mutation records — accepted by sub-registrar and land records offices across India.",
+    details: [
+      "Sale deeds and title documents",
+      "Property registration paperwork",
+      "Lease and rental agreements",
+      "Property mutation records",
+      "NOC and society transfer documents",
+    ],
+    icon: "lucide:key",
+  },
+  {
+    slug: "government-paperwork",
+    title: "Government Paperwork",
+    cardDescription: "Government forms, municipal certificates, and licensing or registration documents.",
+    heading: "Government Paperwork Translation Services",
+    subHeading:
+      "Triasia Global provides certified translation of government and municipal paperwork — application forms, licensing and registration documents, and official certificates — accepted by government offices and departments across India.",
+    details: [
+      "Government application forms",
+      "Municipal and civic certificates",
+      "Licensing and registration documents",
+      "Ration card and utility documents",
+      "Tax and revenue department paperwork",
+    ],
+    icon: "lucide:landmark",
+  },
 ];
 
 export const serviceCategoriesBySlug: Record<string, ServiceCategory> = Object.fromEntries(

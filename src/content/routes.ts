@@ -5,6 +5,7 @@ import { cities, type City } from "./cities";
 import { languages, type Language } from "./languages";
 import { services, type ServiceMeta } from "./services";
 import { serviceCategories } from "./serviceCategories";
+import "./integrity";
 
 export interface CityLanguageService {
   city: City;
@@ -17,15 +18,24 @@ export interface LanguageService {
   service: ServiceMeta;
 }
 
+// Phase 6: the "translation" (paperwork/government/real-estate) service now generates for
+// every city/language — the 108-page cohort (6 cities x 6 languages) validated it across all
+// three pair archetypes with zero unexpected regressions. Kept as a function (not an inline
+// `services` reference) so Header/Footer nav and route generation stay driven by one place if
+// a future service ever needs its own gate again.
+export function servicesForLanguage(_language: Language, _city?: City): ServiceMeta[] {
+  return services;
+}
+
 export function hubPairs(): LanguageService[] {
-  return languages.flatMap((language) => services.map((service) => ({ language, service })));
+  return languages.flatMap((language) => servicesForLanguage(language).map((service) => ({ language, service })));
 }
 
 export function cityLanguagePairs(): CityLanguageService[] {
   return cities.flatMap((city) =>
     languages
       .filter((language) => !city.languages || city.languages.includes(language.slug))
-      .flatMap((language) => services.map((service) => ({ city, language, service })))
+      .flatMap((language) => servicesForLanguage(language, city).map((service) => ({ city, language, service })))
   );
 }
 
