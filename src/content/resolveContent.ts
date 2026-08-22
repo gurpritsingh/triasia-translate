@@ -2,6 +2,7 @@ import type { City } from "./cities";
 import type { Language } from "./languages";
 import type { ServiceMeta } from "./services";
 import { defaultCityContent, type PageContent } from "./pageTemplates";
+import { buildDefaultTranslatorContent } from "./defaultTranslatorContent";
 
 type CityTemplateFn = (ctx: { city: City; language: Language; service: ServiceMeta }) => PageContent;
 
@@ -48,6 +49,12 @@ for (const path in hubModules) {
   hubRegistry[`${languageDir.toLowerCase()}/${serviceSlug}`] = hubModules[path].default;
 }
 
+// Translator pages get the rich, variation-aware generator; every other service
+// (interpreter) keeps the original lightweight default untouched.
+function fallbackContent(ctx: { city?: City; language: Language; service: ServiceMeta }): PageContent {
+  return ctx.service.slug === "translator" ? buildDefaultTranslatorContent(ctx) : defaultCityContent(ctx);
+}
+
 /**
  * Resolution order for city pages: exact override > language-level city template > global default template.
  * National hub pages (no city) use the existing per-language src/data files.
@@ -62,7 +69,7 @@ export function resolveContent({
   service: ServiceMeta;
 }): PageContent {
   if (!city) {
-    return hubRegistry[`${language.slug}/${service.slug}`] ?? defaultCityContent({ language, service });
+    return hubRegistry[`${language.slug}/${service.slug}`] ?? fallbackContent({ language, service });
   }
 
   const override = overridesRegistry[`${city.slug}/${language.slug}/${service.slug}`];
@@ -71,5 +78,5 @@ export function resolveContent({
   const template = cityTemplatesRegistry[language.slug]?.[service.slug];
   if (template) return template({ city, language, service });
 
-  return defaultCityContent({ city, language, service });
+  return fallbackContent({ city, language, service });
 }

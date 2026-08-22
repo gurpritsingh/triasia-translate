@@ -34,9 +34,11 @@ export function buildServiceSeo({
   content: PageContent;
   path: string;
 }): SeoData {
-  const title = city
-    ? `${language.name} ${service.label} in ${city.name} | ${business.name}`
-    : `${language.name} ${service.label} Services in India | ${business.name}`;
+  const title =
+    content.seoTitle ??
+    (city
+      ? `${language.name} ${service.label} in ${city.name} | ${business.name}`
+      : `${language.name} ${service.label} Services in India | ${business.name}`);
 
   const description = truncate(content.subHeading, 160);
 
@@ -44,8 +46,7 @@ export function buildServiceSeo({
     ? { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: city.state } }
     : { "@type": "Country", name: "India" };
 
-  const jsonLd = {
-    "@context": "https://schema.org",
+  const serviceSchema = {
     "@type": "Service",
     name: content.heading,
     description,
@@ -64,6 +65,22 @@ export function buildServiceSeo({
       })),
     },
   };
+
+  const faqSchema =
+    content.faq && content.faq.length > 0
+      ? {
+          "@type": "FAQPage",
+          mainEntity: content.faq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: { "@type": "Answer", text: item.answer },
+          })),
+        }
+      : null;
+
+  const jsonLd = faqSchema
+    ? { "@context": "https://schema.org", "@graph": [serviceSchema, faqSchema] }
+    : { "@context": "https://schema.org", ...serviceSchema };
 
   return { title, description, canonicalPath: withTrailingSlash(path), jsonLd };
 }
