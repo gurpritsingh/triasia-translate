@@ -1,0 +1,79 @@
+---
+import { Icon } from "astro-icon/components";
+import type { ContentSection, FaqItem, LanguagePairsBlock } from "@/content/pageTemplates";
+
+interface Props {
+  sections?: ContentSection[];
+  languagePairs?: LanguagePairsBlock;
+  faq?: FaqItem[];
+}
+
+const { sections = [], languagePairs, faq = [] } = Astro.props;
+---
+
+{
+  sections.length > 0 && (
+    <section class="bg-surface-1 py-16 lg:py-20">
+      <div class="container-site max-w-4xl space-y-12">
+        {sections.map((section) => (
+          <div>
+            <h2 class="text-2xl lg:text-3xl">{section.heading}</h2>
+            {section.body && <p class="mt-3 leading-relaxed text-ink-600">{section.body}</p>}
+            {section.items && section.items.length > 0 && (
+              <div class="mt-6 grid gap-5 sm:grid-cols-2">
+                {section.items.map((item) => (
+                  <div class="card p-5">
+                    <h3 class="text-base font-semibold text-ink-900">{item.heading}</h3>
+                    {item.body && <p class="mt-2 text-sm leading-relaxed text-ink-600">{item.body}</p>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+{
+  languagePairs && languagePairs.pairs.length > 0 && (
+    <section class="bg-surface-0 py-16 lg:py-20">
+      <div class="container-site max-w-4xl">
+        <h2 class="text-2xl lg:text-3xl">{languagePairs.heading}</h2>
+        {languagePairs.intro && <p class="mt-3 max-w-3xl leading-relaxed text-ink-600">{languagePairs.intro}</p>}
+        <div class="mt-6 flex flex-wrap gap-2.5">
+          {languagePairs.pairs.map((pair) => (
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-1 px-4 py-2 text-sm text-ink-700">
+              {pair.from}{" "}<span class="font-semibold text-brass-700">to</span>{" "}{pair.to}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+{
+  faq.length > 0 && (
+    <section class="bg-surface-1 py-16 lg:py-20">
+      <div class="container-site max-w-3xl">
+        <h2 class="text-2xl lg:text-3xl">Frequently Asked Questions</h2>
+        <div class="mt-6 divide-y divide-line border-t border-b border-line">
+          {faq.map((item) => (
+            <details class="group py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-ink-900">
+                {item.question}
+                <Icon
+                  name="lucide:chevron-down"
+                  class="h-4 w-4 shrink-0 text-ink-600 transition-transform group-open:rotate-180"
+                />
+              </summary>
+              <p class="mt-3 leading-relaxed text-ink-600">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

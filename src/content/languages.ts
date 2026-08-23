@@ -2,36 +2,43 @@ export interface Language {
   slug: string;
   name: string;
   nativeName?: string;
+  /**
+   * "regional" = an Indian regional language (can pair with English or any foreign
+   * language). "foreign" = a non-Indian language (pairs only with English). Drives
+   * the language-combination rules in `languagePairs.ts` — see that file for the
+   * full rule set.
+   */
+  type: "regional" | "foreign";
 }
 
 export const languages: Language[] = [
-  { slug: "hindi", name: "Hindi", nativeName: "हिन्दी" },
-  { slug: "punjabi", name: "Punjabi", nativeName: "ਪੰਜਾਬੀ" },
-  { slug: "kannad", name: "Kannada", nativeName: "ಕನ್ನಡ" },
-  { slug: "korean", name: "Korean", nativeName: "한국어" },
-  { slug: "chinese", name: "Chinese", nativeName: "中文" },
-  { slug: "japanese", name: "Japanese", nativeName: "日本語" },
-  { slug: "french", name: "French", nativeName: "Français" },
-  { slug: "german", name: "German", nativeName: "Deutsch" },
-  { slug: "spanish", name: "Spanish", nativeName: "Español" },
-  { slug: "portuguese", name: "Portuguese", nativeName: "Português" },
-  { slug: "bulgarian", name: "Bulgarian", nativeName: "Български" },
-  { slug: "czech", name: "Czech", nativeName: "Čeština" },
-  { slug: "danish", name: "Danish", nativeName: "Dansk" },
-  { slug: "dutch", name: "Dutch", nativeName: "Nederlands" },
-  { slug: "finnish", name: "Finnish", nativeName: "Suomi" },
-  { slug: "hungarian", name: "Hungarian", nativeName: "Magyar" },
-  { slug: "italian", name: "Italian", nativeName: "Italiano" },
-  { slug: "polish", name: "Polish", nativeName: "Polski" },
-  { slug: "telugu", name: "Telugu", nativeName: "తెలుగు" },
-  { slug: "bengali", name: "Bengali", nativeName: "বাংলা" },
-  { slug: "tamil", name: "Tamil", nativeName: "தமிழ்" },
-  { slug: "urdu", name: "Urdu", nativeName: "اردو" },
-  { slug: "arabic", name: "Arabic", nativeName: "العربية" },
-  { slug: "malayalam", name: "Malayalam", nativeName: "മലയാളം" },
-  { slug: "gujarati", name: "Gujarati", nativeName: "ગુજરાતી" },
-  { slug: "mandarin", name: "Mandarin", nativeName: "普通话" },
-  { slug: "cantonese", name: "Cantonese", nativeName: "廣東話" },
+  { slug: "hindi", name: "Hindi", nativeName: "हिन्दी", type: "regional" },
+  { slug: "punjabi", name: "Punjabi", nativeName: "ਪੰਜਾਬੀ", type: "regional" },
+  { slug: "kannad", name: "Kannada", nativeName: "ಕನ್ನಡ", type: "regional" },
+  { slug: "korean", name: "Korean", nativeName: "한국어", type: "foreign" },
+  { slug: "chinese", name: "Chinese", nativeName: "中文", type: "foreign" },
+  { slug: "japanese", name: "Japanese", nativeName: "日本語", type: "foreign" },
+  { slug: "french", name: "French", nativeName: "Français", type: "foreign" },
+  { slug: "german", name: "German", nativeName: "Deutsch", type: "foreign" },
+  { slug: "spanish", name: "Spanish", nativeName: "Español", type: "foreign" },
+  { slug: "portuguese", name: "Portuguese", nativeName: "Português", type: "foreign" },
+  { slug: "bulgarian", name: "Bulgarian", nativeName: "Български", type: "foreign" },
+  { slug: "czech", name: "Czech", nativeName: "Čeština", type: "foreign" },
+  { slug: "danish", name: "Danish", nativeName: "Dansk", type: "foreign" },
+  { slug: "dutch", name: "Dutch", nativeName: "Nederlands", type: "foreign" },
+  { slug: "finnish", name: "Finnish", nativeName: "Suomi", type: "foreign" },
+  { slug: "hungarian", name: "Hungarian", nativeName: "Magyar", type: "foreign" },
+  { slug: "italian", name: "Italian", nativeName: "Italiano", type: "foreign" },
+  { slug: "polish", name: "Polish", nativeName: "Polski", type: "foreign" },
+  { slug: "telugu", name: "Telugu", nativeName: "తెలుగు", type: "regional" },
+  { slug: "bengali", name: "Bengali", nativeName: "বাংলা", type: "regional" },
+  { slug: "tamil", name: "Tamil", nativeName: "தமிழ்", type: "regional" },
+  { slug: "urdu", name: "Urdu", nativeName: "اردو", type: "regional" },
+  { slug: "arabic", name: "Arabic", nativeName: "العربية", type: "foreign" },
+  { slug: "malayalam", name: "Malayalam", nativeName: "മലയാളം", type: "regional" },
+  { slug: "gujarati", name: "Gujarati", nativeName: "ગુજરાતી", type: "regional" },
+  { slug: "mandarin", name: "Mandarin", nativeName: "普通话", type: "foreign" },
+  { slug: "cantonese", name: "Cantonese", nativeName: "廣東話", type: "foreign" },
 ];
 
 export const languagesBySlug: Record<string, Language> = Object.fromEntries(
