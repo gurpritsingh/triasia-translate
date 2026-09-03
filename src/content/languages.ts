@@ -14,7 +14,6 @@ export interface Language {
 export const languages: Language[] = [
   { slug: "hindi", name: "Hindi", nativeName: "हिन्दी", type: "regional" },
   { slug: "punjabi", name: "Punjabi", nativeName: "ਪੰਜਾਬੀ", type: "regional" },
-  { slug: "kannad", name: "Kannada", nativeName: "ಕನ್ನಡ", type: "regional" },
   { slug: "korean", name: "Korean", nativeName: "한국어", type: "foreign" },
   { slug: "chinese", name: "Chinese", nativeName: "中文", type: "foreign" },
   { slug: "japanese", name: "Japanese", nativeName: "日本語", type: "foreign" },
@@ -25,9 +24,6 @@ export const languages: Language[] = [
   { slug: "bulgarian", name: "Bulgarian", nativeName: "Български", type: "foreign" },
   { slug: "czech", name: "Czech", nativeName: "Čeština", type: "foreign" },
   { slug: "danish", name: "Danish", nativeName: "Dansk", type: "foreign" },
-  { slug: "dutch", name: "Dutch", nativeName: "Nederlands", type: "foreign" },
-  { slug: "finnish", name: "Finnish", nativeName: "Suomi", type: "foreign" },
-  { slug: "hungarian", name: "Hungarian", nativeName: "Magyar", type: "foreign" },
   { slug: "italian", name: "Italian", nativeName: "Italiano", type: "foreign" },
   { slug: "polish", name: "Polish", nativeName: "Polski", type: "foreign" },
   { slug: "telugu", name: "Telugu", nativeName: "తెలుగు", type: "regional" },
@@ -35,10 +31,6 @@ export const languages: Language[] = [
   { slug: "tamil", name: "Tamil", nativeName: "தமிழ்", type: "regional" },
   { slug: "urdu", name: "Urdu", nativeName: "اردو", type: "regional" },
   { slug: "arabic", name: "Arabic", nativeName: "العربية", type: "foreign" },
-  { slug: "malayalam", name: "Malayalam", nativeName: "മലയാളം", type: "regional" },
-  { slug: "gujarati", name: "Gujarati", nativeName: "ગુજરાતી", type: "regional" },
-  { slug: "mandarin", name: "Mandarin", nativeName: "普通话", type: "foreign" },
-  { slug: "cantonese", name: "Cantonese", nativeName: "廣東話", type: "foreign" },
 ];
 
 export const languagesBySlug: Record<string, Language> = Object.fromEntries(

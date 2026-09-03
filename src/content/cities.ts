@@ -33,7 +33,6 @@ const tamilNaduCities: City[] = [
 
 const westBengalCities: City[] = [
   { slug: "kolkata", name: "Kolkata", state: "West Bengal", stateSlug: "west-bengal", region: "Eastern India" },
-  { slug: "siliguri", name: "Siliguri", state: "West Bengal", stateSlug: "west-bengal", region: "Eastern India" },
 ];
 
 const telanganaCities: City[] = [
@@ -46,12 +45,10 @@ const gujaratCities: City[] = [
   { slug: "surat", name: "Surat", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
   { slug: "vadodara", name: "Vadodara", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
   { slug: "rajkot", name: "Rajkot", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
-  { slug: "gandhinagar", name: "Gandhinagar", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
 ];
 
 const rajasthanCities: City[] = [
   { slug: "jaipur", name: "Jaipur", state: "Rajasthan", stateSlug: "rajasthan", region: "Northern India" },
-  { slug: "jodhpur", name: "Jodhpur", state: "Rajasthan", stateSlug: "rajasthan", region: "Northern India" },
   { slug: "udaipur", name: "Udaipur", state: "Rajasthan", stateSlug: "rajasthan", region: "Northern India" },
 ];
 
@@ -60,7 +57,6 @@ const uttarPradeshCities: City[] = [
   { slug: "greater-noida", name: "Greater Noida", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
   { slug: "noida", name: "Noida", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
   { slug: "kanpur", name: "Kanpur", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
-  { slug: "varanasi", name: "Varanasi", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
   { slug: "agra", name: "Agra", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
   { slug: "ghaziabad", name: "Ghaziabad", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
 ];
@@ -92,24 +88,12 @@ const andhraPradeshCities: City[] = [
   { slug: "visakhapatnam", name: "Visakhapatnam", state: "Andhra Pradesh", stateSlug: "andhra-pradesh", region: "Southern India" },
 ];
 
-const arunachalPradeshCities: City[] = [
-  { slug: "itanagar", name: "Itanagar", state: "Arunachal Pradesh", stateSlug: "arunachal-pradesh", region: "North Eastern India" },
-];
-
-const assamCities: City[] = [
-  { slug: "guwahati", name: "Guwahati", state: "Assam", stateSlug: "assam", region: "North Eastern India" },
-];
-
 const biharCities: City[] = [
   { slug: "patna", name: "Patna", state: "Bihar", stateSlug: "bihar", region: "Eastern India" },
 ];
 
 const chhattisgarhCities: City[] = [
   { slug: "raipur", name: "Raipur", state: "Chhattisgarh", stateSlug: "chhattisgarh", region: "Central India" },
-];
-
-const goaCities: City[] = [
-  { slug: "panaji", name: "Panaji", state: "Goa", stateSlug: "goa", region: "Western India" },
 ];
 
 const jharkhandCities: City[] = [
@@ -127,32 +111,8 @@ const madhyaPradeshCities: City[] = [
   { slug: "indore", name: "Indore", state: "Madhya Pradesh", stateSlug: "madhya-pradesh", region: "Central India" },
 ];
 
-const manipurCities: City[] = [
-  { slug: "imphal", name: "Imphal", state: "Manipur", stateSlug: "manipur", region: "North Eastern India" },
-];
-
-const meghalayaCities: City[] = [
-  { slug: "shillong", name: "Shillong", state: "Meghalaya", stateSlug: "meghalaya", region: "North Eastern India" },
-];
-
-const mizoramCities: City[] = [
-  { slug: "aizawl", name: "Aizawl", state: "Mizoram", stateSlug: "mizoram", region: "North Eastern India" },
-];
-
-const nagalandCities: City[] = [
-  { slug: "kohima", name: "Kohima", state: "Nagaland", stateSlug: "nagaland", region: "North Eastern India" },
-];
-
 const odishaCities: City[] = [
   { slug: "bhubaneswar", name: "Bhubaneswar", state: "Odisha", stateSlug: "odisha", region: "Eastern India" },
-];
-
-const sikkimCities: City[] = [
-  { slug: "gangtok", name: "Gangtok", state: "Sikkim", stateSlug: "sikkim", region: "North Eastern India" },
-];
-
-const tripuraCities: City[] = [
-  { slug: "agartala", name: "Agartala", state: "Tripura", stateSlug: "tripura", region: "North Eastern India" },
 ];
 
 const uttarakhandCities: City[] = [
@@ -173,18 +133,6 @@ const puducherryCities: City[] = [
   { slug: "puducherry", name: "Puducherry", state: "Puducherry", stateSlug: "puducherry", region: "Southern India" },
 ];
 
-const andamanAndNicobarCities: City[] = [
-  { slug: "port-blair", name: "Port Blair", state: "Andaman and Nicobar Islands", stateSlug: "andaman-and-nicobar-islands", region: "Southern India" },
-];
-
-const lakshadweepCities: City[] = [
-  { slug: "kavaratti", name: "Kavaratti", state: "Lakshadweep", stateSlug: "lakshadweep", region: "Southern India" },
-];
-
-const dadraAndNagarHaveliCities: City[] = [
-  { slug: "daman", name: "Daman", state: "Dadra and Nagar Haveli and Daman and Diu", stateSlug: "dadra-and-nagar-haveli-and-daman-and-diu", region: "Western India" },
-];
-
 export const cities: City[] = [
   ...maharashtraCities,
   ...delhiCities,
@@ -199,28 +147,16 @@ export const cities: City[] = [
   ...himachalPradeshCities,
   ...punjabCities,
   ...andhraPradeshCities,
-  ...arunachalPradeshCities,
-  ...assamCities,
   ...biharCities,
   ...chhattisgarhCities,
-  ...goaCities,
   ...jharkhandCities,
   ...keralaCities,
   ...madhyaPradeshCities,
-  ...manipurCities,
-  ...meghalayaCities,
-  ...mizoramCities,
-  ...nagalandCities,
   ...odishaCities,
-  ...sikkimCities,
-  ...tripuraCities,
   ...uttarakhandCities,
   ...jammuAndKashmirCities,
   ...ladakhCities,
   ...puducherryCities,
-  ...andamanAndNicobarCities,
-  ...lakshadweepCities,
-  ...dadraAndNagarHaveliCities,
 ];
 
 export const citiesBySlug: Record<string, City> = Object.fromEntries(
