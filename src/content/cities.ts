@@ -6,6 +6,14 @@ export interface City {
   region?: string;
   /** Optional allow-list of language slugs offered in this city. Omit to offer every language. */
   languages?: string[];
+  /**
+   * Slug of the city this one is an alias of — same physical place under a
+   * different name (Gurugram/Gurgaon). Alias cities still generate pages so
+   * their URLs keep resolving, but every canonical points at the target and
+   * they are kept out of the sitemap, so Google consolidates the two sets
+   * instead of treating them as duplicates.
+   */
+  aliasOf?: string;
 }
 
 const maharashtraCities: City[] = [
@@ -64,7 +72,7 @@ const uttarPradeshCities: City[] = [
 const haryanaCities: City[] = [
   { slug: "manesar", name: "Manesar", state: "Haryana", stateSlug: "haryana", region: "Northern India" },
   { slug: "gurgaon", name: "Gurgaon", state: "Haryana", stateSlug: "haryana", region: "Northern India" },
-  { slug: "gurugram", name: "Gurugram", state: "Haryana", stateSlug: "haryana", region: "Northern India" },
+  { slug: "gurugram", name: "Gurugram", state: "Haryana", stateSlug: "haryana", region: "Northern India", aliasOf: "gurgaon" },
   { slug: "faridabad", name: "Faridabad", state: "Haryana", stateSlug: "haryana", region: "Northern India" },
   { slug: "panipat", name: "Panipat", state: "Haryana", stateSlug: "haryana", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi", "urdu", "arabic", "french", "german", "spanish", "portuguese", "bulgarian", "italian", "polish"] },
   { slug: "ambala", name: "Ambala", state: "Haryana", stateSlug: "haryana", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi", "urdu", "arabic", "french", "german", "spanish", "portuguese", "bulgarian", "italian", "polish", "czech"] },
@@ -162,6 +170,36 @@ export const cities: City[] = [
 export const citiesBySlug: Record<string, City> = Object.fromEntries(
   cities.map((city) => [city.slug, city])
 );
+
+// An alias whose target is missing — or which offers a language the target
+// doesn't — would emit a canonical pointing at a URL that has no page, which is
+// worse than the duplication it's meant to fix. Fail the build instead.
+for (const city of cities) {
+  if (!city.aliasOf) continue;
+  const target = citiesBySlug[city.aliasOf];
+  if (!target) {
+    throw new Error(`City "${city.slug}" aliases "${city.aliasOf}", which is not a known city`);
+  }
+  if (target.aliasOf) {
+    throw new Error(`City "${city.slug}" aliases "${target.slug}", which is itself an alias`);
+  }
+  const targetLanguages = target.languages;
+  const missing = (city.languages ?? []).filter(
+    (slug) => targetLanguages && !targetLanguages.includes(slug)
+  );
+  if (city.languages && missing.length) {
+    throw new Error(
+      `City "${city.slug}" offers ${missing.join(", ")} but its alias target "${target.slug}" does not — ` +
+        `those pages would canonicalise to a URL that is never generated`
+    );
+  }
+  if (!city.languages && targetLanguages) {
+    throw new Error(
+      `City "${city.slug}" offers every language but its alias target "${target.slug}" is restricted — ` +
+        `some pages would canonicalise to a URL that is never generated`
+    );
+  }
+}
 
 for (const reserved of ["locations", "services"]) {
   if (citiesBySlug[reserved]) {

@@ -22,7 +22,9 @@ const seo = buildServiceSeo({
   language,
   service,
   content,
-  path: `/${city.slug}/${language.slug}/${service.slug}/`,
+  // Alias cities (Gurugram) canonicalise to their target (Gurgaon) so the two
+  // URL sets consolidate instead of competing as duplicates.
+  path: `/${city.aliasOf ?? city.slug}/${language.slug}/${service.slug}/`,
 });
 ---
 

@@ -27,7 +27,7 @@ const seo = buildStaticSeo({
         .map((language) => language.name)
         .join(", ")}.`
     : `Certified translation and interpretation services for ${city.name}, ${city.state}. Contact TriasiaGlobal for government-accepted translators and interpreters.`,
-  path: `/locations/${city.slug}/`,
+  path: `/locations/${city.aliasOf ?? city.slug}/`,
 });
 ---
 

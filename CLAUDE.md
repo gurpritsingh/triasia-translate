@@ -23,6 +23,11 @@ Fixed file-based route table (`src/pages/`) — adding a city/language/category 
 | `404.astro` | `404.html` | GH Pages native 404, `noindex` |
 | `sitemap.xml.ts` | `/sitemap.xml` | static endpoint, NOT @astrojs/sitemap (keeps stable URL); emits `<lastmod>` from `src/content/lastmod.json` |
 
+### Alias cities (`aliasOf`)
+Gurugram and Gurgaon are the same physical place under two names. Rather than delete one set (losing the URLs) or keep both (competing duplicates), `gurugram` carries `aliasOf: "gurgaon"`. Alias cities **still generate every page** so their URLs keep resolving, but each page's `<link rel="canonical">` points at the target's equivalent URL, and the alias is excluded from the sitemap — Google should never be handed a sitemap URL that canonicalises elsewhere.
+
+A build-time guard in `cities.ts` throws if an alias target is missing, is itself an alias, or offers fewer languages than the alias — any of which would emit a canonical pointing at a URL that is never generated, which is worse than the duplication it fixes. Add future rename pairs (Bengaluru/Bangalore, Bombay/Mumbai, Pondicherry/Puducherry) the same way.
+
 ### Sitemap `lastmod` (`src/content/lastmod.json`)
 `<lastmod>` is per-URL and **honest by construction**: a page's date moves only when *that page's own content* changes. Google stops trusting the field for a whole domain once it looks like a blanket "today" stamp, so this is load-bearing, not cosmetic.
 
@@ -30,7 +35,7 @@ Fixed file-based route table (`src/pages/`) — adding a city/language/category 
 
 **`src/content/lastmod.json` must be committed.** Under `CI=true` the script never writes and instead *fails the build* if the manifest is stale — because CI can't commit it back, a stale manifest would re-stamp the same pages with a fresh date on every deploy, which is exactly the pattern that gets `lastmod` ignored. If a deploy fails with "lastmod: ... is stale", run `npm run build` locally and commit the manifest.
 
-Every dynamic page's `getStaticPaths` pulls from **`src/content/routes.ts`** (`hubPairs()`, `cityLanguagePairs()`, `getAllRoutePaths()`), and `sitemap.xml.ts` uses the same `getAllRoutePaths()` — sitemap↔pages parity holds by construction. Unknown slugs simply have no generated page → GH Pages serves `404.html` (there is no runtime slug validation anymore).
+Every dynamic page's `getStaticPaths` pulls from **`src/content/routes.ts`** (`hubPairs()`, `cityLanguagePairs()`), and `sitemap.xml.ts` uses `getAllRoutePaths()`. **The sitemap is the *canonical subset* of the built pages, not the whole set**: `getAllRoutePaths()` filters out alias cities (see below), so `dist` currently has 968 pages while the sitemap lists 929. The invariant is `sitemap ⊆ dist`, and everything in `dist` but not the sitemap must be an alias URL. Unknown slugs simply have no generated page → GH Pages serves `404.html` (there is no runtime slug validation anymore).
 
 **Trailing slashes everywhere**: `trailingSlash: 'always'` + `build.format: 'directory'` in `astro.config.mjs`, because GH Pages 301s directory URLs to the slash form. All internal links, canonicals (`seo.ts` appends it), and sitemap entries use `/path/` form.
 
@@ -55,7 +60,7 @@ Every dynamic page's `getStaticPaths` pulls from **`src/content/routes.ts`** (`h
 - **Service category**: one entry in `serviceCategories.ts` (use a `lucide:*` Iconify name — a typo fails the build, which is good).
 
 ## Verification after changes
-`npm run build` (this also refreshes `src/content/lastmod.json` — commit it), then: `scripts/expected-urls.txt` holds the URL baseline — every path there must exist as `dist/<path>/index.html` and match `dist/sitemap.xml`'s `<loc>` set (update the baseline deliberately when adding content). Spot-check raw dist HTML for unique `<title>`, one `<meta name="description">`, trailing-slash canonical, JSON-LD on service pages, gtag present, exactly one `<h1>`. `puppeteer-core` (devDep) + system Chrome is available for browser checks (`executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`); note plain `--headless --window-size=375,...` screenshots without mobile emulation render misleadingly — use puppeteer's `setViewport({ isMobile: true })`.
+`npm run build` (this also refreshes `src/content/lastmod.json` — commit it), then: `scripts/expected-urls.txt` holds the URL baseline — every path there must exist as `dist/<path>/index.html` (update the baseline deliberately when adding content). `dist/sitemap.xml`'s `<loc>` set must be a **subset** of that baseline, with the difference being exactly the alias-city URLs. Spot-check raw dist HTML for unique `<title>`, one `<meta name="description">`, trailing-slash canonical, JSON-LD on service pages, gtag present, exactly one `<h1>`. `puppeteer-core` (devDep) + system Chrome is available for browser checks (`executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`); note plain `--headless --window-size=375,...` screenshots without mobile emulation render misleadingly — use puppeteer's `setViewport({ isMobile: true })`.
 
 ## History note
 The pre-Astro stack (Vite+React+react-snap+react-helmet-async) had: abandoned react-snap needing system Chrome, a Helmet race corrupting ~20% of prerendered titles (forced `concurrency: 1`), minutes-long builds, and a full React bundle for static content. All gone — don't bring back workarounds referencing it. That stack is preserved as-is on the `oldDesign` branch (renamed from the old `main`) purely as a reference/rollback snapshot — don't merge from it or resurrect its patterns.

@@ -29,15 +29,21 @@ export function cityLanguagePairs(): CityLanguageService[] {
   );
 }
 
+/**
+ * Canonical URLs only — what the sitemap advertises. Alias cities still have
+ * pages built (see cityLanguagePairs), but a sitemap should never list a URL
+ * that canonicalises elsewhere, so they are filtered out here.
+ */
 export function getAllRoutePaths(): string[] {
+  const canonicalCities = cities.filter((city) => !city.aliasOf);
   return [
     "/",
     "/locations/",
-    ...cities.map((city) => `/locations/${city.slug}/`),
+    ...canonicalCities.map((city) => `/locations/${city.slug}/`),
     ...serviceCategories.map((category) => `/services/${category.slug}/`),
     ...hubPairs().map(({ language, service }) => `/${language.slug}/${service.slug}/`),
-    ...cityLanguagePairs().map(
-      ({ city, language, service }) => `/${city.slug}/${language.slug}/${service.slug}/`
-    ),
+    ...cityLanguagePairs()
+      .filter(({ city }) => !city.aliasOf)
+      .map(({ city, language, service }) => `/${city.slug}/${language.slug}/${service.slug}/`),
   ];
 }
