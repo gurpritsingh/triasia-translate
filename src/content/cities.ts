@@ -9,10 +9,10 @@ export interface City {
 }
 
 const maharashtraCities: City[] = [
-  { slug: "mumbai", name: "Mumbai", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India" },
-  { slug: "pune", name: "Pune", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India" },
-  { slug: "nagpur", name: "Nagpur", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India" },
-  { slug: "nashik", name: "Nashik", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India" },
+  { slug: "mumbai", name: "Mumbai", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India", languages: ["korean", "japanese", "chinese", "arabic", "hindi", "german", "polish"] },
+  { slug: "pune", name: "Pune", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India", languages: ["korean", "chinese", "japanese", "tamil", "urdu", "arabic"] },
+  { slug: "nagpur", name: "Nagpur", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India", languages: ["korean", "chinese", "japanese"] },
+  { slug: "nashik", name: "Nashik", state: "Maharashtra", stateSlug: "maharashtra", region: "Western India", languages: ["korean", "chinese", "japanese", "spanish"] },
 ];
 
 const delhiCities: City[] = [
@@ -20,15 +20,15 @@ const delhiCities: City[] = [
 ];
 
 const karnatakaCities: City[] = [
-  { slug: "bangalore", name: "Bangalore", state: "Karnataka", stateSlug: "karnataka", region: "Southern India" },
-  { slug: "mysore", name: "Mysore", state: "Karnataka", stateSlug: "karnataka", region: "Southern India" },
-  { slug: "mangalore", name: "Mangalore", state: "Karnataka", stateSlug: "karnataka", region: "Southern India" },
+  { slug: "bangalore", name: "Bangalore", state: "Karnataka", stateSlug: "karnataka", region: "Southern India", languages: ["chinese", "japanese", "korean", "tamil", "telugu", "german", "arabic"] },
+  { slug: "mysore", name: "Mysore", state: "Karnataka", stateSlug: "karnataka", region: "Southern India", languages: ["korean", "chinese", "japanese"] },
+  { slug: "mangalore", name: "Mangalore", state: "Karnataka", stateSlug: "karnataka", region: "Southern India", languages: ["korean", "chinese", "japanese"] },
 ];
 
 const tamilNaduCities: City[] = [
-  { slug: "chennai", name: "Chennai", state: "Tamil Nadu", stateSlug: "tamil-nadu", region: "Southern India" },
-  { slug: "coimbatore", name: "Coimbatore", state: "Tamil Nadu", stateSlug: "tamil-nadu", region: "Southern India" },
-  { slug: "madurai", name: "Madurai", state: "Tamil Nadu", stateSlug: "tamil-nadu", region: "Southern India" },
+  { slug: "chennai", name: "Chennai", state: "Tamil Nadu", stateSlug: "tamil-nadu", region: "Southern India", languages: ["korean", "chinese", "japanese", "tamil", "hindi"] },
+  { slug: "coimbatore", name: "Coimbatore", state: "Tamil Nadu", stateSlug: "tamil-nadu", region: "Southern India", languages: ["korean", "chinese", "japanese", "tamil", "telugu"] },
+  { slug: "madurai", name: "Madurai", state: "Tamil Nadu", stateSlug: "tamil-nadu", region: "Southern India", languages: ["korean", "chinese", "japanese", "spanish"] },
 ];
 
 const westBengalCities: City[] = [
@@ -36,28 +36,28 @@ const westBengalCities: City[] = [
 ];
 
 const telanganaCities: City[] = [
-  { slug: "hyderabad", name: "Hyderabad", state: "Telangana", stateSlug: "telangana", region: "Southern India" },
-  { slug: "warangal", name: "Warangal", state: "Telangana", stateSlug: "telangana", region: "Southern India" },
+  { slug: "hyderabad", name: "Hyderabad", state: "Telangana", stateSlug: "telangana", region: "Southern India", languages: ["korean", "chinese", "japanese", "german", "spanish"] },
+  { slug: "warangal", name: "Warangal", state: "Telangana", stateSlug: "telangana", region: "Southern India", languages: ["korean", "chinese", "japanese"] },
 ];
 
 const gujaratCities: City[] = [
-  { slug: "ahmedabad", name: "Ahmedabad", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
-  { slug: "surat", name: "Surat", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
-  { slug: "vadodara", name: "Vadodara", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
-  { slug: "rajkot", name: "Rajkot", state: "Gujarat", stateSlug: "gujarat", region: "Western India" },
+  { slug: "ahmedabad", name: "Ahmedabad", state: "Gujarat", stateSlug: "gujarat", region: "Western India", languages: ["korean", "chinese", "japanese"] },
+  { slug: "surat", name: "Surat", state: "Gujarat", stateSlug: "gujarat", region: "Western India", languages: ["korean", "chinese", "japanese"] },
+  { slug: "vadodara", name: "Vadodara", state: "Gujarat", stateSlug: "gujarat", region: "Western India", languages: ["korean", "chinese", "japanese"] },
+  { slug: "rajkot", name: "Rajkot", state: "Gujarat", stateSlug: "gujarat", region: "Western India", languages: ["korean", "chinese", "japanese"] },
 ];
 
 const rajasthanCities: City[] = [
-  { slug: "jaipur", name: "Jaipur", state: "Rajasthan", stateSlug: "rajasthan", region: "Northern India" },
-  { slug: "udaipur", name: "Udaipur", state: "Rajasthan", stateSlug: "rajasthan", region: "Northern India" },
+  { slug: "jaipur", name: "Jaipur", state: "Rajasthan", stateSlug: "rajasthan", region: "Northern India", languages: ["korean", "chinese", "japanese"] },
+  { slug: "udaipur", name: "Udaipur", state: "Rajasthan", stateSlug: "rajasthan", region: "Northern India", languages: ["korean", "chinese", "japanese", "german"] },
 ];
 
 const uttarPradeshCities: City[] = [
-  { slug: "lucknow", name: "Lucknow", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
+  { slug: "lucknow", name: "Lucknow", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi"] },
   { slug: "greater-noida", name: "Greater Noida", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
   { slug: "noida", name: "Noida", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
-  { slug: "kanpur", name: "Kanpur", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
-  { slug: "agra", name: "Agra", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
+  { slug: "kanpur", name: "Kanpur", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India", languages: ["korean", "chinese", "japanese"] },
+  { slug: "agra", name: "Agra", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India", languages: ["korean", "chinese", "japanese"] },
   { slug: "ghaziabad", name: "Ghaziabad", state: "Uttar Pradesh", stateSlug: "uttar-pradesh", region: "Northern India" },
 ];
 
@@ -66,71 +66,71 @@ const haryanaCities: City[] = [
   { slug: "gurgaon", name: "Gurgaon", state: "Haryana", stateSlug: "haryana", region: "Northern India" },
   { slug: "gurugram", name: "Gurugram", state: "Haryana", stateSlug: "haryana", region: "Northern India" },
   { slug: "faridabad", name: "Faridabad", state: "Haryana", stateSlug: "haryana", region: "Northern India" },
-  { slug: "panipat", name: "Panipat", state: "Haryana", stateSlug: "haryana", region: "Northern India" },
-  { slug: "ambala", name: "Ambala", state: "Haryana", stateSlug: "haryana", region: "Northern India" },
+  { slug: "panipat", name: "Panipat", state: "Haryana", stateSlug: "haryana", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi", "urdu", "arabic", "french", "german", "spanish", "portuguese", "bulgarian", "italian", "polish"] },
+  { slug: "ambala", name: "Ambala", state: "Haryana", stateSlug: "haryana", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi", "urdu", "arabic", "french", "german", "spanish", "portuguese", "bulgarian", "italian", "polish", "czech"] },
 ];
 
 const himachalPradeshCities: City[] = [
-  { slug: "baddi", name: "Baddi", state: "Himachal Pradesh", stateSlug: "himachal-pradesh", region: "Northern India" },
-  { slug: "shimla", name: "Shimla", state: "Himachal Pradesh", stateSlug: "himachal-pradesh", region: "Northern India" },
+  { slug: "baddi", name: "Baddi", state: "Himachal Pradesh", stateSlug: "himachal-pradesh", region: "Northern India", languages: ["korean", "chinese", "japanese"] },
+  { slug: "shimla", name: "Shimla", state: "Himachal Pradesh", stateSlug: "himachal-pradesh", region: "Northern India", languages: [] },
 ];
 
 const punjabCities: City[] = [
-  { slug: "ludhiana", name: "Ludhiana", state: "Punjab", stateSlug: "punjab", region: "Northern India" },
-  { slug: "chandigarh", name: "Chandigarh", state: "Punjab", stateSlug: "punjab", region: "Northern India" },
-  { slug: "mohali", name: "Mohali", state: "Punjab", stateSlug: "punjab", region: "Northern India" },
-  { slug: "amritsar", name: "Amritsar", state: "Punjab", stateSlug: "punjab", region: "Northern India" },
-  { slug: "jalandhar", name: "Jalandhar", state: "Punjab", stateSlug: "punjab", region: "Northern India" },
+  { slug: "ludhiana", name: "Ludhiana", state: "Punjab", stateSlug: "punjab", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi", "urdu", "arabic", "french", "german", "spanish", "portuguese", "bulgarian", "italian", "czech", "polish"] },
+  { slug: "chandigarh", name: "Chandigarh", state: "Punjab", stateSlug: "punjab", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi", "urdu", "arabic", "french", "german", "spanish", "portuguese", "bulgarian", "italian", "czech", "polish"] },
+  { slug: "mohali", name: "Mohali", state: "Punjab", stateSlug: "punjab", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi", "urdu", "arabic", "french", "german", "spanish", "portuguese", "bulgarian", "italian", "czech", "polish"] },
+  { slug: "amritsar", name: "Amritsar", state: "Punjab", stateSlug: "punjab", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi", "urdu", "arabic", "french", "german", "spanish", "portuguese", "bulgarian", "italian", "czech", "polish", "danish"] },
+  { slug: "jalandhar", name: "Jalandhar", state: "Punjab", stateSlug: "punjab", region: "Northern India", languages: ["korean", "chinese", "japanese", "hindi", "punjabi", "urdu", "arabic", "french", "german", "spanish", "portuguese", "bulgarian", "italian", "czech", "polish"] },
 ];
 
 const andhraPradeshCities: City[] = [
-  { slug: "vijayawada", name: "Vijayawada", state: "Andhra Pradesh", stateSlug: "andhra-pradesh", region: "Southern India" },
-  { slug: "visakhapatnam", name: "Visakhapatnam", state: "Andhra Pradesh", stateSlug: "andhra-pradesh", region: "Southern India" },
+  { slug: "vijayawada", name: "Vijayawada", state: "Andhra Pradesh", stateSlug: "andhra-pradesh", region: "Southern India", languages: ["chinese", "japanese", "korean", "hindi", "arabic", "spanish", "telugu"] },
+  { slug: "visakhapatnam", name: "Visakhapatnam", state: "Andhra Pradesh", stateSlug: "andhra-pradesh", region: "Southern India", languages: ["chinese", "japanese", "korean", "telugu"] },
 ];
 
 const biharCities: City[] = [
-  { slug: "patna", name: "Patna", state: "Bihar", stateSlug: "bihar", region: "Eastern India" },
+  { slug: "patna", name: "Patna", state: "Bihar", stateSlug: "bihar", region: "Eastern India", languages: ["chinese", "japanese", "korean", "hindi"] },
 ];
 
 const chhattisgarhCities: City[] = [
-  { slug: "raipur", name: "Raipur", state: "Chhattisgarh", stateSlug: "chhattisgarh", region: "Central India" },
+  { slug: "raipur", name: "Raipur", state: "Chhattisgarh", stateSlug: "chhattisgarh", region: "Central India", languages: ["chinese", "japanese", "korean"] },
 ];
 
 const jharkhandCities: City[] = [
-  { slug: "ranchi", name: "Ranchi", state: "Jharkhand", stateSlug: "jharkhand", region: "Eastern India" },
-  { slug: "jamshedpur", name: "Jamshedpur", state: "Jharkhand", stateSlug: "jharkhand", region: "Eastern India" },
+  { slug: "ranchi", name: "Ranchi", state: "Jharkhand", stateSlug: "jharkhand", region: "Eastern India", languages: ["chinese", "japanese", "korean"] },
+  { slug: "jamshedpur", name: "Jamshedpur", state: "Jharkhand", stateSlug: "jharkhand", region: "Eastern India", languages: ["chinese", "japanese", "korean", "german"] },
 ];
 
 const keralaCities: City[] = [
-  { slug: "kochi", name: "Kochi", state: "Kerala", stateSlug: "kerala", region: "Southern India" },
-  { slug: "thiruvananthapuram", name: "Thiruvananthapuram", state: "Kerala", stateSlug: "kerala", region: "Southern India" },
+  { slug: "kochi", name: "Kochi", state: "Kerala", stateSlug: "kerala", region: "Southern India", languages: ["chinese", "japanese", "korean", "german", "spanish", "portuguese"] },
+  { slug: "thiruvananthapuram", name: "Thiruvananthapuram", state: "Kerala", stateSlug: "kerala", region: "Southern India", languages: ["chinese", "japanese", "korean"] },
 ];
 
 const madhyaPradeshCities: City[] = [
-  { slug: "bhopal", name: "Bhopal", state: "Madhya Pradesh", stateSlug: "madhya-pradesh", region: "Central India" },
-  { slug: "indore", name: "Indore", state: "Madhya Pradesh", stateSlug: "madhya-pradesh", region: "Central India" },
+  { slug: "bhopal", name: "Bhopal", state: "Madhya Pradesh", stateSlug: "madhya-pradesh", region: "Central India", languages: ["chinese", "japanese", "korean", "hindi", "german"] },
+  { slug: "indore", name: "Indore", state: "Madhya Pradesh", stateSlug: "madhya-pradesh", region: "Central India", languages: ["chinese", "japanese", "korean"] },
 ];
 
 const odishaCities: City[] = [
-  { slug: "bhubaneswar", name: "Bhubaneswar", state: "Odisha", stateSlug: "odisha", region: "Eastern India" },
+  { slug: "bhubaneswar", name: "Bhubaneswar", state: "Odisha", stateSlug: "odisha", region: "Eastern India", languages: ["chinese", "japanese", "korean"] },
 ];
 
 const uttarakhandCities: City[] = [
-  { slug: "dehradun", name: "Dehradun", state: "Uttarakhand", stateSlug: "uttarakhand", region: "Northern India" },
-  { slug: "haridwar", name: "Haridwar", state: "Uttarakhand", stateSlug: "uttarakhand", region: "Northern India" },
+  { slug: "dehradun", name: "Dehradun", state: "Uttarakhand", stateSlug: "uttarakhand", region: "Northern India", languages: ["chinese", "japanese", "korean", "german", "spanish"] },
+  { slug: "haridwar", name: "Haridwar", state: "Uttarakhand", stateSlug: "uttarakhand", region: "Northern India", languages: ["chinese", "japanese", "korean"] },
 ];
 
 const jammuAndKashmirCities: City[] = [
-  { slug: "srinagar", name: "Srinagar", state: "Jammu and Kashmir", stateSlug: "jammu-and-kashmir", region: "Northern India" },
-  { slug: "jammu", name: "Jammu", state: "Jammu and Kashmir", stateSlug: "jammu-and-kashmir", region: "Northern India" },
+  { slug: "srinagar", name: "Srinagar", state: "Jammu and Kashmir", stateSlug: "jammu-and-kashmir", region: "Northern India", languages: ["chinese", "japanese", "korean"] },
+  { slug: "jammu", name: "Jammu", state: "Jammu and Kashmir", stateSlug: "jammu-and-kashmir", region: "Northern India", languages: ["chinese", "japanese", "korean"] },
 ];
 
 const ladakhCities: City[] = [
-  { slug: "leh", name: "Leh", state: "Ladakh", stateSlug: "ladakh", region: "Northern India" },
+  { slug: "leh", name: "Leh", state: "Ladakh", stateSlug: "ladakh", region: "Northern India", languages: ["chinese", "japanese", "korean"] },
 ];
 
 const puducherryCities: City[] = [
-  { slug: "puducherry", name: "Puducherry", state: "Puducherry", stateSlug: "puducherry", region: "Southern India" },
+  { slug: "puducherry", name: "Puducherry", state: "Puducherry", stateSlug: "puducherry", region: "Southern India", languages: ["chinese", "japanese", "korean", "german", "spanish", "french", "italian"] },
 ];
 
 export const cities: City[] = [

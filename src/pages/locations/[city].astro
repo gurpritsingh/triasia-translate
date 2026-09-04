@@ -4,6 +4,7 @@ import { cities } from "@/content/cities";
 import { languages } from "@/content/languages";
 import { services } from "@/content/services";
 import { buildStaticSeo } from "@/content/seo";
+import { business } from "@/content/business";
 
 export function getStaticPaths() {
   return cities.map((city) => ({
@@ -20,10 +21,12 @@ const availableLanguages = languages.filter(
 
 const seo = buildStaticSeo({
   title: `Translator & Interpreter Services in ${city.name} | TriasiaGlobal`,
-  description: `Certified translation and interpretation services in ${city.name}, ${city.state} across ${availableLanguages.length} languages, including ${availableLanguages
-    .slice(0, 3)
-    .map((language) => language.name)
-    .join(", ")}.`,
+  description: availableLanguages.length
+    ? `Certified translation and interpretation services in ${city.name}, ${city.state} across ${availableLanguages.length} languages, including ${availableLanguages
+        .slice(0, 3)
+        .map((language) => language.name)
+        .join(", ")}.`
+    : `Certified translation and interpretation services for ${city.name}, ${city.state}. Contact TriasiaGlobal for government-accepted translators and interpreters.`,
   path: `/locations/${city.slug}/`,
 });
 ---
@@ -41,9 +44,26 @@ const seo = buildStaticSeo({
           Translation &amp; Interpretation Services in {city.name}
         </h1>
         <p class="mt-4 text-lg text-ink-600">
-          Serving {city.name}, {city.state}, across {availableLanguages.length} languages.
+          {
+            availableLanguages.length
+              ? `Serving ${city.name}, ${city.state}, across ${availableLanguages.length} languages.`
+              : `Serving ${city.name}, ${city.state}. Get in touch for certified translators and interpreters in any of our supported languages.`
+          }
         </p>
       </div>
+
+      {
+        availableLanguages.length === 0 && (
+          <div class="mx-auto max-w-2xl text-center">
+            <p class="text-ink-600">
+              We cover {city.name} through our national translation and interpretation teams. Browse
+              our <a href="/locations/" class="text-navy-800 hover:underline">other locations</a>, or
+              contact us directly and we will arrange a certified translator or interpreter.
+            </p>
+            <a href={`mailto:${business.email}`} class="btn-primary mt-6">Get a Quote</a>
+          </div>
+        )
+      }
 
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
