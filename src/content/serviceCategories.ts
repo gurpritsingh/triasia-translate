@@ -36,7 +36,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Certified legal document translation in India — contracts, affidavits, court papers and property documents, with notarisation and MEA/Apostille attestation.",
     intro: [
       "We also handle what comes after the translation — MEA/Apostille attestation, embassy legalisation and visa documentation — and we translate between any two languages, not only into and out of English.",
-      "ISO 9001:2015 and ISO 17100:2015 certified, working with law firms, companies and individuals across Delhi, Gurgaon, Noida, Punjab and the rest of India.",
+      "ISO 9001:2015 and ISO 17100:2015 certified, working with law firms, companies and individuals across Delhi, Gurgaon, Noida, Mumbai, Bangalore, Punjab and Gujarat — and with clients everywhere else in India.",
     ],
     details: [
       "Contracts, agreements and commercial documents",
@@ -155,7 +155,7 @@ export const serviceCategories: ServiceCategory[] = [
       {
         question: "Do you work outside Delhi NCR?",
         answer:
-          "Yes. We have a strong presence in Delhi, Gurgaon, Noida and Punjab, and work with clients across the rest of India. Documents are received and returned digitally, so location does not change the turnaround — hard copies are couriered when you need physical certified sets.",
+          "Yes. We have a strong presence in Delhi, Gurgaon, Noida, Mumbai, Bangalore, Punjab and Gujarat, and work with clients across the rest of India. Documents are received and returned digitally, so location does not change the turnaround — hard copies are couriered when you need physical certified sets.",
       },
     ],
     icon: "lucide:scale",
@@ -172,7 +172,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Certified translation of degrees, transcripts and mark sheets for university admissions, student visas and WES credential evaluation. Any language pair.",
     intro: [
       "Admissions offices and credential evaluators are stricter than most applicants expect. The translation has to mirror the original exactly — every stamp, seal, signature, grading scale and handwritten note carried across, nothing summarised and nothing tidied away. A clean, readable version that quietly drops the marks legend is one of the most common reasons a file comes back.",
-      "We translate academic records into and out of any language, certify them with a signed statement of accuracy naming the translator, and arrange MEA/Apostille attestation where the university or immigration authority asks for it. ISO 9001:2015 and ISO 17100:2015 certified, working with students, parents and institutions across Delhi, Gurgaon, Noida, Punjab and the rest of India.",
+      "We translate academic records into and out of any language, certify them with a signed statement of accuracy naming the translator, and arrange MEA/Apostille attestation where the university or immigration authority asks for it. ISO 9001:2015 and ISO 17100:2015 certified, working with students, parents and institutions in Delhi, Gurgaon, Noida, Mumbai, Bangalore, Punjab and Gujarat, and with applicants across the rest of India.",
     ],
     details: [
       "Degree certificates, diplomas and provisional certificates",
@@ -307,7 +307,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Certified medical document translation in India — reports, discharge summaries, prescriptions, lab results and clinical documentation, in any language pair.",
     intro: [
       "Medical translation has an unusually low tolerance for approximation. A dosage, a unit, a generic drug name against its local brand, a negative result read as a positive — those are the errors that matter, and they are the ones we check separately before anything is delivered.",
-      "We work in both directions of India's medical traffic: records leaving with patients seeking treatment or a second opinion abroad, and case histories arriving with patients coming here from the Gulf, Africa, Bangladesh and Central Asia. ISO 9001:2015 and ISO 17100:2015 certified, with every file restricted to the translator and project manager working on it.",
+      "We work in both directions of India's medical traffic: records leaving with patients seeking treatment or a second opinion abroad, and case histories arriving with patients coming here from the Gulf, Africa, Bangladesh and Central Asia. ISO 9001:2015 and ISO 17100:2015 certified, working with hospitals, insurers and patients in Delhi, Gurgaon, Noida, Mumbai, Bangalore, Punjab and Gujarat, and with every file restricted to the translator and project manager handling it.",
     ],
     details: [
       "Medical reports and discharge summaries",
@@ -442,7 +442,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Technical manual and documentation translation in India — user manuals, machine documentation, specifications, safety data sheets and software strings.",
     intro: [
       "Technical translation in India runs mostly in two directions: imported machinery arriving with German, Japanese, Korean or Chinese documentation that the people operating it cannot read, and Indian-built products going out to markets that require documentation in the local language before anything can be sold there.",
-      "We handle both — terminology fixed in a glossary agreed before translation starts, and files returned in the layout they arrived in, with figures, callouts, tables and warnings where the original put them. ISO 9001:2015 and ISO 17100:2015 certified, working with manufacturing and engineering teams across Delhi, Gurgaon, Noida, Punjab and the rest of India.",
+      "We handle both — terminology fixed in a glossary agreed before translation starts, and files returned in the layout they arrived in, with figures, callouts, tables and warnings where the original put them. ISO 9001:2015 and ISO 17100:2015 certified, working with manufacturing and engineering teams in Delhi, Gurgaon, Noida, Mumbai, Bangalore, Punjab and Gujarat, and with plants across the rest of India.",
     ],
     details: [
       "User, operation and maintenance manuals",
@@ -577,7 +577,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Business document translation in India — company profiles, reports, tenders, presentations, marketing content and trade documents, in any language pair.",
     intro: [
       "Business translation carries a risk that is easy to miss, because nothing ever looks wrong. A brochure translated literally reads as stiff rather than incorrect, a proposal loses the register it needed, and the client on the other side quietly concludes you would be difficult to work with. Nobody writes back to tell you why.",
-      "So we match the treatment to the document: contracts, financial statements and trade papers translated precisely, marketing copy rebuilt to land in the target language with the claim intact. ISO 9001:2015 and ISO 17100:2015 certified, working with companies across Delhi, Gurgaon, Noida, Punjab and the rest of India.",
+      "So we match the treatment to the document: contracts, financial statements and trade papers translated precisely, marketing copy rebuilt to land in the target language with the claim intact. ISO 9001:2015 and ISO 17100:2015 certified, working with companies in Delhi, Gurgaon, Noida, Mumbai, Bangalore, Punjab and Gujarat, and with exporters across the rest of India.",
     ],
     details: [
       "Company profiles, brochures and product catalogues",
@@ -712,7 +712,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Certified personal document translation in India — birth, marriage and death certificates, IDs, police clearance and visa papers, with apostille attestation.",
     intro: [
       "Personal documents are almost always attached to something with a deadline and a fee: a visa appointment, a residence application, a registration that cannot easily be rebooked. The translation is a small part of that file and one of the easiest parts to get rejected — and when it is rejected, it is nearly always over certification rather than over language.",
-      "Every translation we issue carries a signed statement of accuracy naming the translator and confirming the translation is complete and correct, which is the wording immigration authorities look for. Where the destination country also wants an apostille, we arrange MEA attestation as part of the same job rather than handing the file back half-finished.",
+      "Every translation we issue carries a signed statement of accuracy naming the translator and confirming the translation is complete and correct, which is the wording immigration authorities look for. Where the destination country also wants an apostille, we arrange MEA attestation as part of the same job rather than handing the file back half-finished. We prepare visa and immigration paperwork for clients in Delhi, Gurgaon, Noida, Mumbai, Bangalore, Punjab and Gujarat, and by post everywhere else in India.",
     ],
     details: [
       "Birth and death certificates",
