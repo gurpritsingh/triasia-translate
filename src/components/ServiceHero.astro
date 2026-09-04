@@ -6,10 +6,12 @@ import TrustBar from "@/components/TrustBar.astro";
 interface Props {
   heading: string;
   subHeading: string;
+  /** Optional supporting paragraphs, set at body size under the lead. */
+  body?: string[];
   crumbs?: Array<{ label: string; href?: string }>;
 }
 
-const { heading, subHeading, crumbs = [] } = Astro.props;
+const { heading, subHeading, body = [], crumbs = [] } = Astro.props;
 ---
 
 <section class="border-b border-line bg-surface-0 py-16 lg:py-20">
@@ -35,6 +37,16 @@ const { heading, subHeading, crumbs = [] } = Astro.props;
 
     <h1 class="text-3xl lg:text-4xl">{heading}</h1>
     <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-600">{subHeading}</p>
+
+    {
+      body.length > 0 && (
+        <div class="mt-5 max-w-3xl space-y-4">
+          {body.map((paragraph) => (
+            <p class="leading-relaxed text-ink-600">{paragraph}</p>
+          ))}
+        </div>
+      )
+    }
 
     <div class="mt-8 flex flex-col gap-4 sm:flex-row">
       <a href={`mailto:${business.email}`} class="btn-primary">Get Free Quote</a>

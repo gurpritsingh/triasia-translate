@@ -1,0 +1,98 @@
+---
+import { Icon } from "astro-icon/components";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { serviceCategories } from "@/content/serviceCategories";
+import { languages } from "@/content/languages";
+import { business } from "@/content/business";
+import { buildStaticSeo, breadcrumbSchema } from "@/content/seo";
+
+const seo = buildStaticSeo({
+  title: "Document Translation Services in India | TriasiaGlobal",
+  description:
+    "Certified document translation in India — legal, educational, medical, technical, business and personal documents, in any language pair, with apostille attestation.",
+  path: "/services/",
+  jsonLd: {
+    "@context": "https://schema.org",
+    ...breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Services", path: "/services/" }]),
+  },
+});
+---
+
+<BaseLayout {...seo}>
+  <section class="border-b border-line bg-surface-0 py-16 lg:py-20">
+    <div class="container-site max-w-4xl">
+      <nav aria-label="Breadcrumb" class="eyebrow mb-4">
+        <a href="/" class="transition-colors hover:text-navy-800">Home</a>
+        <span class="mx-2 text-line">/</span>
+        <span>Services</span>
+      </nav>
+
+      <h1 class="text-3xl lg:text-4xl">Document Translation Services in India</h1>
+      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-600">
+        Certified translation of legal, academic, medical, technical, business and personal documents — prepared for the
+        courts, universities, hospitals, embassies and government offices they are being submitted to.
+      </p>
+      <div class="mt-5 max-w-3xl space-y-4">
+        <p class="leading-relaxed text-ink-600">
+          We translate between any two languages rather than only into and out of English, and handle what usually
+          follows a translation: notarisation, MEA/Apostille attestation and embassy legalisation. ISO 9001:2015 and ISO
+          17100:2015 certified, working with clients across Delhi, Gurgaon, Noida, Punjab and the rest of India.
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+        <a href={`mailto:${business.email}`} class="btn-primary">Get Free Quote</a>
+        <a href={`tel:${business.phone}`} class="btn-secondary">
+          <Icon name="lucide:phone" class="h-4 w-4" />
+          {business.phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-surface-1 py-16 lg:py-20">
+    <div class="container-site">
+      <h2 class="text-2xl lg:text-3xl">What we translate</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {
+          serviceCategories.map((category) => (
+            <a href={`/services/${category.slug}/`} class="card card-hover group block p-6">
+              <div class="icon-ring h-11 w-11 border-navy-800/20 text-navy-800">
+                <Icon name={category.icon} class="h-5 w-5" />
+              </div>
+              <h3 class="mt-4 text-lg font-semibold text-ink-900 transition-colors group-hover:text-navy-800">
+                {category.title}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-600">{category.cardDescription}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-surface-0 py-16 lg:py-20">
+    <div class="container-site max-w-4xl">
+      <h2 class="text-2xl lg:text-3xl">Translation and interpretation by language</h2>
+      <p class="mt-3 max-w-3xl leading-relaxed text-ink-600">
+        Every document type above is available in each of these languages, and in many more on request.
+      </p>
+      <ul class="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4">
+        {
+          languages.map((language) => (
+            <li>
+              <a href={`/${language.slug}/translator/`} class="text-sm text-navy-800 hover:underline">
+                {language.name} Translator
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-8">
+        <a href="/locations/" class="text-sm font-medium text-navy-800 hover:underline">
+          View translation services by city →
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

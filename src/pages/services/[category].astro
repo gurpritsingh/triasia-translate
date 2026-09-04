@@ -2,9 +2,10 @@
 import { Icon } from "astro-icon/components";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ServiceHero from "@/components/ServiceHero.astro";
+import ServiceContent from "@/components/ServiceContent.astro";
 import { serviceCategories } from "@/content/serviceCategories";
 import { languages } from "@/content/languages";
-import { buildStaticSeo } from "@/content/seo";
+import { buildCategorySeo } from "@/content/seo";
 
 export function getStaticPaths() {
   return serviceCategories.map((category) => ({
@@ -15,21 +16,18 @@ export function getStaticPaths() {
 
 const { category } = Astro.props;
 
-const seo = buildStaticSeo({
-  title: `${category.title} Services | TriasiaGlobal`,
-  description: category.subHeading,
-  path: `/services/${category.slug}/`,
-});
+const seo = buildCategorySeo(category);
 ---
 
 <BaseLayout {...seo}>
   <ServiceHero
     heading={category.heading}
     subHeading={category.subHeading}
-    crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/#services" }, { label: category.title }]}
+    body={category.intro}
+    crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services/" }, { label: category.title }]}
   />
 
-  <section class="bg-surface-1 py-16 lg:py-20">
+  <section class="bg-surface-0 py-16 lg:py-20">
     <div class="container-site grid max-w-4xl gap-12 md:grid-cols-2">
       <div>
         <h2 class="text-2xl">What We Translate</h2>
@@ -61,4 +59,6 @@ const seo = buildStaticSeo({
       </div>
     </div>
   </section>
+
+  <ServiceContent sections={category.sections} languagePairs={category.languagePairs} faq={category.faq} />
 </BaseLayout>

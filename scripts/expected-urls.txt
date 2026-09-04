@@ -892,6 +892,7 @@
 /ranchi/japanese/translator/
 /ranchi/korean/interpreter/
 /ranchi/korean/translator/
+/services/
 /services/business-documents/
 /services/educational-certificates/
 /services/legal-document-translation/

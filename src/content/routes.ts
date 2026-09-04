@@ -39,6 +39,7 @@ export function getAllRoutePaths(): string[] {
   return [
     "/",
     "/locations/",
+    "/services/",
     ...canonicalCities.map((city) => `/locations/${city.slug}/`),
     ...serviceCategories.map((category) => `/services/${category.slug}/`),
     ...hubPairs().map(({ language, service }) => `/${language.slug}/${service.slug}/`),
