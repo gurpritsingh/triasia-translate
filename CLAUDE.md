@@ -4,7 +4,7 @@ Marketing site for TriasiaGlobal, a translation/interpretation agency in India, 
 
 ## Commands
 - `npm run dev` — dev server (default port 4321)
-- `npm run build` — `astro check && astro build` → `dist/` (~129 pages in ~2s)
+- `npm run build` — `astro check && astro build && node scripts/update-lastmod.mjs` → `dist/` (968 pages in ~2s)
 - `npm run preview` — serve the built `dist/`
 - Deploy: **push to `main`** → `.github/workflows/deploy.yml` (withastro/action → actions/deploy-pages). No local deploy step. Repo Settings → Pages → Source must be "GitHub Actions"; custom domain lives in Settings (plus `public/CNAME` as belt-and-braces).
 
@@ -21,7 +21,14 @@ Fixed file-based route table (`src/pages/`) — adding a city/language/category 
 | `[language]/[service].astro` | `/:language/:service/` | national hub page |
 | `[city]/[language]/[service].astro` | `/:city/:language/:service/` | city page |
 | `404.astro` | `404.html` | GH Pages native 404, `noindex` |
-| `sitemap.xml.ts` | `/sitemap.xml` | static endpoint, NOT @astrojs/sitemap (keeps stable URL) |
+| `sitemap.xml.ts` | `/sitemap.xml` | static endpoint, NOT @astrojs/sitemap (keeps stable URL); emits `<lastmod>` from `src/content/lastmod.json` |
+
+### Sitemap `lastmod` (`src/content/lastmod.json`)
+`<lastmod>` is per-URL and **honest by construction**: a page's date moves only when *that page's own content* changes. Google stops trusting the field for a whole domain once it looks like a blanket "today" stamp, so this is load-bearing, not cosmetic.
+
+`scripts/update-lastmod.mjs` runs as the last step of `npm run build`. It hashes each built page's **title + meta description + slot content**, deliberately excluding header, mobile menu and footer — so a nav or footer tweak doesn't falsely bump all 968 URLs. Unchanged hash → keep the stored date. Changed hash → today. Never-seen page → seeded from `git log` on the files that actually produce its content (override → per-language `cityTemplate.ts` → per-language hub file → `defaultTranslatorContent.ts` / `pageTemplates.ts`), mirroring `resolveContent.ts`.
+
+**`src/content/lastmod.json` must be committed.** Under `CI=true` the script never writes and instead *fails the build* if the manifest is stale — because CI can't commit it back, a stale manifest would re-stamp the same pages with a fresh date on every deploy, which is exactly the pattern that gets `lastmod` ignored. If a deploy fails with "lastmod: ... is stale", run `npm run build` locally and commit the manifest.
 
 Every dynamic page's `getStaticPaths` pulls from **`src/content/routes.ts`** (`hubPairs()`, `cityLanguagePairs()`, `getAllRoutePaths()`), and `sitemap.xml.ts` uses the same `getAllRoutePaths()` — sitemap↔pages parity holds by construction. Unknown slugs simply have no generated page → GH Pages serves `404.html` (there is no runtime slug validation anymore).
 
@@ -48,7 +55,7 @@ Every dynamic page's `getStaticPaths` pulls from **`src/content/routes.ts`** (`h
 - **Service category**: one entry in `serviceCategories.ts` (use a `lucide:*` Iconify name — a typo fails the build, which is good).
 
 ## Verification after changes
-`npm run build`, then: `scripts/expected-urls.txt` holds the URL baseline — every path there must exist as `dist/<path>/index.html` and match `dist/sitemap.xml`'s `<loc>` set (update the baseline deliberately when adding content). Spot-check raw dist HTML for unique `<title>`, one `<meta name="description">`, trailing-slash canonical, JSON-LD on service pages, gtag present, exactly one `<h1>`. `puppeteer-core` (devDep) + system Chrome is available for browser checks (`executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`); note plain `--headless --window-size=375,...` screenshots without mobile emulation render misleadingly — use puppeteer's `setViewport({ isMobile: true })`.
+`npm run build` (this also refreshes `src/content/lastmod.json` — commit it), then: `scripts/expected-urls.txt` holds the URL baseline — every path there must exist as `dist/<path>/index.html` and match `dist/sitemap.xml`'s `<loc>` set (update the baseline deliberately when adding content). Spot-check raw dist HTML for unique `<title>`, one `<meta name="description">`, trailing-slash canonical, JSON-LD on service pages, gtag present, exactly one `<h1>`. `puppeteer-core` (devDep) + system Chrome is available for browser checks (`executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`); note plain `--headless --window-size=375,...` screenshots without mobile emulation render misleadingly — use puppeteer's `setViewport({ isMobile: true })`.
 
 ## History note
 The pre-Astro stack (Vite+React+react-snap+react-helmet-async) had: abandoned react-snap needing system Chrome, a Helmet race corrupting ~20% of prerendered titles (forced `concurrency: 1`), minutes-long builds, and a full React bundle for static content. All gone — don't bring back workarounds referencing it. That stack is preserved as-is on the `oldDesign` branch (renamed from the old `main`) purely as a reference/rollback snapshot — don't merge from it or resurrect its patterns.
