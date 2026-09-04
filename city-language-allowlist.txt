@@ -1,0 +1,158 @@
+TriasiaGlobal - city x language allow-list worksheet
+======================================================================
+
+HOW TO USE
+  For each city below, replace the value after '=' with the language
+  slugs that city should keep, comma-separated.
+
+    ALL             keep every language (current behaviour)
+    NONE            keep /locations/<city>/ but generate no city pages
+    korean, chinese any comma-separated list of slugs from the table below
+
+  Use the SLUG (left column), not the display name.
+  Every language stays on the national hub pages regardless - this only
+  controls the /<city>/<language>/<service>/ matrix.
+
+MATH
+  Each language kept for a city = 2 pages (translator + interpreter).
+  ALL  = 38 pages for that city.
+  Currently: 56 cities x 19 languages x 2 = 2128 matrix pages.
+
+
+LANGUAGE SLUGS (19)
+----------------------------------------------------------------------
+  SLUG          NAME          TYPE
+  hindi         Hindi         regional
+  punjabi       Punjabi       regional
+  korean        Korean        foreign
+  chinese       Chinese       foreign
+  japanese      Japanese      foreign
+  french        French        foreign
+  german        German        foreign
+  spanish       Spanish       foreign
+  portuguese    Portuguese    foreign
+  bulgarian     Bulgarian     foreign
+  czech         Czech         foreign
+  danish        Danish        foreign
+  italian       Italian       foreign
+  polish        Polish        foreign
+  telugu        Telugu        regional
+  bengali       Bengali       regional
+  tamil         Tamil         regional
+  urdu          Urdu          regional
+  arabic        Arabic        foreign
+
+
+CITIES (56) - grouped by state
+----------------------------------------------------------------------
+
+## Maharashtra
+mumbai               = korean,japanese,chinese,arabic,hindi,german,polish          # Mumbai
+pune                 = korean,chinese,japanese,tamil,urdu,arabic,          # Pune
+nagpur               = korean,chinese,japanese,         # Nagpur
+nashik               = korean,chinese,japanese,spainish,         # Nashik
+
+## Delhi
+delhi                = ALL          # Delhi
+
+## Karnataka
+bangalore            = chinese,japanese,korean,tamil,telugu,german,arabic          # Bangalore
+mysore               = korean,chinese,japanese          # Mysore
+mangalore            = korean,chinese,japanese,          # Mangalore
+
+## Tamil Nadu
+chennai              = korean,chinese,japanese,tamil,hindi         # Chennai
+coimbatore           = korean,chinese,japanese,tamil,telugu,          # Coimbatore
+madurai              = korean,chinese,japanese,spanish,          # Madurai
+
+## West Bengal
+kolkata              = ALL          # Kolkata
+
+## Telangana
+hyderabad            = korean,chinese,japanese,german,spainish          # Hyderabad
+warangal             = korean,chinese,japanese          # Warangal
+
+## Gujarat
+ahmedabad            = korean,chinese,japanese,          # Ahmedabad
+surat                = korean,chinese,japanese,         # Surat
+vadodara             = korean,chinese,japanese,          # Vadodara
+rajkot               = korean,chinese,japanese,         # Rajkot
+
+## Rajasthan
+jaipur               = korean,chinese,japanese         # Jaipur
+udaipur              = korean,chinese,japanese,german         # Udaipur
+
+## Uttar Pradesh
+lucknow              = korean,chinese,japanese,hindi,punjabi          # Lucknow
+greater-noida        = ALL          # Greater Noida
+noida                = ALL          # Noida
+kanpur               = korean,chinese,japanese,          # Kanpur
+agra                 = korean,chinese,japanese,          # Agra
+ghaziabad            = ALL          # Ghaziabad
+
+## Haryana
+manesar              = ALL          # Manesar
+gurgaon              = ALL          # Gurgaon
+gurugram             = ALL          # Gurugram
+faridabad            = ALL          # Faridabad
+panipat              = korean,chinese,japanese,hindi,punjabi,urdu,arabic,french,german,spanish,portuguese,bulgarian,italian,polish          # Panipat
+ambala               = korean,chinese,japanese,hindi,punjabi,urdu,arabic,french,german,spanish,portuguese,bulgarian,italian,polish,czech          # Ambala
+
+## Himachal Pradesh
+baddi                = korean,chinese,japanese          # Baddi
+shimla               = none          # Shimla
+
+## Punjab
+ludhiana             = korean,chinese,japanese,hindi,punjabi,urdu,arabic,french,german,spanish,portuguese,bulgarian,italian,czech,polish,italian          # Ludhiana
+chandigarh           = korean,chinese,japanese,hindi,punjabi,urdu,arabic,french,german,spanish,portuguese,bulgarian,italian,czech,polish,italian          # Chandigarh
+mohali               = korean,chinese,japanese,hindi,punjabi,urdu,arabic,french,german,spanish,portuguese,bulgarian,italian,czech,polish,italian          # Mohali
+amritsar             = korean,chinese,japanese,hindi,punjabi,urdu,arabic,french,german,spanish,portuguese,bulgarian,italian,czech,polish,italian,danish          # Amritsar
+jalandhar            = korean,chinese,japanese,hindi,punjabi,urdu,arabic,french,german,spanish,portuguese,bulgarian,italian,czech,polish,italian          # Jalandhar
+
+## Andhra Pradesh
+vijayawada           = chinese,japanese,korean,hindi,arabic,spanish. telugu         # Vijayawada
+visakhapatnam        = chinese,japanese,korean, telugu          # Visakhapatnam
+
+## Bihar
+patna                = chinese,japanese,korean,hindi          # Patna
+
+## Chhattisgarh
+raipur               = chinese,japanese,korean          # Raipur
+
+## Jharkhand
+ranchi               = chinese,japanese,korean          # Ranchi
+jamshedpur           = chinese,japanese,korean,german          # Jamshedpur
+
+## Kerala
+kochi                = chinese,japanese,korean,german,spainish,portuguese          # Kochi
+thiruvananthapuram   = chinese,japanese,korean          # Thiruvananthapuram
+
+## Madhya Pradesh
+bhopal               = chinese,japanese,korean,hindi,german          # Bhopal
+indore               = chinese,japanese,korean          # Indore
+
+## Odisha
+bhubaneswar          = chinese,japanese,korean          # Bhubaneswar
+
+## Uttarakhand
+dehradun             = chinese,japanese,korean,german,spanish          # Dehradun
+haridwar             = chinese,japanese,korean          # Haridwar
+
+## Jammu and Kashmir
+srinagar             = chinese,japanese,korean          # Srinagar
+jammu                = chinese,japanese,korean          # Jammu
+
+## Ladakh
+leh                  = chinese,japanese,korean          # Leh
+
+## Puducherry
+puducherry           = chinese,japanese,korean,german,spanish,french,italian,italian         # Puducherry
+
+
+NOTES
+----------------------------------------------------------------------
+  - Gurgaon and Gurugram are the same city, currently generating two
+    separate URL sets. Worth collapsing to one (see conversation).
+  - Cities set to NONE keep their /locations/<city>/ landing page.
+  - To drop a city entirely, including its /locations/ page, say so
+    explicitly - that needs removing the entry from cities.ts.
