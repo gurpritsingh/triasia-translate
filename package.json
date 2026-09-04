@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --host",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/update-lastmod.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
