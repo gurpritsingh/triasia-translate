@@ -2,25 +2,48 @@
 import { Icon } from "astro-icon/components";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { cities } from "@/content/cities";
-import { buildStaticSeo } from "@/content/seo";
+import { buildStaticSeo, breadcrumbSchema } from "@/content/seo";
 
 const seo = buildStaticSeo({
   title: "Translation & Interpretation Services Across India | TriasiaGlobal",
   description:
     "Browse TriasiaGlobal's certified translator and interpreter services by city across India, covering Korean, Chinese, Japanese, Hindi, Punjabi, and more.",
   path: "/locations/",
+  jsonLd: {
+    "@context": "https://schema.org",
+    ...breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Locations", path: "/locations/" }]),
+  },
 });
 ---
 
 <BaseLayout {...seo}>
   <section class="py-20 lg:py-24">
     <div class="container-site">
-      <div class="mx-auto mb-14 max-w-3xl text-center">
-        <p class="eyebrow">Locations</p>
-        <h1 class="mt-3 text-3xl lg:text-4xl">Our Locations Across India</h1>
-        <p class="mt-4 text-lg text-ink-600">
-          Certified translation and interpretation services available in the following cities.
+      <div class="mb-14 max-w-3xl">
+        <nav aria-label="Breadcrumb" class="eyebrow mb-4">
+          <a href="/" class="transition-colors hover:text-navy-800">Home</a>
+          <span class="mx-2 text-line">/</span>
+          <span>Locations</span>
+        </nav>
+        <h1 class="text-3xl lg:text-4xl">Translation Services Across India</h1>
+        <p class="mt-5 text-lg leading-relaxed text-ink-600">
+          Certified translation and interpretation in {cities.length} cities — documents handled digitally wherever you
+          are, interpreters travelling to you for anything that has to happen in person.
         </p>
+        <div class="mt-5 space-y-4">
+          <p class="leading-relaxed text-ink-600">
+            Our office is in New Delhi, which serves the whole NCR in person, and we work with clients across Mumbai,
+            Bangalore, Punjab, Gujarat and the rest of the country remotely. For document translation that distinction
+            matters less than people expect: clear scans reach us faster than any courier, certified translations come
+            back by email the moment they are ready, and stamped hard copies follow by post only when the receiving
+            office insists on paper.
+          </p>
+          <p class="leading-relaxed text-ink-600">
+            MEA and Apostille attestation is centralised in Delhi for the entire country, so being based here removes a
+            step that clients elsewhere would otherwise have to chase themselves. Pick your city below for the languages
+            available there and how the practical side works.
+          </p>
+        </div>
       </div>
 
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

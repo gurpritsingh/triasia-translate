@@ -148,3 +148,42 @@ export function buildCategorySeo(category: ServiceCategory): SeoData {
     jsonLd: { "@context": "https://schema.org", "@graph": graph },
   };
 }
+
+export function buildCityLandingSeo({
+  city,
+  content,
+}: {
+  city: City;
+  content: { seoTitle: string; metaDescription: string; heading: string; faq: FaqItem[] };
+}): SeoData {
+  const description = truncate(content.metaDescription, 160);
+
+  const serviceSchema = {
+    "@type": "Service",
+    name: content.heading,
+    description,
+    areaServed: { "@type": "City", name: city.name, containedInPlace: { "@type": "State", name: city.state } },
+    provider: providerSchema,
+  };
+
+  // Alias cities canonicalise onto their target, so the breadcrumb and canonical
+  // must both point at the target's URL rather than the alias's own.
+  const canonicalSlug = city.aliasOf ?? city.slug;
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Locations", path: "/locations/" },
+    { name: city.name, path: `/locations/${canonicalSlug}/` },
+  ]);
+
+  const faq = faqSchema(content.faq);
+
+  return {
+    title: content.seoTitle,
+    description,
+    canonicalPath: withTrailingSlash(`/locations/${canonicalSlug}/`),
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@graph": faq ? [serviceSchema, breadcrumbs, faq] : [serviceSchema, breadcrumbs],
+    },
+  };
+}

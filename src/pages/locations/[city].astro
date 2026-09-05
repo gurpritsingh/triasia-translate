@@ -1,9 +1,13 @@
 ---
+import { Icon } from "astro-icon/components";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServiceContent from "@/components/ServiceContent.astro";
 import { cities } from "@/content/cities";
 import { languages } from "@/content/languages";
 import { services } from "@/content/services";
-import { buildStaticSeo } from "@/content/seo";
+import { serviceCategories } from "@/content/serviceCategories";
+import { buildCityLandingSeo } from "@/content/seo";
+import { buildCityLandingContent } from "@/content/cityLandingContent";
 import { business } from "@/content/business";
 
 export function getStaticPaths() {
@@ -19,76 +23,121 @@ const availableLanguages = languages.filter(
   (language) => !city.languages || city.languages.includes(language.slug)
 );
 
-const seo = buildStaticSeo({
-  title: `Translator & Interpreter Services in ${city.name} | TriasiaGlobal`,
-  description: availableLanguages.length
-    ? `Certified translation and interpretation services in ${city.name}, ${city.state} across ${availableLanguages.length} languages, including ${availableLanguages
-        .slice(0, 3)
-        .map((language) => language.name)
-        .join(", ")}.`
-    : `Certified translation and interpretation services for ${city.name}, ${city.state}. Contact TriasiaGlobal for government-accepted translators and interpreters.`,
-  path: `/locations/${city.aliasOf ?? city.slug}/`,
-});
+const content = buildCityLandingContent(city, availableLanguages);
+const seo = buildCityLandingSeo({ city, content });
 ---
 
 <BaseLayout {...seo}>
-  <section class="py-20 lg:py-24">
-    <div class="container-site">
-      <div class="mx-auto mb-14 max-w-3xl text-center">
-        <nav aria-label="Breadcrumb" class="eyebrow">
-          <a href="/locations/" class="transition-colors hover:text-navy-800">Locations</a>
-          <span class="mx-2 text-line">/</span>
-          <span>{city.name}</span>
-        </nav>
-        <h1 class="mt-3 text-3xl lg:text-4xl">
-          Translation &amp; Interpretation Services in {city.name}
-        </h1>
-        <p class="mt-4 text-lg text-ink-600">
-          {
-            availableLanguages.length
-              ? `Serving ${city.name}, ${city.state}, across ${availableLanguages.length} languages.`
-              : `Serving ${city.name}, ${city.state}. Get in touch for certified translators and interpreters in any of our supported languages.`
-          }
-        </p>
+  <section class="border-b border-line bg-surface-0 py-16 lg:py-20">
+    <div class="container-site max-w-4xl">
+      <nav aria-label="Breadcrumb" class="eyebrow mb-4">
+        <a href="/" class="transition-colors hover:text-navy-800">Home</a>
+        <span class="mx-2 text-line">/</span>
+        <a href="/locations/" class="transition-colors hover:text-navy-800">Locations</a>
+        <span class="mx-2 text-line">/</span>
+        <span>{city.name}</span>
+      </nav>
+
+      <h1 class="text-3xl lg:text-4xl">{content.heading}</h1>
+      <p class="mt-5 max-w-3xl text-lg leading-relaxed text-ink-600">{content.subHeading}</p>
+
+      <div class="mt-5 max-w-3xl space-y-4">
+        {content.intro.map((paragraph) => <p class="leading-relaxed text-ink-600">{paragraph}</p>)}
       </div>
 
-      {
-        availableLanguages.length === 0 && (
-          <div class="mx-auto max-w-2xl text-center">
-            <p class="text-ink-600">
-              We cover {city.name} through our national translation and interpretation teams. Browse
-              our <a href="/locations/" class="text-navy-800 hover:underline">other locations</a>, or
-              contact us directly and we will arrange a certified translator or interpreter.
-            </p>
-            <a href={`mailto:${business.email}`} class="btn-primary mt-6">Get a Quote</a>
-          </div>
-        )
-      }
+      <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+        <a href={`mailto:${business.email}`} class="btn-primary">Get Free Quote</a>
+        <a href={`tel:${business.phone}`} class="btn-secondary">
+          <Icon name="lucide:phone" class="h-4 w-4" />
+          {business.phone}
+        </a>
+      </div>
+    </div>
+  </section>
 
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <section class="bg-surface-1 py-16 lg:py-20">
+    <div class="container-site">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl lg:text-3xl">Documents we translate for {city.name} clients</h2>
+        <p class="mt-3 leading-relaxed text-ink-600">{content.documentsIntro}</p>
+      </div>
+      <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
-          availableLanguages.map((language) => (
-            <div class="card card-hover p-6">
-              <h2 class="font-display text-xl font-semibold text-ink-900">
-                {language.name}
-                {language.nativeName && <span class="ml-2 text-sm font-normal text-ink-600">{language.nativeName}</span>}
-              </h2>
-              <ul class="mt-3 space-y-1.5">
-                {services.map((service) => (
-                  <li>
-                    <a
-                      href={`/${city.slug}/${language.slug}/${service.slug}/`}
-                      class="text-sm text-navy-800 hover:underline"
-                    >
-                      {language.name} {service.label} in {city.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          serviceCategories.map((category) => (
+            <a href={`/services/${category.slug}/`} class="card card-hover group block p-6">
+              <div class="icon-ring h-11 w-11 border-navy-800/20 text-navy-800">
+                <Icon name={category.icon} class="h-5 w-5" />
+              </div>
+              <h3 class="mt-4 text-lg font-semibold text-ink-900 transition-colors group-hover:text-navy-800">
+                {category.title}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-600">{category.cardDescription}</p>
+            </a>
           ))
         }
       </div>
     </div>
   </section>
+
+  <ServiceContent
+    sections={[
+      {
+        heading: content.workingHeading,
+        body: content.workingIntro,
+        items: content.workingItems,
+      },
+    ]}
+  />
+
+  <section class="bg-surface-0 py-16 lg:py-20">
+    <div class="container-site">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl lg:text-3xl">Languages available in {city.name}</h2>
+        <p class="mt-3 leading-relaxed text-ink-600">
+          {
+            availableLanguages.length
+              ? content.languagesIntro
+              : `We cover ${city.name} through our national teams — contact us and we will arrange a certified translator or interpreter in the language you need.`
+          }
+        </p>
+      </div>
+
+      {
+        availableLanguages.length > 0 && (
+          <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {availableLanguages.map((language) => (
+              <div class="card p-6">
+                <h3 class="font-display text-xl font-semibold text-ink-900">
+                  {language.name}
+                  {language.nativeName && (
+                    <span class="ml-2 text-sm font-normal text-ink-600">{language.nativeName}</span>
+                  )}
+                </h3>
+                <ul class="mt-3 space-y-1.5">
+                  {services.map((service) => (
+                    <li>
+                      <a
+                        href={`/${city.slug}/${language.slug}/${service.slug}/`}
+                        class="text-sm text-navy-800 hover:underline"
+                      >
+                        {language.name} {service.label} in {city.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )
+      }
+
+      <p class="mt-10">
+        <a href="/locations/" class="text-sm font-medium text-navy-800 hover:underline">
+          View all cities we serve →
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <ServiceContent faq={content.faq} />
 </BaseLayout>
