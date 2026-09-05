@@ -1,8 +1,9 @@
 import type { City } from "./cities";
 import type { Language } from "./languages";
 import type { ServiceMeta } from "./services";
-import { defaultCityContent, type PageContent } from "./pageTemplates";
+import type { PageContent } from "./pageTemplates";
 import { buildDefaultTranslatorContent } from "./defaultTranslatorContent";
+import { buildDefaultInterpreterContent } from "./defaultInterpreterContent";
 
 type CityTemplateFn = (ctx: { city: City; language: Language; service: ServiceMeta }) => PageContent;
 
@@ -49,10 +50,27 @@ for (const path in hubModules) {
   hubRegistry[`${languageDir.toLowerCase()}/${serviceSlug}`] = hubModules[path].default;
 }
 
-// Translator pages get the rich, variation-aware generator; every other service
-// (interpreter) keeps the original lightweight default untouched.
+// Both services get a rich, variation-aware generator of their own. They share no
+// sentence pools: interpretation is booked, staffed and judged differently from
+// translation, so copy that merely swapped the words would have produced hundreds
+// of pages restating the translator pages in different clothes.
 function fallbackContent(ctx: { city?: City; language: Language; service: ServiceMeta }): PageContent {
-  return ctx.service.slug === "translator" ? buildDefaultTranslatorContent(ctx) : defaultCityContent(ctx);
+  return ctx.service.slug === "translator" ? buildDefaultTranslatorContent(ctx) : buildDefaultInterpreterContent(ctx);
+}
+
+/**
+ * Hand-written files supply the fields they define and inherit the rest from the
+ * generated default. They used to REPLACE it wholesale, which meant a file
+ * setting only a custom heading silently discarded every generated section, the
+ * language pairs and the FAQ — /mumbai/hindi/translator/ was 157 words where the
+ * untouched default gave 879. Overriding a headline should not cost a page its body.
+ */
+function withGeneratedDefaults(
+  authored: Partial<PageContent>,
+  ctx: { city?: City; language: Language; service: ServiceMeta }
+): PageContent {
+  const defined = Object.fromEntries(Object.entries(authored).filter(([, value]) => value !== undefined));
+  return { ...fallbackContent(ctx), ...defined } as PageContent;
 }
 
 /**
@@ -69,14 +87,15 @@ export function resolveContent({
   service: ServiceMeta;
 }): PageContent {
   if (!city) {
-    return hubRegistry[`${language.slug}/${service.slug}`] ?? fallbackContent({ language, service });
+    const hub = hubRegistry[`${language.slug}/${service.slug}`];
+    return hub ? withGeneratedDefaults(hub, { language, service }) : fallbackContent({ language, service });
   }
 
   const override = overridesRegistry[`${city.slug}/${language.slug}/${service.slug}`];
-  if (override) return override;
+  if (override) return withGeneratedDefaults(override, { city, language, service });
 
   const template = cityTemplatesRegistry[language.slug]?.[service.slug];
-  if (template) return template({ city, language, service });
+  if (template) return withGeneratedDefaults(template({ city, language, service }), { city, language, service });
 
   return fallbackContent({ city, language, service });
 }
