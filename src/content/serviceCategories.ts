@@ -29,7 +29,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Legal Document Translation",
     cardDescription: "Contracts, agreements, court documents, and legal certificates with certified accuracy.",
     heading: "Certified Legal Document Translation Services in India",
-    seoTitle: "Certified Legal Document Translation in India | TriasiaGlobal",
+    seoTitle: "Legal Document Translation in India | TriasiaGlobal",
     subHeading:
       "Government-authorized translation of contracts, agreements, court documents and affidavits — handled by certified legal translators and accepted by courts, government offices and embassies across India.",
     metaDescription:
@@ -300,7 +300,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Medical Documents",
     cardDescription: "Medical reports, prescriptions, health certificates, and clinical documentation.",
     heading: "Medical Document Translation Services in India",
-    seoTitle: "Medical Report & Document Translation in India | TriasiaGlobal",
+    seoTitle: "Medical Document Translation in India | TriasiaGlobal",
     subHeading:
       "Medical reports, discharge summaries, prescriptions and lab results translated by linguists who work with clinical terminology — for treatment abroad, patients travelling to India, and insurance claims.",
     metaDescription:
@@ -435,7 +435,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Technical Manuals",
     cardDescription: "User manuals, technical specifications, engineering documents, and product guides.",
     heading: "Technical Manual and Documentation Translation in India",
-    seoTitle: "Technical Manual Translation Services in India | TriasiaGlobal",
+    seoTitle: "Technical Manual Translation in India | TriasiaGlobal",
     subHeading:
       "User manuals, machine documentation, specifications and safety data sheets translated with the terminology fixed and the layout intact — for manufacturers, importers and engineering teams working across languages.",
     metaDescription:
@@ -570,7 +570,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Business Documents",
     cardDescription: "Company profiles, brochures, marketing materials, and corporate communications.",
     heading: "Business Document Translation Services in India",
-    seoTitle: "Business Document Translation Services in India | TriasiaGlobal",
+    seoTitle: "Business Document Translation in India | TriasiaGlobal",
     subHeading:
       "Company profiles, reports, tenders, presentations and marketing material translated for businesses selling into India and Indian companies selling abroad — accurate where it must be, persuasive where it should be.",
     metaDescription:

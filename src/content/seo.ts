@@ -50,6 +50,17 @@ function faqSchema(faq?: FaqItem[]) {
   };
 }
 
+/**
+ * Google truncates titles around 60 characters, so a long "City + Language +
+ * qualifier + brand" title loses exactly the words that distinguish the page.
+ * Pass candidates richest-first; the first one that fits wins, and the last is
+ * the guaranteed-short fallback. Applied in the content generators, where the
+ * city and language names that blow the budget actually come from.
+ */
+export function fitTitle(candidates: string[], max = 60): string {
+  return candidates.find((candidate) => candidate.length <= max) ?? candidates[candidates.length - 1];
+}
+
 export function buildServiceSeo({
   city,
   language,
@@ -63,11 +74,13 @@ export function buildServiceSeo({
   content: PageContent;
   path: string;
 }): SeoData {
-  const title =
-    content.seoTitle ??
-    (city
-      ? `${language.name} ${service.label} in ${city.name} | ${business.name}`
-      : `${language.name} ${service.label} Services in India | ${business.name}`);
+  const area = city ? `in ${city.name}` : "in India";
+  const title = fitTitle([
+    content.seoTitle ?? `${language.name} ${service.label} ${area} | ${business.name}`,
+    `${language.name} ${service.noun} Services ${area} | ${business.name}`,
+    `${language.name} ${service.label} ${area} | ${business.name}`,
+    `${language.name} ${service.label} ${area}`,
+  ]);
 
   const description = truncate(content.subHeading, 160);
 
@@ -83,11 +96,24 @@ export function buildServiceSeo({
     provider: providerSchema,
   };
 
-  const faq = faqSchema(content.faq);
+  // Mirrors the crumbs ServiceHero renders on these pages. Alias cities point at
+  // their canonical target, so the trail never advertises a URL that canonicalises away.
+  const crumbs = city
+    ? [
+        { name: "Home", path: "/" },
+        { name: city.name, path: `/locations/${city.aliasOf ?? city.slug}/` },
+        { name: `${language.name} ${service.label}`, path: withTrailingSlash(path) },
+      ]
+    : [
+        { name: "Home", path: "/" },
+        { name: `${language.name} ${service.label}`, path: withTrailingSlash(path) },
+      ];
+  const breadcrumbs = breadcrumbSchema(crumbs);
 
-  const jsonLd = faq
-    ? { "@context": "https://schema.org", "@graph": [serviceSchema, faq] }
-    : { "@context": "https://schema.org", ...serviceSchema };
+  const faq = faqSchema(content.faq);
+  const graph = faq ? [serviceSchema, breadcrumbs, faq] : [serviceSchema, breadcrumbs];
+
+  const jsonLd = { "@context": "https://schema.org", "@graph": graph };
 
   return { title, description, canonicalPath: withTrailingSlash(path), jsonLd };
 }

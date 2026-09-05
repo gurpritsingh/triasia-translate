@@ -39,5 +39,17 @@ const seo = buildServiceSeo({
     ]}
   />
   <ServiceContent sections={content.sections} languagePairs={content.languagePairs} faq={content.faq} />
+
+  <section class="bg-surface-0 py-10">
+    <div class="container-site max-w-4xl flex flex-wrap gap-x-8 gap-y-3">
+      <a href={`/${language.slug}/${service.slug}/`} class="text-sm font-medium text-navy-800 hover:underline">
+        {language.name} {service.label.toLowerCase()} services across India →
+      </a>
+      <a href={`/locations/${city.aliasOf ?? city.slug}/`} class="text-sm font-medium text-navy-800 hover:underline">
+        All languages available in {city.name} →
+      </a>
+    </div>
+  </section>
+
   <ServicesGrid headingLevel="h2" />
 </BaseLayout>

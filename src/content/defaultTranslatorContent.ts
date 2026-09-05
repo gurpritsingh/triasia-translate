@@ -4,6 +4,7 @@ import type { ServiceMeta } from "./services";
 import type { ContentSection, ContentSectionItem, FaqItem, PageContent } from "./pageTemplates";
 import { pickVariant, pickOrder } from "./contentVariants";
 import { buildLanguagePairs } from "./languagePairs";
+import { fitTitle } from "./seo";
 
 interface Ctx {
   city?: City;
@@ -295,7 +296,14 @@ export function buildDefaultTranslatorContent(ctx: {
   const vctx: Ctx = { city, language };
   const seedKey = city ? `/${city.slug}/${language.slug}/translator/` : `/${language.slug}/translator/`;
 
-  const seoTitle = pickVariant(seedKey, "seoTitle", seoTitleVariants)(vctx);
+  // Richest form first; fitTitle drops to a shorter one when city + language names
+  // push it past what Google will actually display.
+  const seoTitle = fitTitle([
+    pickVariant(seedKey, "seoTitle", seoTitleVariants)(vctx),
+    `${language.name} Translation Services ${areaIn(vctx)} | TriasiaGlobal`,
+    `Certified ${language.name} Translator ${areaIn(vctx)}`,
+    `${language.name} Translator ${areaIn(vctx)}`,
+  ]);
   const heading = pickVariant(seedKey, "heading", headingVariants)(vctx);
 
   if (city && (!heading.includes(city.name) || !heading.includes(language.name))) {

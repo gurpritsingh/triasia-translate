@@ -4,6 +4,7 @@ import ServiceHero from "@/components/ServiceHero.astro";
 import ServiceContent from "@/components/ServiceContent.astro";
 import ServicesGrid from "@/components/ServicesGrid.astro";
 import { hubPairs } from "@/content/routes";
+import { cities } from "@/content/cities";
 import { resolveContent } from "@/content/resolveContent";
 import { buildServiceSeo } from "@/content/seo";
 
@@ -17,6 +18,13 @@ export function getStaticPaths() {
 const { language, service } = Astro.props;
 
 const content = resolveContent({ language, service });
+
+// The hub is the natural parent of its city pages, but nothing linked to them from
+// here — they were reachable only via /locations/:city/. Alias cities are excluded
+// so the mesh never points at a URL that canonicalises somewhere else.
+const citiesForLanguage = cities
+  .filter((city) => !city.aliasOf && (!city.languages || city.languages.includes(language.slug)))
+  .sort((a, b) => a.name.localeCompare(b.name));
 const seo = buildServiceSeo({
   language,
   service,
@@ -32,5 +40,35 @@ const seo = buildServiceSeo({
     crumbs={[{ label: "Home", href: "/" }, { label: `${language.name} ${service.label}` }]}
   />
   <ServiceContent sections={content.sections} languagePairs={content.languagePairs} faq={content.faq} />
+
+  {
+    citiesForLanguage.length > 0 && (
+      <section class="bg-surface-0 py-16 lg:py-20">
+        <div class="container-site max-w-4xl">
+          <h2 class="text-2xl lg:text-3xl">
+            {language.name} {service.label}s by City
+          </h2>
+          <p class="mt-3 max-w-3xl leading-relaxed text-ink-600">
+            {service.slug === "translator"
+              ? `Certified ${language.name} translation is available in ${citiesForLanguage.length} cities. Documents are handled digitally wherever you are, so pick your city for local detail and turnaround.`
+              : `${language.name} interpreters cover ${citiesForLanguage.length} cities, travelling to you for meetings, audits and appointments. Pick your city for the practical detail.`}
+          </p>
+          <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2.5">
+            {citiesForLanguage.map((city) => (
+              <li>
+                <a
+                  href={`/${city.slug}/${language.slug}/${service.slug}/`}
+                  class="text-sm text-navy-800 hover:underline"
+                >
+                  {language.name} {service.label} in {city.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
   <ServicesGrid headingLevel="h2" />
 </BaseLayout>

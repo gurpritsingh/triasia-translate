@@ -2,6 +2,7 @@ import type { City } from "./cities";
 import type { Language } from "./languages";
 import type { FaqItem } from "./pageTemplates";
 import { pickVariant, pickOrder } from "./contentVariants";
+import { fitTitle } from "./seo";
 
 /**
  * Copy for /locations/:city/ — 56 pages that were 62 median words with no
@@ -273,7 +274,12 @@ export function buildCityLandingContent(city: City, availableLanguages: Language
   ];
 
   return {
-    seoTitle: pickVariant(seed, "seo-title", seoTitleVariants)(ctx),
+    seoTitle: fitTitle([
+      pickVariant(seed, "seo-title", seoTitleVariants)(ctx),
+      `Translation Services in ${city.name} | TriasiaGlobal`,
+      `Certified Translators in ${city.name}`,
+      `Translation in ${city.name}`,
+    ]),
     metaDescription: `Certified translation and interpretation in ${city.name}, ${city.state} — ${availableLanguages.length} languages, certified documents, interpreters on site and apostille attestation.`.slice(
       0,
       160
