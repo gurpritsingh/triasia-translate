@@ -58,6 +58,10 @@ const year = new Date().getFullYear();
               {business.address.addressLocality}, India - {business.address.postalCode}
             </span>
           </li>
+          <li class="flex items-start gap-2.5">
+            <Icon name="lucide:clock" class="mt-0.5 h-4 w-4 shrink-0 text-brass-500" />
+            <span>{business.hours.label}</span>
+          </li>
         </ul>
         <a href={`mailto:${business.email}`} class="btn-brass mt-6 w-full">Get Instant Quote</a>
       </div>

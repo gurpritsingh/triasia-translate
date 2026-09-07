@@ -14,6 +14,8 @@ export const business = {
    * Store the canonical profile URL only — share links and tracking parameters
    * (utm_*, mibextid, stkn) are per-visit tokens, useless as identity signals.
    */
+  /** Open around the clock. Schema.org expresses "24 hours" as 00:00–23:59. */
+  hours: { label: "Open 24 hours, every day", opens: "00:00", closes: "23:59" },
   social: {
     linkedin: "https://www.linkedin.com/in/triasiaglobal",
     facebook: "https://www.facebook.com/kor2india",
