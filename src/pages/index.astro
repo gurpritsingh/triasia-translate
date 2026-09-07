@@ -7,6 +7,7 @@ import WhyChooseUs from "@/components/WhyChooseUs.astro";
 import Certifications from "@/components/Certifications.astro";
 import { buildStaticSeo } from "@/content/seo";
 import { business } from "@/content/business";
+import { languages } from "@/content/languages";
 
 const seo = buildStaticSeo({
   title: "Certified Translation Services in India | TriasiaGlobal",
@@ -15,15 +16,37 @@ const seo = buildStaticSeo({
   path: "/",
   jsonLd: {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: business.name,
-    url: business.siteUrl,
-    hasCredential: business.certifications.map((cert) => ({
-      "@type": "EducationalOccupationalCredential",
-      credentialCategory: "certification",
-      name: `${cert.standard} — ${cert.name}`,
-      recognizedBy: { "@type": "Organization", name: business.certifyingBody },
-    })),
+    "@graph": [
+      {
+        // ProfessionalService is a LocalBusiness subtype: same local signals, more
+        // specific about what the business does. `@id` is the canonical node other
+        // pages' provider blocks resolve to.
+        "@type": "ProfessionalService",
+        "@id": `${business.siteUrl}/#business`,
+        name: business.name,
+        url: business.siteUrl,
+        image: `${business.siteUrl}/og-image.jpg`,
+        telephone: business.phone,
+        email: business.email,
+        address: { "@type": "PostalAddress", ...business.address },
+        areaServed: { "@type": "Country", name: "India" },
+        sameAs: Object.values(business.social),
+        knowsLanguage: languages.map((language) => language.name),
+        hasCredential: business.certifications.map((cert) => ({
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "certification",
+          name: `${cert.standard} — ${cert.name}`,
+          recognizedBy: { "@type": "Organization", name: business.certifyingBody },
+        })),
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${business.siteUrl}/#website`,
+        url: business.siteUrl,
+        name: business.name,
+        publisher: { "@id": `${business.siteUrl}/#business` },
+      },
+    ],
   },
 });
 ---

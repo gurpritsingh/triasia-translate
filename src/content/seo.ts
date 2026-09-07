@@ -26,10 +26,13 @@ function withTrailingSlash(path: string): string {
 // so a change in business.ts can't leave half the pages describing an older one.
 const providerSchema = {
   "@type": "LocalBusiness",
+  "@id": `${business.siteUrl}/#business`,
   name: business.name,
+  url: business.siteUrl,
   telephone: business.phone,
   email: business.email,
   address: { "@type": "PostalAddress", ...business.address },
+  sameAs: Object.values(business.social),
   hasCredential: business.certifications.map((cert) => ({
     "@type": "EducationalOccupationalCredential",
     credentialCategory: "certification",

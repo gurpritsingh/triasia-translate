@@ -9,6 +9,16 @@ export const business = {
     addressCountry: "IN",
   },
   siteUrl: "https://www.triasiaglobal.com",
+  /**
+   * Public profiles, emitted as schema.org `sameAs` and linked from the footer.
+   * Store the canonical profile URL only — share links and tracking parameters
+   * (utm_*, mibextid, stkn) are per-visit tokens, useless as identity signals.
+   */
+  social: {
+    linkedin: "https://www.linkedin.com/in/triasiaglobal",
+    facebook: "https://www.facebook.com/kor2india",
+    instagram: "https://www.instagram.com/triasiaglobal",
+  },
   certifyingBody: "RCS Cert",
   certifications: [
     {
